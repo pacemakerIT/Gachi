@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from 'react';
 import styles from '../styles/nav-bar.module.css';
 
@@ -8,12 +10,13 @@ interface Props {
 const NavBar: React.FC<Props> = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
+
   return (
     <nav className={styles.NavBar}>
       <div className={styles.TopBar} />
       <ul className={styles.LinkList}>
         <li className={styles.LinkItem}>
-          <a href="#" className={styles.Link}>
+          <a href="#" className={`${styles.Link} ${styles.HomeLink}`}>
             Home
           </a>
         </li>
@@ -39,7 +42,14 @@ const NavBar: React.FC<Props> = () => {
         </li>
         <li className={styles.LinkItem}>
           {!isLoggedIn ? (
-            <button className={styles.SignUpButton}>Sign up</button>
+            <React.Fragment>
+              <a href="/signup" className={styles.LinkSignUp}>
+                Sign up
+              </a>
+              <button className={styles.LoginButton}>
+                Login
+              </button>
+            </React.Fragment>
           ) : (
             <div className={styles.LoggedInContainer}>
               <button className={styles.BellButton}>

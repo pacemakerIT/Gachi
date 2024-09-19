@@ -1,9 +1,10 @@
+// root-layout.tsx
 import * as React from 'react';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from '@/theme';
-import Header from '@/components/header';
+import NavBar from '@/components/nav-bar';
 import Footer from '@/components/footer';
 
 export default function RootLayout(props: { children: React.ReactNode }) {
@@ -14,7 +15,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
           <ThemeProvider theme={theme}>
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
-            <Header />
+            <NavBar />
             {props.children}
             <Footer />
           </ThemeProvider>
