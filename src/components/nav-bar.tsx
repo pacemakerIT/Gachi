@@ -43,11 +43,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   link: {
     fontSize: 16,
     color: '#101010',
-    textDecoration: 'none', // Remove underline from links
+    textDecoration: 'none',
     '&:hover': {
       color: '#2986FE', // Optional hover color
     },
-    // Default margin between menu items
     marginRight: 10, // Set gap between Home, Events, Mentors, Pages, About to 10px
   },
   aboutLink: {
@@ -114,25 +113,25 @@ const NavBar: React.FC<Props> = () => {
 
             {/* Menu Items (right side) */}
             <Grid item xs={6} className={classes.menuContainer}>
-              <Link href="/" passHref>
-                <a className={classes.link}>Home</a>
+              <Link href="/" className={classes.link}>
+                Home
               </Link>
-              <Link href="/Events" passHref>
-                <a className={classes.link}>Events</a>
+              <Link href="/Events" className={classes.link}>
+                이벤트
               </Link>
-              <Link href="/Mentors" passHref>
-                <a className={classes.link}>Mentors</a>
+              <Link href="/Mentors" className={classes.link}>
+                멘토
               </Link>
-              <Link href="/Pages" passHref>
-                <a className={classes.link}>Pages</a>
+              <Link href="/Pages" className={classes.link}>
+                페이지
               </Link>
-              <Link href="/about" passHref>
-                <a className={`${classes.link} ${classes.aboutLink}`}>About</a>
+              <Link href="/about" className={`${classes.link} ${classes.aboutLink}`}>
+                About
               </Link>
               {!isLoggedIn ? (
                 <>
-                  <Link href="/signup" passHref>
-                    <a className={`${classes.link} ${classes.signUpLink}`}>Sign up</a>
+                  <Link href="/signup" className={`${classes.link} ${classes.signUpLink}`}>
+                    Sign up
                   </Link>
                   <Button className={classes.loginButton}>Login</Button>
                 </>
@@ -160,13 +159,13 @@ const NavBar: React.FC<Props> = () => {
                       onClose={handleDropDownClose}
                     >
                       <MenuItem onClick={handleDropDownClose}>
-                        <Link href="#" passHref>
-                          <a>Edit profile</a>
+                        <Link href="#" className={classes.link}>
+                          Edit profile
                         </Link>
                       </MenuItem>
                       <MenuItem onClick={handleDropDownClose}>
-                        <Link href="#" passHref>
-                          <a>Sign out</a>
+                        <Link href="#" className={classes.link}>
+                          Sign out
                         </Link>
                       </MenuItem>
                     </Menu>
