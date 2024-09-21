@@ -49,6 +49,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     marginRight: 10, // Set gap between Home, Events, Mentors, Pages, About to 10px
   },
+  noUnderline: {
+    textDecoration: 'none !important', // Ensure no underline for anchor links
+  },
   aboutLink: {
     marginRight: 45, // Set gap between About and Sign Up to 45px
   },
@@ -104,7 +107,7 @@ const NavBar: React.FC<Props> = () => {
             {/* Logo and Title (left side) */}
             <Grid item xs={6}>
               <div className={classes.logoContainer}>
-                <img src="/logo.png" alt="Gachi.live logo" className={classes.logo} />
+              <img src="/images/logo.png" alt="Gachi.live logo" className={classes.logo} />
                 <Typography variant="h6" className={classes.title}>
                   Gachi.live
                 </Typography>
@@ -113,25 +116,61 @@ const NavBar: React.FC<Props> = () => {
 
             {/* Menu Items (right side) */}
             <Grid item xs={6} className={classes.menuContainer}>
-              <Link href="/" className={classes.link}>
-                Home
+              <Link
+                href={{
+                  pathname: '/',
+                  query: { name: 'home' },
+                }}
+                passHref
+              >
+                <a className={`${classes.link} ${classes.noUnderline}`}>Home</a>
               </Link>
-              <Link href="/Events" className={classes.link}>
-                이벤트
+              <Link
+                href={{
+                  pathname: '/Events',
+                  query: { name: '이벤트' },
+                }}
+                passHref
+              >
+                <a className={`${classes.link} ${classes.noUnderline}`}>이벤트</a>
               </Link>
-              <Link href="/Mentors" className={classes.link}>
-                멘토
+              <Link
+                href={{
+                  pathname: '/Mentors',
+                  query: { name: '멘토' },
+                }}
+                passHref
+              >
+                <a className={`${classes.link} ${classes.noUnderline}`}>멘토</a>
               </Link>
-              <Link href="/Pages" className={classes.link}>
-                페이지
+              <Link
+                href={{
+                  pathname: '/Pages',
+                  query: { name: '페이지' },
+                }}
+                passHref
+              >
+                <a className={`${classes.link} ${classes.noUnderline}`}>페이지</a>
               </Link>
-              <Link href="/about" className={`${classes.link} ${classes.aboutLink}`}>
-                About
+              <Link
+                href={{
+                  pathname: '/about',
+                  query: { name: 'about' },
+                }}
+                passHref
+              >
+                <a className={`${classes.link} ${classes.aboutLink} ${classes.noUnderline}`}>About</a>
               </Link>
               {!isLoggedIn ? (
                 <>
-                  <Link href="/signup" className={`${classes.link} ${classes.signUpLink}`}>
-                    Sign up
+                  <Link
+                    href={{
+                      pathname: '/signup',
+                      query: { name: 'signup' },
+                    }}
+                    passHref
+                  >
+                    <a className={`${classes.link} ${classes.signUpLink} ${classes.noUnderline}`}>Sign up</a>
                   </Link>
                   <Button className={classes.loginButton}>Login</Button>
                 </>
@@ -159,13 +198,13 @@ const NavBar: React.FC<Props> = () => {
                       onClose={handleDropDownClose}
                     >
                       <MenuItem onClick={handleDropDownClose}>
-                        <Link href="#" className={classes.link}>
-                          Edit profile
+                        <Link href="#" passHref>
+                          <a className={classes.noUnderline}>Edit profile</a>
                         </Link>
                       </MenuItem>
                       <MenuItem onClick={handleDropDownClose}>
-                        <Link href="#" className={classes.link}>
-                          Sign out
+                        <Link href="#" passHref>
+                          <a className={classes.noUnderline}>Sign out</a>
                         </Link>
                       </MenuItem>
                     </Menu>
