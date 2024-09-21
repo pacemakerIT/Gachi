@@ -2,18 +2,23 @@
 
 import * as React from 'react';
 import { AppBar, Toolbar, Typography, Button, IconButton, Grid, Menu, MenuItem } from '@mui/material';
-import { makeStyles } from '@mui/styles'; // Import this from @mui/styles for JSS-like styles
-import { Theme } from '@mui/material/styles'; // Import Theme from @mui/material/styles
+import { makeStyles } from '@mui/styles';
+import { Theme } from '@mui/material/styles'; // Import Theme for JSS-like styling
 import Link from 'next/link';
 
 interface Props {
   // Add props if needed
 }
 
-// Use Theme in makeStyles to get proper typing
 const useStyles = makeStyles((theme: Theme) => ({
+  topBar: {
+    backgroundColor: '#101010',
+    height: 25, // Set the height to 25px
+    width: '100%',
+  },
   appBar: {
-    backgroundColor: '#F9F9FB',
+    backgroundColor: '#F9F9FB', // Set background color to #F9F9FB
+    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)', // Add drop shadow at the bottom
   },
   logoContainer: {
     display: 'flex',
@@ -22,11 +27,12 @@ const useStyles = makeStyles((theme: Theme) => ({
   logo: {
     width: 30,
     height: 30,
-    marginRight: theme.spacing(1),  // Fixed spacing issue
+    marginRight: theme.spacing(1),
   },
   title: {
     fontSize: 18,
     fontWeight: 'bold',
+    color: '#101010', // Set "Gachi.live" text to black
   },
   menuContainer: {
     display: 'flex',
@@ -35,36 +41,42 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexGrow: 1,
   },
   link: {
-    marginRight: theme.spacing(3),  // Fixed spacing issue
     fontSize: 16,
     color: '#101010',
-    textDecoration: 'none',
+    textDecoration: 'none', // Remove underline from links
+    '&:hover': {
+      color: '#2986FE', // Optional hover color
+    },
+    // Default margin between menu items
+    marginRight: 10, // Set gap between Home, Events, Mentors, Pages, About to 10px
   },
-  linkHover: {
-    color: '#2986FE',
+  aboutLink: {
+    marginRight: 45, // Set gap between About and Sign Up to 45px
+  },
+  signUpLink: {
+    marginRight: 10, // Set gap between Sign Up and Login to 10px
   },
   loginButton: {
     backgroundColor: '#2986FE',
     color: '#FFFFFF',
-    padding: theme.spacing(1, 2),  // Fixed spacing issue
+    padding: theme.spacing(1, 2),
     borderRadius: theme.shape.borderRadius,
-    marginLeft: theme.spacing(2),  // Fixed spacing issue
     textTransform: 'none',
   },
   bellButton: {
     color: '#101010',
   },
-  userIconContainer: {  // Added missing class
+  userIconContainer: {
     display: 'flex',
     alignItems: 'center',
-    marginLeft: theme.spacing(2),  // Fixed spacing issue
+    marginLeft: theme.spacing(2),
   },
   userIcon: {
     width: 32,
     height: 32,
     backgroundColor: '#FFFFFF',
     borderRadius: '50%',
-    marginRight: theme.spacing(1),  // Fixed spacing issue
+    marginRight: theme.spacing(1),
   },
 }));
 
@@ -82,82 +94,90 @@ const NavBar: React.FC<Props> = () => {
   };
 
   return (
-    <AppBar position="static" className={classes.appBar}>
-      <Toolbar>
-        <Grid container alignItems="center">
-          {/* Logo and Title (left side) */}
-          <Grid item xs={6}>
-            <div className={classes.logoContainer}>
-              <img src="/logo.png" alt="Gachi.live logo" className={classes.logo} />
-              <Typography variant="h6" className={classes.title}>Gachi.live</Typography>
-            </div>
-          </Grid>
+    <>
+      {/* Top Black Bar */}
+      <div className={classes.topBar}></div>
 
-          {/* Menu Items (right side) */}
-          <Grid item xs={6} className={classes.menuContainer}>
-            <Link href="/" passHref>
-              <a className={classes.link}>Home</a>
-            </Link>
-            <Link href="/Events" passHref>
-              <a className={classes.link}>Events</a>
-            </Link>
-            <Link href="/Mentors" passHref>
-              <a className={classes.link}>Mentors</a>
-            </Link>
-            <Link href="/Pages" passHref>
-              <a className={classes.link}>Pages</a>
-            </Link>
-            <Link href="/about" passHref>
-              <a className={classes.link}>About</a>
-            </Link>
-            {!isLoggedIn ? (
-              <>
-                <Link href="/signup" passHref>
-                  <a className={classes.link}>Sign up</a>
-                </Link>
-                <Button className={classes.loginButton}>Login</Button>
-              </>
-            ) : (
-              <>
-                <IconButton className={classes.bellButton}>
-                  <i className="fas fa-bell" />
-                </IconButton>
-                <div className={classes.userIconContainer}>
-                  <div className={classes.userIcon}>
-                    <i className="fas fa-user" />
-                  </div>
-                  <IconButton
-                    className={classes.bellButton}
-                    aria-controls="user-menu"
-                    aria-haspopup="true"
-                    onClick={handleDropDownClick}
-                  >
-                    <i className="fas fa-caret-down" />
+      {/* AppBar */}
+      <AppBar position="static" className={classes.appBar}>
+        <Toolbar>
+          <Grid container alignItems="center">
+            {/* Logo and Title (left side) */}
+            <Grid item xs={6}>
+              <div className={classes.logoContainer}>
+                <img src="/logo.png" alt="Gachi.live logo" className={classes.logo} />
+                <Typography variant="h6" className={classes.title}>
+                  Gachi.live
+                </Typography>
+              </div>
+            </Grid>
+
+            {/* Menu Items (right side) */}
+            <Grid item xs={6} className={classes.menuContainer}>
+              <Link href="/" passHref>
+                <a className={classes.link}>Home</a>
+              </Link>
+              <Link href="/Events" passHref>
+                <a className={classes.link}>Events</a>
+              </Link>
+              <Link href="/Mentors" passHref>
+                <a className={classes.link}>Mentors</a>
+              </Link>
+              <Link href="/Pages" passHref>
+                <a className={classes.link}>Pages</a>
+              </Link>
+              <Link href="/about" passHref>
+                <a className={`${classes.link} ${classes.aboutLink}`}>About</a>
+              </Link>
+              {!isLoggedIn ? (
+                <>
+                  <Link href="/signup" passHref>
+                    <a className={`${classes.link} ${classes.signUpLink}`}>Sign up</a>
+                  </Link>
+                  <Button className={classes.loginButton}>Login</Button>
+                </>
+              ) : (
+                <>
+                  <IconButton className={classes.bellButton}>
+                    <i className="fas fa-bell" />
                   </IconButton>
-                  <Menu
-                    id="user-menu"
-                    anchorEl={anchorEl}
-                    open={Boolean(anchorEl)}
-                    onClose={handleDropDownClose}
-                  >
-                    <MenuItem onClick={handleDropDownClose}>
-                      <Link href="#" passHref>
-                        <a>Edit profile</a>
-                      </Link>
-                    </MenuItem>
-                    <MenuItem onClick={handleDropDownClose}>
-                      <Link href="#" passHref>
-                        <a>Sign out</a>
-                      </Link>
-                    </MenuItem>
-                  </Menu>
-                </div>
-              </>
-            )}
+                  <div className={classes.userIconContainer}>
+                    <div className={classes.userIcon}>
+                      <i className="fas fa-user" />
+                    </div>
+                    <IconButton
+                      className={classes.bellButton}
+                      aria-controls="user-menu"
+                      aria-haspopup="true"
+                      onClick={handleDropDownClick}
+                    >
+                      <i className="fas fa-caret-down" />
+                    </IconButton>
+                    <Menu
+                      id="user-menu"
+                      anchorEl={anchorEl}
+                      open={Boolean(anchorEl)}
+                      onClose={handleDropDownClose}
+                    >
+                      <MenuItem onClick={handleDropDownClose}>
+                        <Link href="#" passHref>
+                          <a>Edit profile</a>
+                        </Link>
+                      </MenuItem>
+                      <MenuItem onClick={handleDropDownClose}>
+                        <Link href="#" passHref>
+                          <a>Sign out</a>
+                        </Link>
+                      </MenuItem>
+                    </Menu>
+                  </div>
+                </>
+              )}
+            </Grid>
           </Grid>
-        </Grid>
-      </Toolbar>
-    </AppBar>
+        </Toolbar>
+      </AppBar>
+    </>
   );
 };
 
