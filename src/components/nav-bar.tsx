@@ -6,37 +6,45 @@ import styles from '../styles/nav-bar.module.css';
 interface Props {
   // Add props if needed
 }
+function handleLoginClick() {
+  window.location.href = '/login';
+}
 
 const NavBar: React.FC<Props> = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-
 
   return (
     <nav className={styles.NavBar}>
       <div className={styles.TopBar} />
       <ul className={styles.LinkList}>
         <li className={styles.LinkItem}>
-          <a href="#" className={`${styles.Link} ${styles.HomeLink}`}>
+          <div className={styles.LogoAndTitleContainer}>
+            <img src="/logo.png" alt="Gachi.live logo" className={styles.Logo} />
+            <span className={styles.Title}>Gachi.live</span>
+          </div>
+        </li>
+        <li className={styles.LinkItem}>
+          <a href="/" className={`${styles.Link} ${styles.HomeLink}`}>
             Home
           </a>
         </li>
         <li className={styles.LinkItem}>
-          <a href="#" className={styles.Link}>
+          <a href="/Events" className={styles.Link}>
             Events
           </a>
         </li>
         <li className={styles.LinkItem}>
-          <a href="#" className={styles.Link}>
+          <a href="/Mentors" className={styles.Link}>
             Mentors
           </a>
         </li>
         <li className={styles.LinkItem}>
-          <a href="#" className={styles.Link}>
+          <a href="/Pages" className={styles.Link}>
             Pages
           </a>
         </li>
         <li className={styles.LinkItem}>
-          <a href="#" className={styles.Link}>
+          <a href="/About" className={styles.Link}>
             About
           </a>
         </li>
@@ -46,7 +54,9 @@ const NavBar: React.FC<Props> = () => {
               <a href="/signup" className={styles.LinkSignUp}>
                 Sign up
               </a>
-              <button className={styles.LoginButton}>
+              <button 
+                className={styles.LoginButton} 
+                onClick={handleLoginClick}>
                 Login
               </button>
             </React.Fragment>

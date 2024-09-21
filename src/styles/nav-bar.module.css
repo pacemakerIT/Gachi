@@ -60,6 +60,24 @@
   border-radius: 4px; 
 }
 
+.LogoAndTitleContainer {
+  display: flex;
+  align-items: center;
+  margin-right: 20px; /* adjust the margin to your liking */
+}
+
+.Logo {
+  width: 30px; /* adjust the width to your liking */
+  height: 30px; /* adjust the height to your liking */
+  object-fit: contain;
+}
+
+.Title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 10px; /* adjust the margin to your liking */
+}
+
 .LoggedInContainer {
   display: flex;
   align-items: center;
