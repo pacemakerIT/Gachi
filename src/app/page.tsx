@@ -11,14 +11,12 @@ import Review from '@/components/review';
 
 export default function Home() {
   return (
-    <ThemeProvider theme={theme}>
-      <Container maxWidth="lg">
-        <Hero />
-        <Program />
-        <Mentor />
-        <About />
-        <Review />
-      </Container>
-    </ThemeProvider>
+    <Container maxWidth="lg">
+      <Hero />
+      <Program />
+      <Mentor />
+      <About />
+      <Review />
+    </Container>
   );
 }

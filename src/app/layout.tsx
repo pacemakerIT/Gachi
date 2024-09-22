@@ -7,16 +7,15 @@ import theme from '@/theme';
 import NavBar from '@/components/nav-bar';
 import Footer from '@/components/footer';
 
-export default function RootLayout(props: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
           <ThemeProvider theme={theme}>
-            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
             <NavBar />
-            {props.children}
+            {children}
             <Footer />
           </ThemeProvider>
         </AppRouterCacheProvider>

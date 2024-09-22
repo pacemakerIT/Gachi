@@ -1,89 +1,14 @@
 "use client";
 
 import * as React from 'react';
-import { AppBar, Toolbar, Typography, Button, IconButton, Grid, Menu, MenuItem } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material/styles'; // Import Theme for JSS-like styling
+import { AppBar, Toolbar, Button, IconButton, Grid, Menu, MenuItem } from '@mui/material';
 import Link from 'next/link';
 
 interface Props {
   // Add props if needed
 }
 
-const useStyles = makeStyles((theme: Theme) => ({
-  topBar: {
-    backgroundColor: '#101010',
-    height: 25, // Set the height to 25px
-    width: '100%',
-  },
-  appBar: {
-    backgroundColor: '#F9F9FB', // Set background color to #F9F9FB
-    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)', // Add drop shadow at the bottom
-  },
-  logoContainer: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  logo: {
-    width: 30,
-    height: 30,
-    marginRight: theme.spacing(1),
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#101010', // Set "Gachi.live" text to black
-  },
-  menuContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    flexGrow: 1,
-  },
-  link: {
-    fontSize: 16,
-    color: '#101010',
-    textDecoration: 'none',
-    '&:hover': {
-      color: '#2986FE', // Optional hover color
-    },
-    marginRight: 10, // Set gap between Home, Events, Mentors, Pages, About to 10px
-  },
-  noUnderline: {
-    textDecoration: 'none !important', // Ensure no underline for anchor links
-  },
-  aboutLink: {
-    marginRight: 45, // Set gap between About and Sign Up to 45px
-  },
-  signUpLink: {
-    marginRight: 10, // Set gap between Sign Up and Login to 10px
-  },
-  loginButton: {
-    backgroundColor: '#2986FE',
-    color: '#FFFFFF',
-    padding: theme.spacing(1, 2),
-    borderRadius: theme.shape.borderRadius,
-    textTransform: 'none',
-  },
-  bellButton: {
-    color: '#101010',
-  },
-  userIconContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    marginLeft: theme.spacing(2),
-  },
-  userIcon: {
-    width: 32,
-    height: 32,
-    backgroundColor: '#FFFFFF',
-    borderRadius: '50%',
-    marginRight: theme.spacing(1),
-  },
-}));
-
 const NavBar: React.FC<Props> = () => {
-  const classes = useStyles();
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -98,114 +23,126 @@ const NavBar: React.FC<Props> = () => {
   return (
     <>
       {/* Top Black Bar */}
-      <div className={classes.topBar}></div>
+      <div style={{ backgroundColor: '#101010', height: '25px', width: '100%' }}></div>
 
       {/* AppBar */}
-      <AppBar position="static" className={classes.appBar}>
+      <AppBar position="static">
         <Toolbar>
           <Grid container alignItems="center">
             {/* Logo and Title (left side) */}
             <Grid item xs={6}>
-              <div className={classes.logoContainer}>
-              <img src="/images/logo.png" alt="Gachi.live logo" className={classes.logo} />
-                <Typography variant="h6" className={classes.title}>
-                  Gachi.live
-                </Typography>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <img src="/images/logo.png" alt="Gachi.live logo" style={{ width: 30, height: 30, marginRight: '10px' }} />
+                <h6>Gachi.live</h6>
               </div>
             </Grid>
 
             {/* Menu Items (right side) */}
-            <Grid item xs={6} className={classes.menuContainer}>
+            <Grid item xs={6} style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
               <Link
-                href={{
-                  pathname: '/',
-                  query: { name: 'home' },
+                href="/"
+                style={{
+                  textDecoration: 'none',
+                  color: '#101010',
+                  marginRight: '20px',
+                  fontSize: '16px',
+                  transition: 'color 0.3s',
                 }}
-                passHref
+                onMouseEnter={(e) => (e.currentTarget.style.color = '#2986FE')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = '#101010')}
               >
-                <a className={`${classes.link} ${classes.noUnderline}`}>Home</a>
+                Home
               </Link>
               <Link
-                href={{
-                  pathname: '/Events',
-                  query: { name: '이벤트' },
+                href="/Events"
+                style={{
+                  textDecoration: 'none',
+                  color: '#101010',
+                  marginRight: '20px',
+                  fontSize: '16px',
+                  transition: 'color 0.3s',
                 }}
-                passHref
+                onMouseEnter={(e) => (e.currentTarget.style.color = '#2986FE')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = '#101010')}
               >
-                <a className={`${classes.link} ${classes.noUnderline}`}>이벤트</a>
+                이벤트
               </Link>
               <Link
-                href={{
-                  pathname: '/Mentors',
-                  query: { name: '멘토' },
+                href="/Mentors"
+                style={{
+                  textDecoration: 'none',
+                  color: '#101010',
+                  marginRight: '20px',
+                  fontSize: '16px',
+                  transition: 'color 0.3s',
                 }}
-                passHref
+                onMouseEnter={(e) => (e.currentTarget.style.color = '#2986FE')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = '#101010')}
               >
-                <a className={`${classes.link} ${classes.noUnderline}`}>멘토</a>
+                멘토
               </Link>
               <Link
-                href={{
-                  pathname: '/Pages',
-                  query: { name: '페이지' },
+                href="/Pages"
+                style={{
+                  textDecoration: 'none',
+                  color: '#101010',
+                  marginRight: '20px',
+                  fontSize: '16px',
+                  transition: 'color 0.3s',
                 }}
-                passHref
+                onMouseEnter={(e) => (e.currentTarget.style.color = '#2986FE')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = '#101010')}
               >
-                <a className={`${classes.link} ${classes.noUnderline}`}>페이지</a>
+                페이지
               </Link>
               <Link
-                href={{
-                  pathname: '/about',
-                  query: { name: 'about' },
+                href="/about"
+                style={{
+                  textDecoration: 'none',
+                  color: '#101010',
+                  marginRight: '20px',
+                  fontSize: '16px',
+                  transition: 'color 0.3s',
                 }}
-                passHref
+                onMouseEnter={(e) => (e.currentTarget.style.color = '#2986FE')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = '#101010')}
               >
-                <a className={`${classes.link} ${classes.aboutLink} ${classes.noUnderline}`}>About</a>
+                About
               </Link>
+
               {!isLoggedIn ? (
                 <>
                   <Link
-                    href={{
-                      pathname: '/signup',
-                      query: { name: 'signup' },
+                    href="/signup"
+                    style={{
+                      textDecoration: 'none',
+                      color: '#101010',
+                      marginRight: '20px',
+                      fontSize: '16px',
+                      transition: 'color 0.3s',
                     }}
-                    passHref
+                    onMouseEnter={(e) => (e.currentTarget.style.color = '#2986FE')}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = '#101010')}
                   >
-                    <a className={`${classes.link} ${classes.signUpLink} ${classes.noUnderline}`}>Sign up</a>
+                    Sign up
                   </Link>
-                  <Button className={classes.loginButton}>Login</Button>
+                  <Button variant="contained">Login</Button>
                 </>
               ) : (
                 <>
-                  <IconButton className={classes.bellButton}>
+                  <IconButton color="inherit">
                     <i className="fas fa-bell" />
                   </IconButton>
-                  <div className={classes.userIconContainer}>
-                    <div className={classes.userIcon}>
+                  <div style={{ display: 'flex', alignItems: 'center', marginLeft: '16px' }}>
+                    <IconButton color="inherit" aria-controls="user-menu" aria-haspopup="true" onClick={handleDropDownClick}>
                       <i className="fas fa-user" />
-                    </div>
-                    <IconButton
-                      className={classes.bellButton}
-                      aria-controls="user-menu"
-                      aria-haspopup="true"
-                      onClick={handleDropDownClick}
-                    >
-                      <i className="fas fa-caret-down" />
                     </IconButton>
-                    <Menu
-                      id="user-menu"
-                      anchorEl={anchorEl}
-                      open={Boolean(anchorEl)}
-                      onClose={handleDropDownClose}
-                    >
+                    <Menu id="user-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleDropDownClose}>
                       <MenuItem onClick={handleDropDownClose}>
-                        <Link href="#" passHref>
-                          <a className={classes.noUnderline}>Edit profile</a>
-                        </Link>
+                        <Link href="#">Edit profile</Link>
                       </MenuItem>
                       <MenuItem onClick={handleDropDownClose}>
-                        <Link href="#" passHref>
-                          <a className={classes.noUnderline}>Sign out</a>
-                        </Link>
+                        <Link href="#">Sign out</Link>
                       </MenuItem>
                     </Menu>
                   </div>
