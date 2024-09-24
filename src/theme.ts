@@ -5,6 +5,19 @@ import '@fontsource/ibm-plex-sans-kr';
 const theme = createTheme({
   palette: {
     mode: 'light',
+    primary: {
+      main: '#2986FE',
+    },
+    secondary: {
+      main: '#101010',
+    },
+    background: {
+      // default: '#F9F9FB',
+    },
+    text: {
+      primary: '#101010',
+      secondary: '#2986FE',
+    },
   },
   typography: {
     fontFamily: 'IBM Plex Sans KR, Arial, sans-serif',

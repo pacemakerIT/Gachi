@@ -8,12 +8,14 @@ import Review from '@/components/review';
 
 export default function Home() {
   return (
-    <Container maxWidth="lg">
+    <>
+      {/* <Container maxWidth="lg"> */}
       <Hero />
       <Program />
       <Mentor />
       <About />
       <Review />
-    </Container>
+      {/* </Container> */}
+    </>
   );
 }
