@@ -152,7 +152,7 @@ export default function HeroComponent(): JSX.Element {
       <Box
         sx={{
           width: '100%',
-          backgroundColor: '#fff',
+          backgroundColor: '#FFFFFF',
           boxShadow: { xs: 'none', sm: 'none', md: '0 4px 8px rgba(0, 0, 0, 0.1)' },  
           borderRadius: { xs: 'none', sm: 'none', md: '16px' },  
           p: { xs: 2, md: 4 },  
