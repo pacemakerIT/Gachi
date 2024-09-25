@@ -37,7 +37,7 @@ const FeatureItem: React.FC<FeatureItemProps> = ({ icon, title, description }) =
         </Typography>
         <Typography 
           variant="caption" 
-          color="text.secondary"
+          color="#999999"
           sx={{
             fontSize: { xs: '0.55', sm: '0.6', md: '0.65', lg: '0.7rem' }
             
