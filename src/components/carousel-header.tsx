@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { Button, Box } from '@mui/material';
+import { Button, Box, useMediaQuery, useTheme, Typography } from '@mui/material';
 import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
 
 interface Props {
@@ -8,8 +8,10 @@ interface Props {
 }
 
 export default function CarouselHeader({ title, swiperRef }: Props) {
+    const theme = useTheme();
     const prevButtonRef = useRef<HTMLButtonElement | null>(null);
     const nextButtonRef = useRef<HTMLButtonElement | null>(null);
+    const isTablet = useMediaQuery(theme.breakpoints.down('md'));
 
     useEffect(() => {
         if (swiperRef.current && swiperRef.current.swiper) {
@@ -22,13 +24,23 @@ export default function CarouselHeader({ title, swiperRef }: Props) {
     }, [swiperRef]);
 
     return (
-        <>
-            <h2>{title}</h2>
+        <Box sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            margin: '20px 0'
+        }}>
+            <Typography
+                variant="h2"
+                fontSize={{ xs: '1.15rem', sm: '1.3rem', md: '1.5rem' }}
+                fontWeight={'bold'}>
+                {title}
+            </Typography>
             <Box sx={{
                 width: '106px',
-                display: 'flex',
+                display: { xs: 'none', md: 'flex' },
                 justifyContent: 'space-between',
-                alignItems: 'center'
+                alignItems: 'center',
             }}>
                 <Button
                     ref={prevButtonRef}
@@ -38,7 +50,7 @@ export default function CarouselHeader({ title, swiperRef }: Props) {
                         minWidth: '44px',
                         height: '44px',
                         '&:active, &:hover': {
-                            backgroundColor: '#2986FE',
+                            backgroundColor: theme.palette.text.secondary,
                             '& svg': {
                                 color: '#fff !important'
                             }
@@ -64,6 +76,6 @@ export default function CarouselHeader({ title, swiperRef }: Props) {
                         style={{ color: '#101010' }} />
                 </Button>
             </Box>
-        </>
+        </Box>
     )
 }
