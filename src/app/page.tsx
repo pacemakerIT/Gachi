@@ -9,7 +9,7 @@ import Review from '@/components/review';
 
 export default function Home() {
   return (
-    <Container maxWidth={false} disableGutters>
+    <Container maxWidth='xl' disableGutters >
       <Box
         sx={{
           display: 'flex',
@@ -18,6 +18,7 @@ export default function Home() {
           padding: 0,  // Padding is completely removed for all screen sizes
           width: '100%', // Ensure full width usage across all screen sizes
           margin: 0, // Remove any default margin
+          
         }}
       >
         <Hero />
