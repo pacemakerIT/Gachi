@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from 'react';
-import { AppBar, Toolbar, Button, IconButton, Grid, Menu, MenuItem } from '@mui/material';
+import { AppBar, Toolbar, Button, IconButton, Box, Menu, MenuItem, Stack } from '@mui/material';
 import Link from 'next/link';
 
 interface Props {
@@ -23,28 +23,26 @@ const NavBar: React.FC<Props> = () => {
   return (
     <>
       {/* Top Black Bar */}
-      <div style={{ backgroundColor: '#101010', height: '25px', width: '100%' }}></div>
+      <Box sx={{ backgroundColor: '#101010', height: '25px', width: '100%' }}></Box>
 
       {/* AppBar */}
       <AppBar position="static">
         <Toolbar>
-          <Grid container alignItems="center">
+          {/* Container for logo and menu items */}
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
             {/* Logo and Title (left side) */}
-            <Grid item xs={6}>
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                <img src="/images/logo.png" alt="Gachi.live logo" style={{ width: 30, height: 30, marginRight: '10px' }} />
-                <h6>Gachi.live</h6>
-              </div>
-            </Grid>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <img src="/images/logo.png" alt="Gachi.live logo" style={{ width: 30, height: 30, marginRight: '10px' }} />
+              <h6>Gachi.live</h6>
+            </Box>
 
             {/* Menu Items (right side) */}
-            <Grid item xs={6} style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+            <Stack direction="row" spacing={3} alignItems="center">
               <Link
                 href="/"
                 style={{
                   textDecoration: 'none',
                   color: '#101010',
-                  marginRight: '20px',
                   fontSize: '16px',
                   transition: 'color 0.3s',
                 }}
@@ -54,25 +52,23 @@ const NavBar: React.FC<Props> = () => {
                 Home
               </Link>
               <Link
-                href="/Events"
+                href="/programs"
                 style={{
                   textDecoration: 'none',
                   color: '#101010',
-                  marginRight: '20px',
                   fontSize: '16px',
                   transition: 'color 0.3s',
                 }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = '#2986FE')}
                 onMouseLeave={(e) => (e.currentTarget.style.color = '#101010')}
               >
-                이벤트
+                프로그램
               </Link>
               <Link
-                href="/Mentors"
+                href="/mentors"
                 style={{
                   textDecoration: 'none',
                   color: '#101010',
-                  marginRight: '20px',
                   fontSize: '16px',
                   transition: 'color 0.3s',
                 }}
@@ -82,11 +78,10 @@ const NavBar: React.FC<Props> = () => {
                 멘토
               </Link>
               <Link
-                href="/Pages"
+                href="/pages"
                 style={{
                   textDecoration: 'none',
                   color: '#101010',
-                  marginRight: '20px',
                   fontSize: '16px',
                   transition: 'color 0.3s',
                 }}
@@ -100,7 +95,6 @@ const NavBar: React.FC<Props> = () => {
                 style={{
                   textDecoration: 'none',
                   color: '#101010',
-                  marginRight: '20px',
                   fontSize: '16px',
                   transition: 'color 0.3s',
                 }}
@@ -117,7 +111,6 @@ const NavBar: React.FC<Props> = () => {
                     style={{
                       textDecoration: 'none',
                       color: '#101010',
-                      marginRight: '20px',
                       fontSize: '16px',
                       transition: 'color 0.3s',
                     }}
@@ -133,7 +126,7 @@ const NavBar: React.FC<Props> = () => {
                   <IconButton color="inherit">
                     <i className="fas fa-bell" />
                   </IconButton>
-                  <div style={{ display: 'flex', alignItems: 'center', marginLeft: '16px' }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: '16px' }}>
                     <IconButton color="inherit" aria-controls="user-menu" aria-haspopup="true" onClick={handleDropDownClick}>
                       <i className="fas fa-user" />
                     </IconButton>
@@ -145,11 +138,11 @@ const NavBar: React.FC<Props> = () => {
                         <Link href="#">Sign out</Link>
                       </MenuItem>
                     </Menu>
-                  </div>
+                  </Box>
                 </>
               )}
-            </Grid>
-          </Grid>
+            </Stack>
+          </Box>
         </Toolbar>
       </AppBar>
     </>
