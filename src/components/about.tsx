@@ -1,7 +1,8 @@
+"use client";
 import React from 'react'
-
 import { Box, Typography, Paper } from '@mui/material';
 import Grid from '@mui/material/Grid2';
+import { useTheme } from '@mui/material/styles';
 
 interface AboutItemProps {
     numericalization: string;
@@ -10,53 +11,62 @@ interface AboutItemProps {
 
 
 
-const AboutItem: React.FC<AboutItemProps> = ({numericalization, element}) => (
+const AboutItem: React.FC<AboutItemProps> = ({numericalization, element}) => {
+  const theme = useTheme();
+  return(
     <Grid
-        size={{xs:3.8, sm:3.4, md:3, lg:2.4, xl: 2}}
-        display='flex'
-        justifyContent='center'
-        
+    size={{xs:3.8, sm:3.4, md:2.5, lg:2, xl: 1.8}}
+    display='flex'
+    justifyContent='center'
     >
-    <Paper
-        elevation={3}
-        sx={{
-            width: { xs: '100px', sm: '180px', md: '200px', lg: '220px'}, 
-            height:{ xs: '100px', sm: '180px', md: '200px', lg: '220px'}, 
-            borderRadius: '16px', 
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: '#F9F9FB',
-            textAlign: 'center',
-        }}
-    >
-    <Typography 
-        variant="h3" 
-        sx={{ 
-            color: '#2986FE', 
-            fontWeight: 'bold',
-            fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem', lg: '2.75rem' },
-            mb: 0.2
-            }}
-    >
-      {numericalization}
-    </Typography>
+      <Paper
+          elevation={3}
+          sx={{
+              width: { xs: '30vw', sm: '25vw', md: '20vw', lg: '18vw', xl:'10vw'}, 
+              height: 'auto',
+              aspectRatio: '1',
+              borderRadius: '10px', 
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: theme.palette.customColor.darkWhite,
+              textAlign: 'center',
+          }}
+      >
+        <Typography 
+            variant="h3" 
+            sx={{ 
+                color: theme.palette.primary.main, 
+                fontWeight: 'bold',
+                fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem', lg: '2.75rem' },
+                mb: 1.3
+                }}
+        >
+          {numericalization}
+        </Typography>
 
-    <Typography 
-        variant="body1" 
-        sx={{ 
-            color: '#101010',
-            fontSize: { xs: '0.6rem', sm: '1rem', md: '1rem', lg: '1.125rem' } 
-            }}
-    >
-      {element}
-    </Typography>
-    </Paper>
-</Grid>    
-);
+        <Typography 
+            variant="body1" 
+            sx={{ 
+                color: theme.palette.secondary.main,
+                fontWeight: 'bold',
+                fontSize: { xs: '0.6rem', sm: '1rem', md: '1rem', lg: '1.125rem' } 
+                }}
+        >
+          {element}
+        </Typography>
+      </Paper>
+    </Grid> 
+
+    );
+  };
+
+   
+
 
 export default function About(): JSX.Element {
+  const theme = useTheme();
   return (
     <Box
       sx={{
@@ -69,7 +79,7 @@ export default function About(): JSX.Element {
         variant="h4" 
         gutterBottom 
         sx={{ 
-            color: '#2986FE', 
+            color: theme.palette.primary.main, 
             fontWeight: 'bold',
             mb: 2,
             fontSize: { xs: '1rem', sm: '1.5rem', md: '2rem', lg: '2.5rem' }
@@ -82,7 +92,7 @@ export default function About(): JSX.Element {
         variant="body1" 
         gutterBottom 
         sx={{ 
-            color: '#101010', 
+            color: theme.palette.secondary.main, 
             mb: 4,
             fontSize: { xs: '0.6rem', sm: '0.8rem', md:'1.2rem', lg: '1.35rem' }
             }}
@@ -92,7 +102,7 @@ export default function About(): JSX.Element {
       </Typography>
 
       {/* Bottom statistics information */}
-      <Grid container spacing={0} justifyContent='center' alignItems='center'>
+      <Grid container spacing={1.5} justifyContent='center' alignItems='center'>
         <AboutItem
             numericalization="10+"
             element="Year Experience"/>
