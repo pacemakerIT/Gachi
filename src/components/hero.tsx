@@ -23,10 +23,10 @@ export default function HeroComponent(): JSX.Element {
           justifyContent: 'center',
           alignItems: 'center',
           backgroundColor: theme.palette.customBackground.overlay,
+          borderRadius: '10px'
         }}
       >
         <video
-          
           autoPlay
           loop
           muted
@@ -38,6 +38,7 @@ export default function HeroComponent(): JSX.Element {
             height: '100%',
             objectFit: 'cover',
             zIndex: -1,
+            borderRadius: '10px'
           }}
         >
           <source src="/videos/climbing-video.mp4" type="video/mp4" />

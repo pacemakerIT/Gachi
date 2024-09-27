@@ -16,7 +16,7 @@ interface FeatureItemProps {
   }
   
   const iconSizeSx = {
-    fontSize: { xs: '1.875rem', sm: '1.9rem', md: '2.1rem', lg: '2.5rem' }
+    fontSize: { xs: '2.2rem', sm: '2.5rem', md: '2.8rem', lg: '3rem' } 
   };
   
   const FeatureItem: React.FC<FeatureItemProps> = ({ icon, title, description }) => {
@@ -33,17 +33,19 @@ interface FeatureItemProps {
           alignItems: 'center',
           height: { xs: 'auto', md: '100%' }, 
           flexDirection: 'row', 
+          gap: { xs: 1, md: 2 }, // 간격 추가
         }}>
 
       <Box display="flex" alignItems="center" justifyContent="flex-start" >
       {icon}
-        <Box sx={{ml:{xs: 0.8, sm: 1, md: 2, lg: 3 ,xl: 4}}}>
+        <Box sx={{ ml: { xs: 1, sm: 1.5, md: 2 }, mb: 0.3 }}>
           <Typography 
             variant="h6" 
             sx={{ 
               fontWeight: 'bold',
                fontSize: 'clamp(0.875rem, 2vw, 1.15rem)',
                textAlign: 'left', 
+               mb: -0.5
           
             }}
           >
@@ -110,20 +112,21 @@ export default function HeroFeature() {
           backgroundColor: theme.palette.customColor.darkWhite,
           boxShadow: { xs: 'none', sm: 'none', md: '0 4px 8px rgba(0, 0, 0, 0.1)' },  
           borderRadius: { xs: 'none', md: '10px',lg:'16px' },  
-          p: { xs: 1.5, md: 2 },
-          mt: { xs: '-2vh', sm: '-4vh', md: '-8vh', lg: '-9vh',xl:'-10vh'},
+          padding: { xs: '1rem', md: '1.6rem', lg: '2.5rem' },
+          mt: { xs: '-2vh', sm: '-4vh', md: '-9.6vh',lg:'-13vh'},
           zIndex: 2,
           position: 'relative',
           maxWidth: { xs: '100%', md: '95%', lg: '85%' },
           mx: 'auto',
           display: 'flex',
           justifyContent: 'center',
+          gap: '16px', 
         }}
       >
         <Container sx={{ display: 'flex', justifyContent: 'center'}}> 
           <Grid 
             container  
-            spacing={{ xs: 2, sm: 6, md: 8, lg: 10 }} 
+            spacing={{ xs: 2, sm: 6, md: 8, lg: 12 }} 
             justifyContent={{ xs: 'center', md: 'space-between' }} >
 
 
