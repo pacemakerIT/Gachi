@@ -1,4 +1,3 @@
-// theme.ts
 'use client';
 import { createTheme } from '@mui/material/styles';
 import '@fontsource/ibm-plex-sans-kr';
@@ -8,6 +7,7 @@ const theme = createTheme({
     mode: 'light',
     primary: {
       main: '#F9F9FB', // Light background for the AppBar
+      dark: '#2986FE' // For buttons
     },
     secondary: {
       main: '#101010', // Dark text
@@ -19,6 +19,9 @@ const theme = createTheme({
       primary: '#101010', // Text color
       secondary: '#2986FE', // Hover color
     },
+    action: {
+      hover: '#f1f1f1', // Slight hover effect for icon buttons
+    },
   },
   typography: {
     fontFamily: 'IBM Plex Sans KR, Arial, sans-serif',
@@ -28,7 +31,7 @@ const theme = createTheme({
       color: '#101010', // Ensure "Gachi.live" text is black
     },
     body1: {
-      fontSize: '16px',
+      fontSize: '14px', // Text size reduced by 2px for nav links
       color: '#101010', // Text color for nav links
     },
   },
@@ -41,35 +44,31 @@ const theme = createTheme({
         },
       },
     },
-    MuiToolbar: {
+    MuiIconButton: {
       styleOverrides: {
         root: {
-          height: '64px', // Adjust height if needed
-        },
-      },
-    },
-    MuiLink: {
-      styleOverrides: {
-        root: {
-          textDecoration: 'none', // Remove underline from links
-          color: '#101010',
+          backgroundColor: 'transparent', // Transparent icon background
+          border: '1px solid #FFFFFF', // Default outline for icon buttons
+          borderRadius: '8px', // Subtle rounding
           '&:hover': {
-            color: '#2986FE', // Hover effect
+            backgroundColor: '#f1f1f1', // Slight hover effect
           },
-          marginRight: '10px', // Space between links
         },
       },
     },
     MuiButton: {
       styleOverrides: {
         root: {
-          textTransform: 'none',
-          backgroundColor: '#2986FE', // Button background color
-          color: '#FFFFFF',
-          borderRadius: '4px',
-          padding: '8px 16px',
+          backgroundColor: '#2986FE', // Default background color
+          color: 'white', // Default text color
+          boxShadow: 'none', // Remove default shadow
+          borderRadius: '4px', // Set border radius
           '&:hover': {
-            backgroundColor: '#1A65D8', // Hover color for buttons
+            backgroundColor: '#2986FE', // Maintain background color on hover
+          },
+          '&:active': {
+            backgroundColor: 'white', // White background when clicked
+            color: '#2986FE', // Change text color to primary dark
           },
         },
       },
