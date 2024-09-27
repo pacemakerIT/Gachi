@@ -1,5 +1,5 @@
 "use client";
-import React, { ReactNode} from 'react';
+import React, { useState, useEffect, ReactNode } from 'react';
 import { Box, Typography, Container } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { useTheme } from '@mui/material/styles';
@@ -8,6 +8,7 @@ import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined
 import MenuBookOutlinedIcon from '@mui/icons-material/MenuBookOutlined';
 import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';
 import SecurityOutlinedIcon from '@mui/icons-material/SecurityOutlined';
+
 
 interface FeatureItemProps {
     icon: ReactNode;   
@@ -29,23 +30,24 @@ interface FeatureItemProps {
         size={{ xs: 6, md:3}} 
         sx={{
           display: 'flex',
-          justifyContent: 'space-between',
+          justifyContent: 'center',
           alignItems: 'center',
           height: { xs: 'auto', md: '100%' }, 
           flexDirection: 'row', 
-          gap: { xs: 1, md: 2 }, // 간격 추가
+          gap: { xs: 2, md: 2 }, 
+          
         }}>
 
       <Box display="flex" alignItems="center" justifyContent="flex-start" >
       {icon}
-        <Box sx={{ ml: { xs: 1, sm: 1.5, md: 2 }, mb: 0.3 }}>
+        <Box sx={{ ml: { xs: 1.5, sm: 2, md: 2.5 }, mb: 1 }}> 
           <Typography 
             variant="h6" 
             sx={{ 
               fontWeight: 'bold',
                fontSize: 'clamp(0.875rem, 2vw, 1.15rem)',
                textAlign: 'left', 
-               mb: -0.5
+               mb: 0.5
           
             }}
           >
@@ -57,11 +59,12 @@ interface FeatureItemProps {
             
             sx={{
               color: theme.palette.customColor.gray,
-              fontSize: 'clamp(0.55rem, 1vw, 0.7rem)',
+              fontSize: 'clamp(0.75rem, 1.1vw, 0.85rem)',
               whiteSpace: 'nowrap', 
               overflow: 'hidden',
               textOverflow: 'ellipsis', 
               textAlign: 'left', 
+              fontWeight: 'bold'
             }}
           >
             {description}
@@ -74,13 +77,23 @@ interface FeatureItemProps {
 
   };
 
+
+
   
 export default function HeroFeature() {
     const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down('sm'), { noSsr: true }); 
-    /*useMediaQuery has a noSsr option, which, when set to true, will not evaluate media queries 
-      when rendering on the server, but only on the client. */
-  
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const mediaQuery = window.matchMedia('(max-width: 600px)');
+        setIsMobile(mediaQuery.matches);
+
+        const handleResize = () => setIsMobile(mediaQuery.matches);
+        window.addEventListener('resize', handleResize);
+
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+    
 
     const features: FeatureItemProps[] = [
       {
