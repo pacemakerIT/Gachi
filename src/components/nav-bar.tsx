@@ -5,12 +5,12 @@ import { AppBar, Toolbar, Button, IconButton, Menu, MenuItem, Box } from '@mui/m
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTheme } from '@mui/material/styles';
-import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined'; // Using outlined bell icon
+import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 
 interface Props {}
 
 const NavBar: React.FC<Props> = () => {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const theme = useTheme();
 
@@ -39,7 +39,7 @@ const NavBar: React.FC<Props> = () => {
       <AppBar position="static">
         <Toolbar sx={{ justifyContent: 'space-between', maxHeight: '20px' }}> 
           {/* Logo and Title */}
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', ml: '100px' }}> {/* Add left margin here */}
             <Image src="/images/logo.png" alt="Gachi.live logo" width={40} height={40} />
             <Box
               component="h6"
@@ -54,7 +54,7 @@ const NavBar: React.FC<Props> = () => {
           </Box>
 
           {/* Menu Links */}
-          <Box sx={{ display: 'flex', alignItems: 'center', marginY: '0px' }}> {/* Removed marginY */}
+          <Box sx={{ display: 'flex', alignItems: 'center', marginY: '0px' }}>
             {navLinks.map((link, index) => (
               <Link
                 key={link.href}
@@ -66,7 +66,7 @@ const NavBar: React.FC<Props> = () => {
                   marginRight: index === navLinks.length - 1 ? '50px' : '20px',
                   fontSize: theme.typography.body1.fontSize,
                   transition: 'color 0.3s',
-                  padding: '0 5px', // Maintain horizontal padding
+                  padding: '0 5px',
                 }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = theme.palette.text.secondary)}
                 onMouseLeave={(e) => (e.currentTarget.style.color = theme.palette.text.primary)}
@@ -82,21 +82,21 @@ const NavBar: React.FC<Props> = () => {
                 <IconButton
                   sx={{
                     backgroundColor: 'transparent',
-                    borderRadius: '8px', // Slightly rounded edges
+                    borderRadius: '8px',
                     width: '40px',
                     height: '40px',
-                    padding: '4px', // Reduced padding
+                    padding: '4px',
                     marginRight: '20px',
-                    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)', // Drop shadow
+                    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
                     '&:hover': {
-                      backgroundColor: theme.palette.action.hover, // Slight hover effect
+                      backgroundColor: theme.palette.action.hover,
                     },
                   }}
                 >
                   <NotificationsOutlinedIcon
                     sx={{
-                      fontSize: '24px', // Icon size
-                      color: theme.palette.text.primary, // Black icon color
+                      fontSize: '24px',
+                      color: theme.palette.text.primary,
                     }}
                   />
                 </IconButton>
@@ -110,8 +110,8 @@ const NavBar: React.FC<Props> = () => {
                     borderRadius: '8px',
                     width: '40px',
                     height: '40px',
-                    padding: '4px', // Reduced padding
-                    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)', // Drop shadow
+                    padding: '4px',
+                    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
                     '&:hover': {
                       backgroundColor: theme.palette.action.hover,
                     },
@@ -119,22 +119,20 @@ const NavBar: React.FC<Props> = () => {
                 >
                   {/* Custom Profile Icon (two ovals) */}
                   <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    {/* Vertical oval */}
                     <Box
                       sx={{
-                        width: '9px', // Reduced width
-                        height: '9px', // Reduced height
-                        border: `1.5px solid ${theme.palette.text.primary}`, // Black outline
+                        width: '9px',
+                        height: '9px',
+                        border: `1.5px solid ${theme.palette.text.primary}`,
                         borderRadius: '50%',
-                        marginBottom: '2px', // Reduced margin
+                        marginBottom: '2px',
                       }}
                     />
-                    {/* Horizontal oval */}
                     <Box
                       sx={{
-                        width: '15px', // Reduced width
-                        height: '9px', // Height remains the same for proportion
-                        border: `1.5px solid ${theme.palette.text.primary}`, // Black outline
+                        width: '15px',
+                        height: '9px',
+                        border: `1.5px solid ${theme.palette.text.primary}`,
                         borderRadius: '50%',
                       }}
                     />
