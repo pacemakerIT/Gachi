@@ -30,6 +30,13 @@ const NavBar: React.FC<Props> = () => {
     { href: '/about', label: 'About' },
   ];
 
+  const profileLinks = [
+    { href: '/profile', label: 'Profile' },
+    { href: '/myMentors', label: 'My Mentors' },
+    { href: '/myPrograms', label: 'My Programs' },
+    { href: '/logout', label: 'Logout' },
+  ];
+
   return (
     <>
       {/* Top Black Bar */}
@@ -37,9 +44,9 @@ const NavBar: React.FC<Props> = () => {
 
       {/* AppBar */}
       <AppBar position="static">
-        <Toolbar sx={{ justifyContent: 'space-between', maxHeight: '20px' }}> 
+        <Toolbar sx={{ justifyContent: 'space-between', maxHeight: '20px' }}>
           {/* Logo and Title */}
-          <Box sx={{ display: 'flex', alignItems: 'center', ml: '100px' }}> {/* Add left margin here */}
+          <Box sx={{ display: 'flex', alignItems: 'center', ml: '100px' }}>
             <Image src="/images/logo.png" alt="Gachi.live logo" width={40} height={40} />
             <Box
               component="h6"
@@ -97,10 +104,11 @@ const NavBar: React.FC<Props> = () => {
                     sx={{
                       fontSize: '24px',
                       color: theme.palette.text.primary,
+                      strokeWidth: 1.5, // Adjust stroke width for consistency
                     }}
                   />
                 </IconButton>
-                  
+
                 {/* Profile Icon with square size and drop shadow */}
                 <IconButton
                   color="inherit"
@@ -123,7 +131,7 @@ const NavBar: React.FC<Props> = () => {
                       sx={{
                         width: '9px',
                         height: '9px',
-                        border: `1.5px solid ${theme.palette.text.primary}`,
+                        border: `2px solid ${theme.palette.text.primary}`, // Adjust border thickness
                         borderRadius: '50%',
                         marginBottom: '2px',
                       }}
@@ -132,19 +140,42 @@ const NavBar: React.FC<Props> = () => {
                       sx={{
                         width: '15px',
                         height: '9px',
-                        border: `1.5px solid ${theme.palette.text.primary}`,
+                        border: `2px solid ${theme.palette.text.primary}`, // Adjust border thickness
                         borderRadius: '50%',
                       }}
                     />
                   </Box>
                 </IconButton>
-                <Menu id="user-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleDropDownClose}>
-                  <MenuItem onClick={handleDropDownClose}>
-                    <Link href="#">Edit profile</Link>
-                  </MenuItem>
-                  <MenuItem onClick={handleDropDownClose}>
-                    <Link href="#">Sign out</Link>
-                  </MenuItem>
+
+                {/* User Menu */}
+                <Menu
+                  id="user-menu"
+                  anchorEl={anchorEl}
+                  open={Boolean(anchorEl)}
+                  onClose={handleDropDownClose}
+                  sx={{
+                    marginTop: '5px', // Lower the menu by 5px
+                    borderRadius: '8px', // Round off the edges
+                  }}
+                >
+                  {profileLinks.map((link) => (
+                    <MenuItem key={link.href} onClick={handleDropDownClose} component={Link} href={link.href}>
+                      <Box
+                        sx={{
+                          textDecoration: 'none',
+                          color: theme.palette.text.primary,
+                          fontSize: theme.typography.body1.fontSize,
+                          transition: 'color 0.3s',
+                          padding: '0 5px',
+                          '&:hover': {
+                            color: theme.palette.text.secondary,
+                          },
+                        }}
+                      >
+                        {link.label}
+                      </Box>
+                    </MenuItem>
+                  ))}
                 </Menu>
               </>
             ) : (
