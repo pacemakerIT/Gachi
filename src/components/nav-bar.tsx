@@ -12,7 +12,6 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import Link from "next/link";
-import Image from "next/image";
 import { useTheme } from "@mui/material/styles";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -20,14 +19,15 @@ import MenuIcon from "@mui/icons-material/Menu";
 // Import extracted components
 import MobileDrawer from "./mobile-drawer";
 import ProfileIcon from "./profile-icon";
+import Logo from "./logo"; // Import the Logo component
 
 interface Props {}
 
 const NavBar: React.FC<Props> = () => {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false); // Change for testing logged-in state
+  const [isLoggedIn, setIsLoggedIn] = React.useState(true);
   const [navDrawerOpen, setNavDrawerOpen] = React.useState(false);
   const [profileDrawerOpen, setProfileDrawerOpen] = React.useState(false);
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null); // For Profile Menu
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -42,7 +42,7 @@ const NavBar: React.FC<Props> = () => {
   const toggleProfileDrawer = () => {
     setProfileDrawerOpen(!profileDrawerOpen);
     if (navDrawerOpen) {
-      setNavDrawerOpen(false); // Close main nav drawer if it's open
+      setNavDrawerOpen(false);
     }
   };
 
@@ -53,7 +53,7 @@ const NavBar: React.FC<Props> = () => {
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
     if (navDrawerOpen) {
-      setNavDrawerOpen(false); // Close the main drawer if it's open
+      setNavDrawerOpen(false);
     }
   };
 
@@ -73,8 +73,7 @@ const NavBar: React.FC<Props> = () => {
     { href: "/profile", label: "Profile" },
     { href: "/myMentors", label: "My Mentors" },
     { href: "/myPrograms", label: "My Programs" },
-    { href: "/logout", label: "Logout" },  // /logout page will give them a msg "you have been logged out" and then send them back to home menu after few seconds
-
+    { href: "/logout", label: "Logout" },
   ];
 
   return (
@@ -95,24 +94,12 @@ const NavBar: React.FC<Props> = () => {
               </IconButton>
 
               {/* Logo and Title in the center */}
-              <Box sx={{ display: "flex", alignItems: "center", mx: "auto" }}>
-                <Image src="/images/logo.png" alt="Gachi.live logo" width={40} height={40} />
-                <Box
-                  component="h6"
-                  sx={{
-                    fontSize: theme.typography.h6.fontSize,
-                    marginLeft: "10px",
-                    fontFamily: theme.typography.h6.fontFamily,
-                  }}
-                >
-                  Gachi.live
-                </Box>
-              </Box>
+              <Logo isMobile={isMobile} /> {/* Use the Logo component */}
 
               {/* Profile Icon or Login Button on the Right */}
               <Box sx={{ display: "flex", alignItems: "center" }}>
                 {isLoggedIn ? (
-                  <ProfileIcon onClick={toggleProfileDrawer} /> // Toggle profile drawer
+                  <ProfileIcon onClick={toggleProfileDrawer} />
                 ) : (
                   <Button variant="contained">로그인</Button>
                 )}
@@ -128,17 +115,7 @@ const NavBar: React.FC<Props> = () => {
             <>
               {/* Logo and Title */}
               <Box sx={{ display: "flex", alignItems: "center", ml: "100px" }}>
-                <Image src="/images/logo.png" alt="Gachi.live logo" width={40} height={40} />
-                <Box
-                  component="h6"
-                  sx={{
-                    fontSize: theme.typography.h6.fontSize,
-                    marginLeft: "10px",
-                    fontFamily: theme.typography.h6.fontFamily,
-                  }}
-                >
-                  Gachi.live
-                </Box>
+                <Logo isMobile={isMobile} /> {/* Use the Logo component */}
               </Box>
 
               {/* Menu Links */}
