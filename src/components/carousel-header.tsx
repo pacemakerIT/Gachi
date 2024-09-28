@@ -1,27 +1,24 @@
-import React, { useEffect, useRef } from 'react'
-import { Button, Box, useMediaQuery, useTheme, Typography } from '@mui/material';
+import React, { RefObject, useRef } from 'react'
+import { Button, Box, useTheme, Typography } from '@mui/material';
+import { SwiperRef } from 'swiper/react';
 import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
 
-interface Props {
+interface CarouselHeaderProps {
     title: string;
-    swiperRef: any;
+    swiperRef: RefObject<SwiperRef>;
 }
 
-export default function CarouselHeader({ title, swiperRef }: Props) {
+export default function CarouselHeader({ title, swiperRef }: CarouselHeaderProps) {
     const theme = useTheme();
     const prevButtonRef = useRef<HTMLButtonElement | null>(null);
     const nextButtonRef = useRef<HTMLButtonElement | null>(null);
-    const isTablet = useMediaQuery(theme.breakpoints.down('md'));
 
-    useEffect(() => {
-        if (swiperRef.current && swiperRef.current.swiper) {
-            const swiperInstance = swiperRef.current.swiper;
-            swiperInstance.params.navigation.prevEl = prevButtonRef.current;
-            swiperInstance.params.navigation.nextEl = nextButtonRef.current;
-            swiperInstance.navigation.init();
-            swiperInstance.navigation.update();
-        }
-    }, [swiperRef]);
+    const clickPrev = () => {
+        swiperRef.current?.swiper.slidePrev();
+    }
+    const clickNext = () => {
+        swiperRef.current?.swiper.slideNext();
+    }
 
     return (
         <Box sx={{
@@ -44,36 +41,38 @@ export default function CarouselHeader({ title, swiperRef }: Props) {
             }}>
                 <Button
                     ref={prevButtonRef}
+                    onClick={clickPrev}
                     sx={{
-                        backgroundColor: '#F0F2F3',
+                        backgroundColor: theme.palette.info.dark,
                         borderRadius: '50%',
                         minWidth: '44px',
                         height: '44px',
                         '&:active, &:hover': {
-                            backgroundColor: theme.palette.text.secondary,
+                            backgroundColor: theme.palette.primary.main,
                             '& svg': {
-                                color: '#fff !important'
+                                color: `${theme.palette.background.default} !important`
                             }
                         }
                     }}>
                     <FaArrowLeftLong
-                        style={{ color: '#101010' }} />
+                        style={{ color: theme.palette.secondary.main }} />
                 </Button>
                 <Button ref={nextButtonRef}
+                    onClick={clickNext}
                     sx={{
-                        backgroundColor: '#F0F2F3',
+                        backgroundColor: theme.palette.info.dark,
                         borderRadius: '50%',
                         minWidth: '44px',
                         height: '44px',
                         '&:active, &:hover': {
-                            backgroundColor: '#2986FE',
+                            backgroundColor: theme.palette.primary.main,
                             '& svg': {
-                                color: '#fff !important'
+                                color: `${theme.palette.background.default} !important`
                             }
                         }
                     }}>
                     <FaArrowRightLong
-                        style={{ color: '#101010' }} />
+                        style={{ color: theme.palette.secondary.main }} />
                 </Button>
             </Box>
         </Box>
