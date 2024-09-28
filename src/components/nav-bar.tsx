@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import React, { useEffect } from "react";
 import {
   AppBar,
   Toolbar,
@@ -15,21 +15,20 @@ import Link from "next/link";
 import { useTheme } from "@mui/material/styles";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import MenuIcon from "@mui/icons-material/Menu";
-
-// Import extracted components
 import MobileDrawer from "./mobile-drawer";
 import ProfileIcon from "./profile-icon";
-import Logo from "./logo"; // Import the Logo component
+import Logo from "./logo";
 
 interface Props {}
 
 const NavBar: React.FC<Props> = () => {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(true);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [navDrawerOpen, setNavDrawerOpen] = React.useState(false);
   const [profileDrawerOpen, setProfileDrawerOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const prevIsMobile = React.useRef(isMobile); // To track changes between mobile and desktop
 
   const toggleNavDrawer = () => {
     setNavDrawerOpen(!navDrawerOpen);
@@ -61,6 +60,16 @@ const NavBar: React.FC<Props> = () => {
     setAnchorEl(null);
   };
 
+  // UseEffect to close profile drawer and dropdown when switching between mobile and browser modes
+  useEffect(() => {
+    if (prevIsMobile.current !== isMobile) {
+      // Close profile drawer in mobile and dropdown menu in browser mode on transition
+      setProfileDrawerOpen(false);
+      setAnchorEl(null);
+    }
+    prevIsMobile.current = isMobile;
+  }, [isMobile]);
+
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/Programs", label: "프로그램" },
@@ -79,9 +88,7 @@ const NavBar: React.FC<Props> = () => {
   return (
     <>
       {/* Top Black Bar */}
-      <Box
-        sx={{ backgroundColor: theme.palette.secondary.main, height: "25px", width: "100%" }}
-      />
+      <Box sx={{ backgroundColor: theme.palette.secondary.main, height: "25px", width: "100%" }} />
 
       {/* AppBar */}
       <AppBar position="static">
@@ -94,7 +101,7 @@ const NavBar: React.FC<Props> = () => {
               </IconButton>
 
               {/* Logo and Title in the center */}
-              <Logo isMobile={isMobile} /> {/* Use the Logo component */}
+              <Logo isMobile={isMobile} />
 
               {/* Profile Icon or Login Button on the Right */}
               <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -106,16 +113,21 @@ const NavBar: React.FC<Props> = () => {
               </Box>
 
               {/* Drawer for Mobile Navigation */}
-              <MobileDrawer open={navDrawerOpen} onClose={closeNavDrawer} links={navLinks} />
+              <MobileDrawer open={navDrawerOpen} onClose={closeNavDrawer} links={navLinks} anchor="left" />
 
               {/* Drawer for Profile Links */}
-              <MobileDrawer open={profileDrawerOpen} onClose={closeProfileDrawer} links={profileLinks} />
+              <MobileDrawer
+                open={profileDrawerOpen}
+                onClose={closeProfileDrawer}
+                links={profileLinks}
+                anchor="right" // Open the profile drawer from the right
+              />
             </>
           ) : (
             <>
               {/* Logo and Title */}
               <Box sx={{ display: "flex", alignItems: "center", ml: "100px" }}>
-                <Logo isMobile={isMobile} /> {/* Use the Logo component */}
+                <Logo isMobile={isMobile} />
               </Box>
 
               {/* Menu Links */}

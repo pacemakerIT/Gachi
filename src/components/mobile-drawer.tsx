@@ -5,10 +5,11 @@ interface MobileDrawerProps {
   open: boolean;
   onClose: () => void;
   links: { href: string; label: string }[];
+  anchor?: 'left' | 'right'; // Allow both left and right anchors
 }
 
-const MobileDrawer: React.FC<MobileDrawerProps> = ({ open, onClose, links }) => (
-  <Drawer anchor="left" open={open} onClose={onClose}>
+const MobileDrawer: React.FC<MobileDrawerProps> = ({ open, onClose, links, anchor = 'left' }) => (
+  <Drawer anchor={anchor} open={open} onClose={onClose}>
     <List>
       {links.map((link) => (
         <ListItemButton component={Link} href={link.href} key={link.href} onClick={onClose}>
