@@ -7,7 +7,7 @@ const theme = createTheme({
     mode: 'light',
     primary: {
       main: '#F9F9FB', // Light background for the AppBar
-      dark: '#2986FE' // For buttons
+      dark: '#2986FE', // For buttons
     },
     secondary: {
       main: '#101010', // Dark text
@@ -31,7 +31,7 @@ const theme = createTheme({
       color: '#101010', // Ensure "Gachi.live" text is black
     },
     body1: {
-      fontSize: '14px', // Text size reduced by 2px for nav links
+      fontSize: '14px', // Text size for nav links
       color: '#101010', // Text color for nav links
     },
   },
@@ -47,11 +47,16 @@ const theme = createTheme({
     MuiIconButton: {
       styleOverrides: {
         root: {
-          backgroundColor: 'transparent', // Transparent icon background
-          border: '1px solid #FFFFFF', // Default outline for icon buttons
-          borderRadius: '8px', // Subtle rounding
-          '&:hover': {
-            backgroundColor: '#f1f1f1', // Slight hover effect
+          '&.profileIcon': {
+            backgroundColor: 'transparent',
+            borderRadius: '8px',
+            width: '40px',
+            height: '40px',
+            padding: '4px',
+            boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
+            '&:hover': {
+              backgroundColor: '#f1f1f1',
+            },
           },
         },
       },
@@ -69,6 +74,31 @@ const theme = createTheme({
           '&:active': {
             backgroundColor: 'white', // White background when clicked
             color: '#2986FE', // Change text color to primary dark
+          },
+        },
+      },
+    },
+    MuiDrawer: {
+      styleOverrides: {
+        paper: {
+          backgroundColor: '#F9F9FB', // Drawer background color
+          padding: '20px', // Padding for drawer items
+        },
+      },
+    },
+    MuiMenu: {
+      styleOverrides: {
+        paper: {
+          backgroundColor: '#F9F9FB', // Menu background color
+          borderRadius: '8px', // Round off the edges
+        },
+      },
+    },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          '&:hover': {
+            backgroundColor: '#f1f1f1', // Background color on hover
           },
         },
       },
