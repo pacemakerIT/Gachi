@@ -23,7 +23,7 @@ export default function HeroComponent(): JSX.Element {
           justifyContent: 'center',
           alignItems: 'center',
           backgroundColor: theme.palette.customBackground.overlay,
-          borderRadius: { xs: '0px', sm: '10px' },
+          borderRadius: { xs: '0px', md: '10px' },
         }}
       >
         <video
@@ -47,7 +47,7 @@ export default function HeroComponent(): JSX.Element {
 
         <Container
           sx={{
-            color: theme.palette.text.secondary,
+            color: theme.palette.primary.main,
             zIndex: 1,
             textAlign: { xs: 'center', lg: 'left' },
             display: 'flex',
@@ -63,7 +63,7 @@ export default function HeroComponent(): JSX.Element {
             gutterBottom 
             sx={{
               fontSize: { xs: '2rem', sm: '3rem', lg: '3.5rem' },
-              color: theme.palette.text.secondary,
+              color: theme.palette.primary.main,
               mb: 3,
               fontWeight:'bold'
             }}
@@ -76,7 +76,7 @@ export default function HeroComponent(): JSX.Element {
             gutterBottom 
             sx={{
               fontSize: { xs: '0.99rem', sm: '1.25rem',lg: '1.4rem' },
-              color: theme.palette.text.secondary,
+              color: theme.palette.primary.main,
             }}
           >
             해외에 거주하는 한인들이 함께 어려운 일들을 <br/>
@@ -86,8 +86,8 @@ export default function HeroComponent(): JSX.Element {
           variant="contained" 
           sx={{
             mt: 5,
-            backgroundColor: theme.palette.primary.main,
-            color: theme.palette.text.secondary, 
+            backgroundColor: theme.palette.primary.dark,
+            color: theme.palette.primary.main, 
             padding: { xs: '8px 16px', lg: '10px 18px' }, 
             fontWeight: 'bold',
           }} 
@@ -104,3 +104,4 @@ export default function HeroComponent(): JSX.Element {
     </>
   );
 }
+
