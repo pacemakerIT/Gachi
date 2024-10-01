@@ -6,11 +6,15 @@ const theme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#F9F9FB', // Light background for the AppBar
-      dark: '#2986FE', // For buttons
+      main: '#2986FE',
     },
     secondary: {
       main: '#101010', // Dark text
+    },
+    info: {
+      main: '#F9F9FB', // Light background
+      light: '#FFFFFF', // White text
+      dark: '#F0F2F3' // Background for button
     },
     background: {
       default: '#FFFFFF', // Default background
