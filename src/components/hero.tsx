@@ -2,9 +2,8 @@
 import React from 'react';
 import { Box, Typography, Container, Button } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'; 
-import HeroFeature from './hero-feature';
 import { useTheme } from '@mui/material/styles';
-
+import HeroFeature from './hero-feature';
 
 export default function HeroComponent(): JSX.Element {
 
