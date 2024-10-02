@@ -19,7 +19,7 @@ import MobileDrawer from "./mobile-drawer";
 import ProfileIcon from "./profile-icon";
 import Logo from "./logo";
 
-interface Props { }
+interface Props {}
 
 const NavBar: React.FC<Props> = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
@@ -90,8 +90,8 @@ const NavBar: React.FC<Props> = () => {
       {/* Top Black Bar */}
       <Box sx={{ backgroundColor: theme.palette.secondary.main, height: "25px", width: "100%" }} />
 
-      {/* AppBar */}
-      <AppBar position="static">
+      {/* AppBar with fixed position */}
+      <AppBar position="fixed" sx={{ zIndex: theme.zIndex.drawer + 1 }}>
         <Toolbar sx={{ justifyContent: "space-between", maxHeight: "20px" }}>
           {isMobile ? (
             <>
@@ -230,6 +230,9 @@ const NavBar: React.FC<Props> = () => {
           )}
         </Toolbar>
       </AppBar>
+
+      {/* Add padding to prevent content from being hidden under the fixed navbar */}
+      <Box sx={{ paddingTop: '100px' }} />
     </>
   );
 };
