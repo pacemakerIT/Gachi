@@ -66,7 +66,7 @@ const theme = createTheme({
     },
     body1: {
       fontSize: '14px', // Text size for nav links
-      color: '#101010', // Text color for nav links
+      // color: '#101010', // Text color for nav links
     },
   },
   components: {
