@@ -1,6 +1,6 @@
 "use client";
 import React from 'react'
-import { Box, Typography, Paper } from '@mui/material';
+import { Box, Typography, Paper,useMediaQuery  } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { useTheme } from '@mui/material/styles';
 
@@ -9,10 +9,9 @@ interface AboutItemProps {
     element: string;
 }
 
-
-
 const AboutItem: React.FC<AboutItemProps> = ({numericalization, element}) => {
   const theme = useTheme();
+
   return(
     <Grid
     size={{xs:3.8, sm:3.4, md:2.5, lg:2, xl: 1.8}}
@@ -39,7 +38,7 @@ const AboutItem: React.FC<AboutItemProps> = ({numericalization, element}) => {
             sx={{ 
                 color: theme.palette.primary.main, 
                 fontWeight: 'bold',
-                fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem', lg: '2.75rem' },
+                fontSize: { xs: '1.5rem', sm: '2rem', md: '2.3rem' },
                 mb: 1.3
                 }}
         >
@@ -51,7 +50,7 @@ const AboutItem: React.FC<AboutItemProps> = ({numericalization, element}) => {
             sx={{ 
                 color: theme.palette.secondary.main,
                 fontWeight: 'bold',
-                fontSize: { xs: '0.6rem', sm: '1rem', md: '1rem', lg: '1.125rem' } 
+                fontSize: { xs: '0.6rem', sm: '1rem' } 
                 }}
         >
           {element}
@@ -67,6 +66,21 @@ const AboutItem: React.FC<AboutItemProps> = ({numericalization, element}) => {
 
 export default function About(): JSX.Element {
   const theme = useTheme();
+
+  const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMedium = useMediaQuery(theme.breakpoints.between('sm', 'md'));
+  const isLarge = useMediaQuery(theme.breakpoints.up('lg'));
+
+  let gridSpacing = 6; 
+
+  if (isSmall) {
+    gridSpacing = 2; 
+  } else if (isMedium) {
+    gridSpacing = 4;
+  } else if (isLarge) {
+    gridSpacing = 7; 
+  }
+
   return (
     <Box
       sx={{
@@ -82,7 +96,7 @@ export default function About(): JSX.Element {
             color: theme.palette.primary.main, 
             fontWeight: 'bold',
             mb: 2,
-            fontSize: { xs: '1rem', sm: '1.5rem', md: '2rem', lg: '2.5rem' }
+            fontSize: { xs: '1rem', sm: '1.5rem', md: '2rem', lg: '2rem' }
             }}
         >
         낯선 해외살이, 든든한 길잡이가 될 수 있도록
@@ -94,7 +108,7 @@ export default function About(): JSX.Element {
         sx={{ 
             color: theme.palette.secondary.main, 
             mb: 4,
-            fontSize: { xs: '0.6rem', sm: '0.8rem', md:'1.2rem', lg: '1.35rem' }
+            fontSize: { xs: '0.6rem', sm: '0.8rem', md:'1.15rem' }
             }}
         >
         새로운 땅, 새로운 사람들, 그리고 새로운 꿈. <br />
@@ -102,7 +116,7 @@ export default function About(): JSX.Element {
       </Typography>
 
       {/* Bottom statistics information */}
-      <Grid container spacing={1.5} justifyContent='center' alignItems='center'>
+      <Grid container spacing={gridSpacing} justifyContent='center' alignItems='center' >
         <AboutItem
             numericalization="10+"
             element="Year Experience"/>
