@@ -20,7 +20,6 @@ export default function Home() {
           padding: 0,  // Padding is completely removed for all screen sizes
           width: '100%', // Ensure full width usage across all screen sizes
           margin: 0, // Remove any default margin
-
         }}
       >
         <Hero />
