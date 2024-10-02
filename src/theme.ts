@@ -2,6 +2,29 @@
 import { createTheme } from '@mui/material/styles';
 import '@fontsource/ibm-plex-sans-kr';
 
+
+declare module '@mui/material/styles' {
+  interface Palette {
+    customColor: {
+      darkWhite: string; 
+      gray: string;
+    };
+    customBackground: {
+      overlay: string;
+    };
+  }
+
+  interface PaletteOptions {
+    customColor?: {
+      darkWhite?: string;
+      gray?: string;
+    };
+    customBackground?: {
+      overlay?: string;
+    };
+  }
+}
+
 const theme = createTheme({
   palette: {
     mode: 'light',
@@ -21,6 +44,13 @@ const theme = createTheme({
     },
     action: {
       hover: '#f1f1f1', // Slight hover effect for icon buttons
+    },
+    customColor: {
+      darkWhite: '#F0F2F3', 
+      gray: '#999999',  
+    },
+    customBackground: {
+      overlay: 'rgba(0, 0, 0, 0.5)', 
     },
   },
   typography: {
@@ -107,3 +137,4 @@ const theme = createTheme({
 });
 
 export default theme;
+
