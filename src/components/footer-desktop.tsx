@@ -38,12 +38,14 @@ export default function FooterDesktop() {
 
                     <Grid size={{md: 4}} sx={{ textAlign: 'left' }}>
                         <Box>
-                            <Box sx={{ display: 'flex', alignItems: 'center', mb: '1rem' }}>
-                                <img src={logoUrl} alt="Gachi.live Logo" style={{ width: '40px', height: '40px', marginRight: '10px' }} />
-                                <Typography variant="h6" gutterBottom>
-                                    Gachi.live
-                                </Typography>
-                            </Box>
+                            <Link href='/' underline='none'>
+                                <Box sx={{ display: 'flex', alignItems: 'center', mb: '1rem' }}>
+                                    <img src={logoUrl} alt="Gachi.live Logo" style={{ width: '40px', height: '40px', marginRight: '10px' }} />
+                                    <Typography variant="h6" gutterBottom>
+                                        Gachi.live
+                                    </Typography>
+                                </Box>
+                            </Link>
                             <Typography
                                 variant="body2"
                                 sx={{ color: theme.palette.customColor.gray, mb: '1rem' }}
