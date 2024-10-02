@@ -3,10 +3,26 @@ import React from 'react';
 import { Box, Typography, TextField, Button, IconButton, Container, Link } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { Facebook, Twitter, Instagram, Pinterest, YouTube } from '@mui/icons-material';
+import { useTheme } from '@mui/material/styles';
+
 
 const logoUrl = '/images/logo.png';
 
 export default function FooterMobile() {
+    const theme = useTheme();
+
+    const socialMediaLinksTop = [
+        { href: 'https://www.facebook.com', icon: <Facebook /> },
+        { href: 'https://www.twitter.com', icon: <Twitter /> },
+    ];
+
+    const socialMediaLinksBottom = [
+        { href: 'https://www.instagram.com', icon: <Instagram /> },
+        { href: 'https://www.pinterest.com', icon: <Pinterest /> },
+        { href: 'https://www.youtube.com', icon: <YouTube /> },
+    ];
+
+
     return (
         <Box component="footer" sx={{ padding: '2rem 0' , width:'100%' }}>
             <Container maxWidth="sm">
@@ -18,14 +34,14 @@ export default function FooterMobile() {
                             variant="h6"
                             gutterBottom
                             sx={{
-                                color: '#2986FE',
+                                color: theme.palette.text.secondary,
                                 fontWeight: 'bold',
                                 mb: '1rem',
                             }}
                         >
                             뉴스레터를 통해 <br />매주 새로운 소식을 만나보세요!
                         </Typography>
-                        <Typography variant="body2" sx={{ color: 'gray', mb: '1rem' }}>
+                        <Typography variant="body2" sx={{ color: theme.palette.customColor.gray, mb: '1rem' }}>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt erat enim.
                         </Typography>
 
@@ -50,24 +66,6 @@ export default function FooterMobile() {
                                     maxWidth: { xs: '100%' },
                                     width: '100%',
                                     mb: '1rem',
-                                    '& .MuiOutlinedInput-root': {
-                                        '& fieldset': {
-                                            borderColor: '#e6e6e6',
-                                            borderRadius: '8px',
-                                        },
-                                        '&:hover fieldset': {
-                                            borderColor: '#101010',
-                                        },
-                                        '&.Mui-focused fieldset': {
-                                            borderColor: '#2986FE',
-                                        },
-                                    },
-                                    '& .MuiInputLabel-root': {
-                                        color: '#808080',
-                                    },
-                                    '& .MuiInputLabel-root.Mui-focused': {
-                                        color: '#2986FE',
-                                    },
                                 }}
                             />
                             <Button
@@ -75,8 +73,8 @@ export default function FooterMobile() {
                                 sx={{
                                     maxWidth: { xs: '100%' },
                                     whiteSpace: 'nowrap',
-                                    backgroundColor: '#2986FE',
-                                    color: '#FFFFFF',
+                                    backgroundColor: theme.palette.primary.main,
+                                    color: theme.palette.info.light,
                                     width: '100%',
                                     flex: 1,
                                     borderRadius: '8px',
@@ -109,7 +107,7 @@ export default function FooterMobile() {
                                 }}
                         >
 
-                            <Link href='/'>
+                            <Link href='/' underline='none'>
 
                                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
                                         <img src={logoUrl} alt="Gachi.live Logo" 
@@ -124,7 +122,7 @@ export default function FooterMobile() {
                                 </Box>
 
                             </Link>
-                            <Link href="#" underline="hover" color="inherit" sx={{ fontSize: '12px', color: 'gray' }}>
+                            <Link href="/help" underline="hover" color="inherit" sx={{ fontSize: '12px', color: theme.palette.customColor.gray }}>
                                 Help
                             </Link>
                         </Box>
@@ -138,24 +136,33 @@ export default function FooterMobile() {
                             >
 
                             <Box sx={{ gridColumn: 'span 2' }}>
-                                <IconButton>
-                                    <Facebook />
-                                </IconButton>
-                                <IconButton>
-                                    <Twitter />
-                                </IconButton>
+                                {socialMediaLinksTop.map((link, index) =>(
+                                    <Link
+                                        key={index} 
+                                        href={link.href}
+                                        target='_blank'
+                                        rel='noopener noreferrer'
+                                    >
+                                        <IconButton>
+                                            {link.icon}
+                                        </IconButton>
+                                    </Link>
+                                ))}
                             </Box>
 
                             <Box sx={{ gridColumn: 'span 3', display: 'flex', justifyContent: 'center', gap: '1rem' }}>
-                                <IconButton>
-                                    <Instagram />
-                                </IconButton>
-                                <IconButton>
-                                    <YouTube />
-                                </IconButton>
-                                <IconButton>
-                                    <Pinterest />
-                                </IconButton>
+                                {socialMediaLinksBottom.map((link, index) =>(
+                                        <Link
+                                            key={index} 
+                                            href={link.href}
+                                            target='_blank'
+                                            rel='noopener noreferrer'
+                                        >
+                                            <IconButton>
+                                                {link.icon}
+                                            </IconButton>
+                                        </Link>
+                                    ))}
                             </Box>
                         </Box>
                     </Grid>
@@ -164,3 +171,5 @@ export default function FooterMobile() {
         </Box>
     );
 }
+
+

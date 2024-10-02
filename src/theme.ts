@@ -51,7 +51,7 @@ const theme = createTheme({
     },
     customColor: {
       darkWhite: '#F0F2F3', 
-      gray: '#999999',  
+      gray: '#9A9CAA',  
     },
     customBackground: {
       overlay: 'rgba(0, 0, 0, 0.5)', 
@@ -137,6 +137,30 @@ const theme = createTheme({
         },
       },
     },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+                borderColor: '#e6e6e6',
+                borderRadius: '8px',
+            },
+            '&:hover fieldset': {
+                borderColor: '#101010',
+            },
+            '&.Mui-focused fieldset': {
+                borderColor: '#2986FE',
+            },
+        },
+        '& .MuiInputLabel-root': {
+            color: '#808080',
+        },
+        '& .MuiInputLabel-root.Mui-focused': {
+            color: '#2986FE',
+        },
+        }
+      }
+    }
   },
 });
 
