@@ -1,4 +1,7 @@
+// page.tsx
 import * as React from 'react';
+import { ThemeProvider } from '@mui/material/styles';
+import theme from '@/theme';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Hero from '@/components/hero';
