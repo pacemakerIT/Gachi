@@ -2,8 +2,7 @@
 import * as React from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '@/theme';
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
+import { Container, Box } from '@mui/material';
 import Hero from '@/components/hero';
 import Program from '@/components/program';
 import Mentor from '@/components/mentor';
@@ -21,7 +20,6 @@ export default function Home() {
           padding: 0,  // Padding is completely removed for all screen sizes
           width: '100%', // Ensure full width usage across all screen sizes
           margin: 0, // Remove any default margin
-
         }}
       >
         <Hero />

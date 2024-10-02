@@ -25,17 +25,17 @@ export default function CarouselHeader({ title, swiperRef }: CarouselHeaderProps
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            margin: '20px 0'
+            marginBottom: '20px'
         }}>
             <Typography
                 variant="h2"
-                fontSize={{ xs: '1.15rem', sm: '1.3rem', md: '1.5rem' }}
+                fontSize={{ xxs: '1.15rem', sm: '1.3rem', md: '1.5rem' }}
                 fontWeight={'bold'}>
                 {title}
             </Typography>
             <Box sx={{
                 width: '106px',
-                display: { xs: 'none', md: 'flex' },
+                display: { xxs: 'none', md: 'flex' },
                 justifyContent: 'space-between',
                 alignItems: 'center',
             }}>
