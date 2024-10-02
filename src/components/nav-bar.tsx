@@ -88,10 +88,20 @@ const NavBar: React.FC<Props> = () => {
   return (
     <>
       {/* Top Black Bar */}
-      <Box sx={{ backgroundColor: theme.palette.secondary.main, height: "25px", width: "100%" }} />
+      <Box
+        sx={{
+          backgroundColor: theme.palette.secondary.main,
+          height: "25px",
+          width: "100%",
+          position: "fixed", // Make sure it's fixed as well
+          top: 0,
+          left: 0,
+          zIndex: theme.zIndex.drawer + 2, // Ensure it's above other content
+        }}
+      />
 
       {/* AppBar with fixed position */}
-      <AppBar position="fixed" sx={{ zIndex: theme.zIndex.drawer + 1 }}>
+      <AppBar position="fixed" sx={{ top: "25px", zIndex: theme.zIndex.drawer + 1 }}>
         <Toolbar sx={{ justifyContent: "space-between", maxHeight: "20px" }}>
           {isMobile ? (
             <>
@@ -232,7 +242,7 @@ const NavBar: React.FC<Props> = () => {
       </AppBar>
 
       {/* Add padding to prevent content from being hidden under the fixed navbar */}
-      <Box sx={{ paddingTop: '100px' }} />
+      <Box sx={{ paddingTop: '125px' }} />
     </>
   );
 };
