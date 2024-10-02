@@ -6,7 +6,7 @@ import '@fontsource/ibm-plex-sans-kr';
 declare module '@mui/material/styles' {
   interface Palette {
     customColor: {
-      darkWhite: string; 
+      darkWhite: string;
       gray: string;
     };
     customBackground: {
@@ -50,11 +50,21 @@ const theme = createTheme({
       hover: '#f1f1f1', // Slight hover effect for icon buttons
     },
     customColor: {
-      darkWhite: '#F0F2F3', 
-      gray: '#999999',  
+      darkWhite: '#F0F2F3',
+      gray: '#999999',
     },
     customBackground: {
-      overlay: 'rgba(0, 0, 0, 0.5)', 
+      overlay: 'rgba(0, 0, 0, 0.5)',
+    },
+  },
+  breakpoints: {
+    values: {
+      xxs: 0,
+      xs: 400,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
     },
   },
   typography: {
@@ -139,5 +149,16 @@ const theme = createTheme({
     },
   },
 });
+
+declare module '@mui/material/styles' {
+  interface BreakpointOverrides {
+    xxs: true;
+    xs: true;
+    sm: true;
+    md: true;
+    lg: true;
+    xl: true;
+  }
+}
 
 export default theme;

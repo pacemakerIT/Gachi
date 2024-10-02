@@ -61,9 +61,8 @@ export default function Review() {
     return (
         <Box sx={{
             backgroundColor: theme.palette.info.main,
-            border: '1px solid black',
             padding: {
-                xs: '30px 0 30px 30px',
+                xxs: '30px 0 30px 30px',
                 md: '30px 80px',
                 lg: '30px 150px'
             },
@@ -102,7 +101,7 @@ export default function Review() {
                                             borderLeft: '2px solid #039fae',
                                         }}>
                                             <Typography sx={{
-                                                fontSize: { xs: '0.87rem', sm: '1.25rem' },
+                                                fontSize: { xxs: '0.87rem', sm: '1.25rem' },
                                                 display: '-webkit-box',
                                                 WebkitBoxOrient: 'vertical',
                                                 overflow: 'hidden',
@@ -117,6 +116,7 @@ export default function Review() {
                                             display: 'flex',
                                             mt: '40px',
                                             alignItems: 'center',
+                                            flexDirection: { xxs: 'column', xs: 'row' }
                                         }}>
                                             <Image
                                                 src={card.imgUrl}
@@ -128,24 +128,19 @@ export default function Review() {
                                                 }}
                                             />
                                             <Box sx={{
-                                                ml: '12px',
                                                 width: '100%',
+                                                textAlign: { xxs: 'center', xs: 'left' },
+                                                margin: { xxs: '10px 0 0 0', xs: '0 0 0 12px' },
                                             }}>
                                                 <Typography sx={{
-                                                    fontSize: { xs: '0.87rem', sm: '1.25rem' },
+                                                    fontSize: { xxs: '0.87rem', sm: '1.25rem' },
                                                     fontWeight: '600',
-                                                    overflow: 'hidden',
-                                                    textOverflow: 'ellipsis',
-                                                    whiteSpace: 'nowrap',
                                                 }}>
                                                     {card.name}
                                                 </Typography>
                                                 <Typography sx={{
                                                     fontSize: { xs: '0.875rem', sm: '1rem', md: '1.05rem', lg: '1.1rem' },
                                                     opacity: '0.7',
-                                                    overflow: 'hidden',
-                                                    textOverflow: 'ellipsis',
-                                                    whiteSpace: 'nowrap',
                                                 }}>
                                                     {card.jobTitle}
                                                 </Typography>
@@ -162,7 +157,7 @@ export default function Review() {
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    margin: { xs: 10, md: 20 }
+                    margin: { xxs: 10, md: 20 }
                 }}>
                     <CircularProgress />
                 </Box>
