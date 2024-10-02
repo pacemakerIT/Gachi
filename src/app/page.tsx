@@ -8,11 +8,12 @@ import Program from '@/components/program';
 import Mentor from '@/components/mentor';
 import About from '@/components/about';
 import Review from '@/components/review';
+import { maxContainerWidth } from '../constants';
 
 
 export default function Home() {
   return (
-    <Container maxWidth='xl' disableGutters >
+    <Container sx={{maxWidth:maxContainerWidth}} disableGutters >
       <Box
         sx={{
           display: 'flex',
