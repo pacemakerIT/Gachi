@@ -23,7 +23,7 @@ export default function ProgramCardStatus({ status }: Props) {
                 borderRadius: '4px',
                 textAlign: 'center',
                 zIndex: 1,
-                fontSize: { xs: '0.875rem', sm: '1rem' },
+                fontSize: { xxs: '0.83rem', xs: '0.875rem', sm: '1rem' },
             }}>
             {status}
         </Box>

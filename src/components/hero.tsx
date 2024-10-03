@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import { Box, Typography, Container, Button } from '@mui/material';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward'; 
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useTheme } from '@mui/material/styles';
 import HeroFeature from './hero-feature';
 
@@ -15,14 +15,14 @@ export default function HeroComponent(): JSX.Element {
       <Box
         sx={{
           position: 'relative',
-          height: { xs: '60vh', sm: '70vh', lg: '75vh' }, // Adjust height for different screen sizes
+          height: { xxs: '60vh', sm: '70vh', lg: '75vh' }, // Adjust height for different screen sizes
           width: '100%',
           overflow: 'hidden',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
           backgroundColor: theme.palette.customBackground.overlay,
-          borderRadius: { xs: '0px', md: '10px' },
+          borderRadius: { xxs: '0px', md: '10px' },
         }}
       >
         <video
@@ -37,7 +37,7 @@ export default function HeroComponent(): JSX.Element {
             height: '100%',
             objectFit: 'cover',
             zIndex: -1,
-            
+
           }}
         >
           <source src="/videos/climbing-video.mp4" type="video/mp4" />
@@ -48,58 +48,58 @@ export default function HeroComponent(): JSX.Element {
           sx={{
             color: theme.palette.primary.main,
             zIndex: 1,
-            textAlign: { xs: 'center', lg: 'left' },
+            textAlign: { xxs: 'center', lg: 'left' },
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
-            alignItems: { xs: 'center', md: 'flex-start' },
-            ml: {xs: 'none', md:'10%' }
+            alignItems: { xxs: 'center', md: 'flex-start' },
+            ml: { xxs: 'none', md: '10%' }
           }}
         >
-          <Typography 
-            variant="h2" 
-            component="h1" 
-            gutterBottom 
+          <Typography
+            variant="h2"
+            component="h1"
+            gutterBottom
             sx={{
-              fontSize: { xs: '2rem', sm: '3rem', lg: '3.5rem' },
+              fontSize: { xxs: '2rem', sm: '3rem', lg: '3.5rem' },
               color: theme.palette.primary.main,
               mb: 3,
-              fontWeight:'bold'
+              fontWeight: 'bold'
             }}
           >
             가치 있는 삶을 같이
           </Typography>
-          <Typography 
-            variant="h5" 
-            component="p" 
-            gutterBottom 
+          <Typography
+            variant="h5"
+            component="p"
+            gutterBottom
             sx={{
-              fontSize: { xs: '0.99rem', sm: '1.25rem',lg: '1.4rem' },
+              fontSize: { xxs: '0.99rem', sm: '1.25rem', lg: '1.4rem' },
               color: theme.palette.primary.main,
             }}
           >
-            해외에 거주하는 한인들이 함께 어려운 일들을 <br/>
+            해외에 거주하는 한인들이 함께 어려운 일들을 <br />
             해결하고, 가치 있는 삶을 살도록 지원하는 플랫폼
           </Typography>
-          <Button 
-          variant="contained" 
-          sx={{
-            mt: 5,
-            backgroundColor: theme.palette.primary.dark,
-            color: theme.palette.primary.main, 
-            padding: { xs: '8px 16px', lg: '10px 18px' }, 
-            fontWeight: 'bold',
-          }} 
-          endIcon={<ArrowForwardIcon />}
-        >
-          프로그램 바로 가기
-        </Button>
+          <Button
+            variant="contained"
+            sx={{
+              mt: 5,
+              backgroundColor: theme.palette.primary.dark,
+              color: theme.palette.primary.main,
+              padding: { xxs: '8px 16px', lg: '10px 18px' },
+              fontWeight: 'bold',
+            }}
+            endIcon={<ArrowForwardIcon />}
+          >
+            프로그램 바로 가기
+          </Button>
         </Container>
       </Box>
 
       {/* Feature Section */}
-      <HeroFeature/>
-      
+      <HeroFeature />
+
     </>
   );
 }
