@@ -24,12 +24,12 @@ export default function FooterMobile() {
 
 
     return (
-        <Box component="footer" sx={{ padding: '2rem 0' , width:'100%' }}>
+        <Box component="footer" sx={{ padding: '2rem 0', width: '100%' }}>
             <Container maxWidth="sm">
                 <Grid container spacing={4} justifyContent="center" alignItems="center">
-                    
+
                     {/* Newsletter Subscription Section */}
-                    <Grid size={{ xs: 12 }} sx={{ textAlign: 'center', margin: '1rem' }}>
+                    <Grid size={{ xxs: 12 }} sx={{ textAlign: 'center', margin: '1rem' }}>
                         <Typography
                             variant="h6"
                             gutterBottom
@@ -53,17 +53,17 @@ export default function FooterMobile() {
                                 alignItems: 'center',
                                 gap: '0.5rem',
                                 flexDirection: 'column',
-                                width: { xs: '100%', sm: '75%' },
+                                width: { xxs: '100%', sm: '75%' },
                                 margin: '0 auto',
                             }}
-                            >
+                        >
                             <TextField
                                 variant="outlined"
                                 label="Your email"
                                 size="small"
                                 sx={{
                                     flex: 1,
-                                    maxWidth: { xs: '100%' },
+                                    maxWidth: { xxs: '100%' },
                                     width: '100%',
                                     mb: '1rem',
                                 }}
@@ -71,7 +71,7 @@ export default function FooterMobile() {
                             <Button
                                 variant="contained"
                                 sx={{
-                                    maxWidth: { xs: '100%' },
+                                    maxWidth: { xxs: '100%' },
                                     whiteSpace: 'nowrap',
                                     backgroundColor: theme.palette.primary.main,
                                     color: theme.palette.info.light,
@@ -87,38 +87,34 @@ export default function FooterMobile() {
                     </Grid>
 
                     {/* Social Media Section */}
-                    <Grid container 
-                        justifyContent= 'space-evenly'
-                        alignItems='center' 
-                        sx={{ 
-                            textAlign: 'justify', 
-                            mt: '1rem', 
+                    <Grid container
+                        justifyContent='space-evenly'
+                        alignItems='center'
+                        sx={{
+                            textAlign: 'justify',
+                            mt: '1rem',
                             minWidth: '100%',
-                
-                            }}
+                        }}
                     >
-
-                        <Box sx={{ 
-                                display: 'flex', 
-                                flexDirection: 'column', 
-                                alignItems: 'flex-start', 
-                                mb: 3,
-                                paddingLeft: '-1rem',
-                                }}
+                        <Box sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'flex-start',
+                            mb: 3,
+                            paddingLeft: '-1rem',
+                        }}
                         >
-
                             <Link href='/' underline='none'>
-
                                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                                        <img src={logoUrl} alt="Gachi.live Logo" 
-                                            style={{ 
-                                                width: '40px',
-                                                 height: '40px', 
-                                                 marginRight: '10px' }} />
-
-                                        <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                                            Gachi.live
-                                        </Typography>
+                                    <img src={logoUrl} alt="Gachi.live Logo"
+                                        style={{
+                                            width: '40px',
+                                            height: '40px',
+                                            marginRight: '10px'
+                                        }} />
+                                    <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                                        Gachi.live
+                                    </Typography>
                                 </Box>
 
                             </Link>
@@ -127,18 +123,17 @@ export default function FooterMobile() {
                             </Link>
                         </Box>
 
-                        <Box sx={{ 
-                                display: 'grid', 
-                                gridTemplateColumns: 'repeat(3, 1fr)', 
-                                gap: '1rem', 
-                                justifyItems: 'center' ,
-                                }}
-                            >
-
+                        <Box sx={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(3, 1fr)',
+                            gap: '1rem',
+                            justifyItems: 'center',
+                        }}
+                        >
                             <Box sx={{ gridColumn: 'span 2' }}>
-                                {socialMediaLinksTop.map((link, index) =>(
+                                {socialMediaLinksTop.map((link, index) => (
                                     <Link
-                                        key={index} 
+                                        key={index}
                                         href={link.href}
                                         target='_blank'
                                         rel='noopener noreferrer'
@@ -151,18 +146,18 @@ export default function FooterMobile() {
                             </Box>
 
                             <Box sx={{ gridColumn: 'span 3', display: 'flex', justifyContent: 'center', gap: '1rem' }}>
-                                {socialMediaLinksBottom.map((link, index) =>(
-                                        <Link
-                                            key={index} 
-                                            href={link.href}
-                                            target='_blank'
-                                            rel='noopener noreferrer'
-                                        >
-                                            <IconButton>
-                                                {link.icon}
-                                            </IconButton>
-                                        </Link>
-                                    ))}
+                                {socialMediaLinksBottom.map((link, index) => (
+                                    <Link
+                                        key={index}
+                                        href={link.href}
+                                        target='_blank'
+                                        rel='noopener noreferrer'
+                                    >
+                                        <IconButton>
+                                            {link.icon}
+                                        </IconButton>
+                                    </Link>
+                                ))}
                             </Box>
                         </Box>
                     </Grid>

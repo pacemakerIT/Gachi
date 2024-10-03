@@ -49,7 +49,7 @@ export default function Program() {
 
     return (
         <Box sx={{
-            margin: { xs: '0 15px', sm: '0 30px', md: '0 80px', lg: '0 150px' },
+            margin: { xxs: '15px', sm: '30px', md: '30px 80px', lg: '30px 150px' },
         }}>
             <CarouselHeader title={'Popular Programs'} swiperRef={swiperRef} />
 
@@ -82,8 +82,8 @@ export default function Program() {
                                             position: 'absolute',
                                             top: '10px',
                                             right: '10px',
-                                            width: { xs: 25, sm: 32, md: 44 },
-                                            height: { xs: 25, sm: 32, md: 44 },
+                                            width: { xxs: 25, sm: 32, md: 44 },
+                                            height: { xxs: 25, sm: 32, md: 44 },
                                             minWidth: 25,
                                             padding: 0,
                                             display: hoveredIndex === index ? 'flex' : 'none',
@@ -95,7 +95,7 @@ export default function Program() {
                                             textAlign: 'center',
                                             zIndex: 1,
                                             '& svg': {
-                                                fontSize: { xs: 15, sm: 18, md: 24 },
+                                                fontSize: { xxs: 15, sm: 18, md: 24 },
                                             },
                                         }}>
                                         <AiOutlineHeart />
@@ -133,25 +133,23 @@ export default function Program() {
                                         }}>
                                             <Typography sx={{
                                                 padding: { lg: '5px 0' },
-                                                fontSize: { xs: '0.875rem', sm: '1rem', md: '1.05rem', lg: '1.15rem' },
+                                                fontSize: { xxs: '0.875rem', sm: '1rem', md: '1.05rem', lg: '1.15rem' },
                                                 overflow: 'hidden',
                                                 textOverflow: 'ellipsis',
                                                 whiteSpace: 'nowrap',
-                                                lineHeight: { xs: 1, sm: 1.5 },
+                                                lineHeight: { xxs: 1, sm: 1.5 },
                                                 color: hoveredIndex === index ? theme.palette.primary.main : '',
                                             }}>
                                                 {index + 1}-{card.title}
                                             </Typography>
                                             <Typography variant="h6" fontWeight={600}
-                                                fontSize={{ xs: '0.87rem', sm: '1.25rem' }}>
+                                                fontSize={{ xxs: '0.87rem', sm: '1.25rem' }}>
                                                 ${card.description}
                                             </Typography>
                                         </Box>
                                         <Box sx={{
-                                            width: { xs: 25, sm: 44 },
-                                            height: { xs: 25, sm: 44 },
-                                            minWidth: 20,
-                                            minHeight: 20,
+                                            width: { xxs: 25, sm: 44 },
+                                            height: { xxs: 25, sm: 44 },
                                             display: 'flex',
                                             justifyContent: 'center',
                                             alignItems: 'center',
@@ -160,7 +158,7 @@ export default function Program() {
                                             transition: 'background-color 0.3s',
                                             '& svg': {
                                                 color: hoveredIndex === index ? theme.palette.info.light : '',
-                                                fontSize: { xs: 15, sm: 24 },
+                                                fontSize: { xxs: 15, sm: 24 },
                                             },
                                         }}>
                                             <FiShoppingCart />
