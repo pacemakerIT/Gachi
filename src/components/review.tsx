@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Card, CardContent, Typography, Box, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import CircularProgress from '@mui/material/CircularProgress';
+import { RiDoubleQuotesR } from "react-icons/ri";
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -63,11 +64,15 @@ export default function Review() {
             backgroundColor: theme.palette.info.main,
             padding: {
                 xxs: '30px 0 30px 30px',
-                md: '30px 80px',
-                lg: '30px 150px'
+                md: '30px 60px',
+                lg: '30px 130px'
             },
         }}>
-            <CarouselHeader title={'Reviews'} swiperRef={swiperRef} />
+            <CarouselHeader
+                title={'Reviews'}
+                swiperRef={swiperRef}
+                styles={{ padding: '0 20px' }}
+            />
 
             {isLoaded ? (
                 <Swiper
@@ -144,6 +149,16 @@ export default function Review() {
                                                 }}>
                                                     {card.jobTitle}
                                                 </Typography>
+                                            </Box>
+                                            <Box sx={{
+                                                display: { xxs: 'none', sm: 'block' },
+                                                '& svg': {
+                                                    width: '90px',
+                                                    height: '90px',
+                                                    color: theme.palette.info.dark,
+                                                }
+                                            }}>
+                                                <RiDoubleQuotesR />
                                             </Box>
                                         </Box>
                                     </Box>
