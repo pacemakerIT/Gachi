@@ -6,9 +6,10 @@ import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
 interface CarouselHeaderProps {
     title: string;
     swiperRef: RefObject<SwiperRef>;
+    styles?: React.CSSProperties;
 }
 
-export default function CarouselHeader({ title, swiperRef }: CarouselHeaderProps) {
+export default function CarouselHeader({ title, swiperRef, styles }: CarouselHeaderProps) {
     const theme = useTheme();
     const prevButtonRef = useRef<HTMLButtonElement | null>(null);
     const nextButtonRef = useRef<HTMLButtonElement | null>(null);
@@ -25,11 +26,12 @@ export default function CarouselHeader({ title, swiperRef }: CarouselHeaderProps
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            marginBottom: '20px'
+            marginBottom: '20px',
+            ...styles
         }}>
             <Typography
                 variant="h2"
-                fontSize={{ xxs: '1.1rem', xs: '1.15rem', sm: '1.3rem', md: '1.5rem' }}
+                fontSize={{ xxs: '1.4rem', xs: '1.5rem', sm: '1.7rem', md: '1.9rem', }}
                 fontWeight={'bold'}>
                 {title}
             </Typography>
