@@ -31,7 +31,7 @@ export default function CarouselHeader({ title, swiperRef, styles }: CarouselHea
         }}>
             <Typography
                 variant="h2"
-                fontSize={{ xxs: '1.1rem', xs: '1.15rem', sm: '1.3rem', md: '1.5rem' }}
+                fontSize={{ xxs: '1.4rem', xs: '1.5rem', sm: '1.7rem', md: '1.9rem', }}
                 fontWeight={'bold'}>
                 {title}
             </Typography>
