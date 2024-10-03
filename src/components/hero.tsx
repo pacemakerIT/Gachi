@@ -61,7 +61,7 @@ export default function HeroComponent(): JSX.Element {
             component="h1"
             gutterBottom
             sx={{
-              fontSize: { xs: '2rem', sm: '3rem', lg: '3.5rem' },
+              fontSize: { xxs: '2rem', sm: '3rem', lg: '3.5rem' },
               mb: 3,
               fontWeight: 'bold'
             }}
@@ -73,7 +73,7 @@ export default function HeroComponent(): JSX.Element {
             component="p"
             gutterBottom
             sx={{
-              fontSize: { xs: '0.99rem', sm: '1.25rem', lg: '1.4rem' },
+              fontSize: { xxs: '0.99rem', sm: '1.25rem', lg: '1.4rem' },
             }}
           >
             해외에 거주하는 한인들이 함께 어려운 일들을 <br />
@@ -83,8 +83,6 @@ export default function HeroComponent(): JSX.Element {
             variant="contained"
             sx={{
               mt: 5,
-              backgroundColor: theme.palette.primary.dark,
-              color: theme.palette.primary.main,
               padding: { xxs: '8px 16px', lg: '10px 18px' },
               fontWeight: 'bold',
             }}

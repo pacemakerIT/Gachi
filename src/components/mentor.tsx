@@ -85,7 +85,6 @@ export default function Mentor() {
                                         bottom: 0,
                                         width: '100%',
                                         backgroundColor: 'rgba(16,16,16,0.7)',
-                                        // color: theme.palette.info.light,
                                         padding: { xxs: '10px 10px', sm: '10px 20px' },
                                         boxSizing: 'border-box',
                                         zIndex: 1,
@@ -105,6 +104,7 @@ export default function Mentor() {
                                         </Typography>
                                         <Typography sx={{
                                             fontSize: { xxs: '0.87rem', sm: '1rem', md: '1.05rem', lg: '1.15rem' },
+                                            color: theme.palette.info.light,
                                         }}>
                                             {card.description}
                                         </Typography>
@@ -129,7 +129,6 @@ export default function Mentor() {
                 width: '100%',
                 display: { sm: 'block', md: 'none' },
                 borderRadius: '8px',
-                color: theme.palette.info.light,
                 fontSize: { xxs: '0.87rem', sm: '1.1rem' },
                 fontWeight: 600
             }}>더 많은 멘토 보기</Button>

@@ -29,7 +29,7 @@ const AboutItem: React.FC<AboutItemProps> = ({ numericalization, element }) => {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          backgroundColor: theme.palette.customColor.darkWhite,
+          backgroundColor: theme.palette.info.main,
           textAlign: 'center',
         }}
       >
