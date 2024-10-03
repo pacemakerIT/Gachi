@@ -185,9 +185,7 @@ export default function Program() {
             <Button sx={{
                 width: '100%',
                 display: { sm: 'block', md: 'none' },
-                backgroundColor: theme.palette.primary.main,
                 borderRadius: '8px',
-                color: theme.palette.info.light,
                 fontSize: { xs: '0.87rem', sm: '1.1rem' },
                 fontWeight: 600
             }}>더 많은 프로그램 보기</Button>

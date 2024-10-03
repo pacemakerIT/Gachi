@@ -36,7 +36,7 @@ export default function FooterDesktop() {
             <Container maxWidth="lg">
                 <Grid container spacing={4} alignItems="flex-start" justifyContent="center">
 
-                    <Grid size={{md: 4}} sx={{ textAlign: 'left' }}>
+                    <Grid size={{ md: 4 }} sx={{ textAlign: 'left' }}>
                         <Box>
                             <Box sx={{ display: 'flex', alignItems: 'center', mb: '1rem' }}>
                                 <img src={logoUrl} alt="Gachi.live Logo" style={{ width: '40px', height: '40px', marginRight: '10px' }} />
@@ -46,7 +46,7 @@ export default function FooterDesktop() {
                             </Box>
                             <Typography
                                 variant="body2"
-                                sx={{ color: theme.palette.customColor.gray, mb: '1rem' }}
+                                sx={{ color: theme.palette.text.secondary, mb: '1rem' }}
                             >
                                 Vivamus tristique odio sit amet velit semper, eu posuere turpis interdum. Cras egestas purus.
                             </Typography>
@@ -63,10 +63,8 @@ export default function FooterDesktop() {
                                     <IconButton>
                                         {link.icon}
                                     </IconButton>
-                                
                                 </Link>
                             ))}
-                        
                         </Box>
                     </Grid>
 
@@ -74,7 +72,7 @@ export default function FooterDesktop() {
                     <Grid size={{ md: 3 }} sx={{ textAlign: { xs: 'center', md: 'left' }, display: { xs: 'none', md: 'block' } }}>
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: '2rem' }}>
                             <Box>
-                                <Typography variant="subtitle1" sx={{ mb: '1rem', color: theme.palette.customColor.gray }}>
+                                <Typography variant="subtitle1" sx={{ mb: '1rem', color: theme.palette.text.secondary }}>
                                     CATEGORY
                                 </Typography>
                                 {categories.map((category) => (
@@ -86,7 +84,7 @@ export default function FooterDesktop() {
                                 ))}
                             </Box>
                             <Box>
-                                <Typography variant="subtitle1" sx={{ mb: '1rem', color: theme.palette.customColor.gray }}>
+                                <Typography variant="subtitle1" sx={{ mb: '1rem', color: theme.palette.text.secondary }}>
                                     YOUR ACCOUNT
                                 </Typography>
                                 {accountLinks.map((account) => (
@@ -101,8 +99,8 @@ export default function FooterDesktop() {
                     </Grid>
 
                     {/* Newsletter Section */}
-                    <Grid size={{ md: 4 }} sx={{ textAlign: 'left', ml:'4rem'}}>
-                        <Typography variant="subtitle1" sx={{color:theme.palette.customColor.gray}} gutterBottom>
+                    <Grid size={{ md: 4 }} sx={{ textAlign: 'left', ml: '4rem' }}>
+                        <Typography variant="subtitle1" sx={{ color: theme.palette.text.secondary }} gutterBottom>
                             NEWSLETTER
                         </Typography>
                         <Box sx={{ display: 'flex', gap: '0.5rem', width: '100%', maxWidth: '500px' }}>
@@ -112,16 +110,21 @@ export default function FooterDesktop() {
                                 size="small"
                                 sx={{
                                     flex: 1,
+                                    '& .MuiInputLabel-root': {
+                                        color: theme.palette.text.secondary,
+                                    },
                                 }}
                             />
-                            <Button variant="contained" sx={{ 
-                                                            backgroundColor: theme.palette.primary.main ,
-                                                            whiteSpace: 'nowrap' }}
+                            <Button variant="contained" sx={{
+                                backgroundColor: theme.palette.primary.main,
+                                whiteSpace: 'nowrap',
+                                fontWeight: '600'
+                            }}
                             >
                                 Subscribe
                             </Button>
                         </Box>
-                        <Typography variant="body2" sx={{ color: theme.palette.customColor.gray, mt: '1rem' }}>
+                        <Typography variant="body2" sx={{ color: theme.palette.text.secondary, mt: '1rem' }}>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt erat enim.
                         </Typography>
                     </Grid>

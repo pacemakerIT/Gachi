@@ -147,8 +147,8 @@ const NavBar: React.FC<Props> = () => {
                       transition: "color 0.3s",
                       padding: "0 5px",
                     }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = theme.palette.text.secondary)}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = theme.palette.text.primary)}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = theme.palette.primary.main)}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = theme.palette.secondary.main)}
                   >
                     {link.label}
                   </Link>
@@ -216,8 +216,8 @@ const NavBar: React.FC<Props> = () => {
                           transition: "color 0.3s",
                           padding: "0 5px",
                         }}
-                        onMouseEnter={(e) => (e.currentTarget.style.color = theme.palette.text.secondary)}
-                        onMouseLeave={(e) => (e.currentTarget.style.color = theme.palette.text.primary)}
+                        onMouseEnter={(e) => (e.currentTarget.style.color = theme.palette.primary.main)}
+                        onMouseLeave={(e) => (e.currentTarget.style.color = theme.palette.secondary.main)}
                       >
                         회원가입
                       </Link>

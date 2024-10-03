@@ -140,7 +140,7 @@ export default function Review() {
                                                 </Typography>
                                                 <Typography sx={{
                                                     fontSize: { xs: '0.875rem', sm: '1rem', md: '1.05rem', lg: '1.1rem' },
-                                                    opacity: '0.7',
+                                                    color: theme.palette.text.secondary
                                                 }}>
                                                     {card.jobTitle}
                                                 </Typography>

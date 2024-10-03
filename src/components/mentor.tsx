@@ -85,7 +85,6 @@ export default function Mentor() {
                                         bottom: 0,
                                         width: '100%',
                                         backgroundColor: 'rgba(16,16,16,0.7)',
-                                        color: theme.palette.info.light,
                                         padding: { xs: '10px 10px', sm: '10px 20px' },
                                         boxSizing: 'border-box',
                                         zIndex: 1,
@@ -99,10 +98,12 @@ export default function Mentor() {
                                             overflow: 'hidden',
                                             textOverflow: 'ellipsis',
                                             whiteSpace: 'nowrap',
+                                            color: theme.palette.info.light,
                                         }}>
                                             {index + 1}-{card.title}
                                         </Typography>
                                         <Typography sx={{
+                                            color: theme.palette.info.light,
                                             fontSize: { xs: '0.87rem', sm: '1rem', md: '1.05rem', lg: '1.15rem' },
                                         }}>
                                             {card.description}
@@ -127,9 +128,7 @@ export default function Mentor() {
             <Button sx={{
                 width: '100%',
                 display: { sm: 'block', md: 'none' },
-                backgroundColor: theme.palette.primary.main,
                 borderRadius: '8px',
-                color: theme.palette.info.light,
                 fontSize: { xs: '0.87rem', sm: '1.1rem' },
                 fontWeight: 600
             }}>더 많은 프로그램 보기</Button>
