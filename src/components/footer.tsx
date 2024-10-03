@@ -7,7 +7,7 @@ import { useTheme } from '@mui/material/styles';
 
 const logoUrl = '/images/logo.png';
 
-// Social Media Link 타입 정의
+// Social Media Link Type Definition
 type SocialMediaLink = {
     href: string;
     icon: React.ReactNode;
@@ -18,7 +18,7 @@ type LinkItem = {
     href: string;
 };
 
-// Props 타입 정의
+// Props type definition
 interface LogoSectionProps {
     socialMediaLinks: SocialMediaLink[];
 }
@@ -59,8 +59,22 @@ const LogoSnsSection: React.FC<LogoSectionProps> = ({ socialMediaLinks }) => {
 // Social Media Section
 const SocialMediaSection: React.FC<{ socialMediaLinksTop: SocialMediaLink[], socialMediaLinksBottom: SocialMediaLink[] }> = ({ socialMediaLinksTop, socialMediaLinksBottom }) => {
     return (
-        <Grid container justifyContent="space-around" alignItems="center" sx={{ textAlign: 'justify', mt: '1rem', minWidth: '100%' }}>
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', mb: 3, paddingLeft: '-1rem' }}>
+        <Grid container justifyContent="space-around" alignItems="center" 
+            sx={{ 
+                textAlign: 'justify', 
+                mt: '0.1rem', 
+                minWidth: '100%', 
+                }}
+        >
+            <Box 
+                sx={{ 
+                    display: 'flex', 
+                    flexDirection: 'column', 
+                    alignItems: 'flex-start', 
+                    mb: 3, 
+                    paddingLeft: '-1rem' 
+                    }}
+            >
                 <Link href='/' underline='none'>
                     <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
                         <img src="/images/logo.png" alt="Gachi.live Logo" style={{ width: '40px', height: '40px', marginRight: '10px' }} />
@@ -72,7 +86,13 @@ const SocialMediaSection: React.FC<{ socialMediaLinksTop: SocialMediaLink[], soc
                 </Link>
             </Box>
 
-            <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', justifyItems: 'center' }}>
+            <Box sx={{ 
+                    display: 'grid', 
+                    gridTemplateColumns: 'repeat(3, 1fr)', 
+                    gap: '1rem', 
+                    justifyItems: 'center' 
+                    }}
+            >
                 <Box sx={{ gridColumn: 'span 2' }}>
                     {socialMediaLinksTop.map((link, index) => (
                         <Link key={index} href={link.href} target='_blank' rel='noopener noreferrer'>
@@ -93,6 +113,7 @@ const SocialMediaSection: React.FC<{ socialMediaLinksTop: SocialMediaLink[], soc
 };
 
 // Category and Account Section
+
 const CategoryAccountSection: React.FC<CategoryAccountSectionProps> = ({ categories, accountLinks }) => {
     const theme = useTheme();
     return (
@@ -145,28 +166,32 @@ const NewsletterSection = () => {
     const isMobile = useMediaQuery(theme.breakpoints.down('md')); //Mobile
 
     return (
-        <Grid size={{ xs: 12, md:4 }}
+        <Grid size={{ xxs: 12, md:4 }}
             sx={{
                 textAlign: isMobile ? 'center' : 'left',
                 margin: isMobile ? '1rem' : '0',
                 ml: !isMobile ? '4rem' : '0',
             }}
         >
-            <Typography
-                variant={isMobile ? 'h6' : 'subtitle1'}
-                gutterBottom
-                sx={{
-                    color: theme.palette.text?.secondary || theme.palette.text.secondary,
-                    fontWeight: isMobile ? 'bold' : 'normal',
-                    mb: '1rem',
-                }}
-            >
-                {isMobile
-                    ? (<>
-                        뉴스레터를 통해 <br /> 매주 새로운 소식을 만나보세요!
-                        </>
-                    ): 'NEWSLETTER'}
-            </Typography>
+                {isMobile ? (
+                        <Typography
+                            variant='h6'
+                            sx={{ 
+                                color: theme.palette.text.secondary,
+                                mb: '1rem',
+                                mt: '-1rem'
+                             }} 
+                        >
+                            뉴스레터를 통해 <br /> 매주 새로운 소식을 만나보세요!
+                        </Typography>
+                ) : (
+                    <Typography
+                        variant='subtitle1'
+                        sx={{ color: theme.palette.customColor?.gray, mb: '1rem' }} 
+                    >
+                        NEWSLETTER
+                    </Typography>
+                )}
 
             {isMobile &&(
                     <Typography
@@ -202,6 +227,7 @@ const NewsletterSection = () => {
                     sx={{
                         flex: 1,
                         maxWidth: isMobile ? '90%' : '300px',
+                        mb:{xxs:'0.5rem', md:0},
                     }}
                 />
                 <Button
