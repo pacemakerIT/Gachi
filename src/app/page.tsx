@@ -13,7 +13,7 @@ import { maxContainerWidth } from '../constants';
 
 export default function Home() {
   return (
-    <Container sx={{maxWidth:maxContainerWidth}} disableGutters >
+    <Container sx={{ maxWidth: maxContainerWidth }} disableGutters >
       <Box
         sx={{
           display: 'flex',
@@ -28,7 +28,20 @@ export default function Home() {
         <Program />
         <Mentor />
         <About />
-        <Review />
+
+        {/* Review Section - Full Width */}
+        <Box sx={{
+          width: '100vw',
+          position: 'relative',
+          left: '50%',
+          ml: '-50vw',
+          backgroundColor: '#F9F9FB',
+          display: 'flex',
+          justifyContent: 'center',
+        }}>
+          <Review />
+        </Box>
+
       </Box>
     </Container>
   );

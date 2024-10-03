@@ -60,7 +60,8 @@ export default function Review() {
 
     return (
         <Box sx={{
-            backgroundColor: theme.palette.info.main,
+            width: '100%',
+            maxWidth: '1200px',
             padding: {
                 xxs: '30px 0 30px 30px',
                 md: '30px 80px',
