@@ -38,7 +38,7 @@ export default function Mentor() {
 
     return (
         <Box sx={{
-            margin: { xs: '0 15px', sm: '0 30px', md: '0 80px', lg: '0 150px' },
+            margin: { xxs: '15px', sm: '30px', md: '30px 80px', lg: '30px 150px' },
         }}>
             <CarouselHeader title={'Our Mentors'} swiperRef={swiperRef} />
 
@@ -85,15 +85,16 @@ export default function Mentor() {
                                         bottom: 0,
                                         width: '100%',
                                         backgroundColor: 'rgba(16,16,16,0.7)',
-                                        padding: { xs: '10px 10px', sm: '10px 20px' },
+                                        // color: theme.palette.info.light,
+                                        padding: { xxs: '10px 10px', sm: '10px 20px' },
                                         boxSizing: 'border-box',
                                         zIndex: 1,
-                                        display: { xs: 'flex', md: 'block' },
-                                        alignItems: { xs: 'center' },
-                                        justifyContent: { xs: 'space-between' },
+                                        display: { xxs: 'flex', md: 'block' },
+                                        alignItems: { xxs: 'center' },
+                                        justifyContent: { xxs: 'space-between' },
                                     }}>
                                         <Typography sx={{
-                                            fontSize: { xs: '0.875rem', sm: '1.05rem', md: '1.1rem', lg: '1.2rem' },
+                                            fontSize: { xxs: '0.875rem', sm: '1.05rem', md: '1.1rem', lg: '1.2rem' },
                                             fontWeight: 600,
                                             overflow: 'hidden',
                                             textOverflow: 'ellipsis',
@@ -103,8 +104,7 @@ export default function Mentor() {
                                             {index + 1}-{card.title}
                                         </Typography>
                                         <Typography sx={{
-                                            color: theme.palette.info.light,
-                                            fontSize: { xs: '0.87rem', sm: '1rem', md: '1.05rem', lg: '1.15rem' },
+                                            fontSize: { xxs: '0.87rem', sm: '1rem', md: '1.05rem', lg: '1.15rem' },
                                         }}>
                                             {card.description}
                                         </Typography>
@@ -129,9 +129,10 @@ export default function Mentor() {
                 width: '100%',
                 display: { sm: 'block', md: 'none' },
                 borderRadius: '8px',
-                fontSize: { xs: '0.87rem', sm: '1.1rem' },
+                color: theme.palette.info.light,
+                fontSize: { xxs: '0.87rem', sm: '1.1rem' },
                 fontWeight: 600
-            }}>더 많은 프로그램 보기</Button>
+            }}>더 많은 멘토 보기</Button>
         </Box >
     )
 }

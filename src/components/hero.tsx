@@ -15,7 +15,7 @@ export default function HeroComponent(): JSX.Element {
       <Box
         sx={{
           position: 'relative',
-          height: { xs: '60vh', sm: '70vh', lg: '75vh' }, // Adjust height for different screen sizes
+          height: { xxs: '60vh', sm: '70vh', lg: '75vh' }, // Adjust height for different screen sizes
           width: '100%',
           overflow: 'hidden',
           display: 'flex',
@@ -48,12 +48,12 @@ export default function HeroComponent(): JSX.Element {
           sx={{
             color: theme.palette.info.light,
             zIndex: 1,
-            textAlign: { xs: 'center', lg: 'left' },
+            textAlign: { xxs: 'center', lg: 'left' },
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
-            alignItems: { xs: 'center', md: 'flex-start' },
-            ml: { xs: 'none', md: '10%' }
+            alignItems: { xxs: 'center', md: 'flex-start' },
+            ml: { xxs: 'none', md: '10%' }
           }}
         >
           <Typography
@@ -83,7 +83,9 @@ export default function HeroComponent(): JSX.Element {
             variant="contained"
             sx={{
               mt: 5,
-              padding: { xs: '8px 16px', lg: '10px 18px' },
+              backgroundColor: theme.palette.primary.dark,
+              color: theme.palette.primary.main,
+              padding: { xxs: '8px 16px', lg: '10px 18px' },
               fontWeight: 'bold',
             }}
             endIcon={<ArrowForwardIcon />}

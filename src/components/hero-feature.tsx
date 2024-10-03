@@ -15,7 +15,7 @@ interface FeatureItemProps {
 }
 
 const iconSizeSx = {
-  fontSize: { xs: '2.2rem', sm: '2.3rem', md: '2.5rem', lg: '2.8rem', xl: '3rem' }
+  fontSize: { xxs: '2.2rem', sm: '2.3rem', md: '2.5rem', lg: '2.8rem', xl: '3rem' }
 };
 
 const FeatureItem: React.FC<FeatureItemProps> = ({ icon, title, description }) => {
@@ -24,24 +24,24 @@ const FeatureItem: React.FC<FeatureItemProps> = ({ icon, title, description }) =
 
   return (
     <Grid
-      size={{ xs: 6, md: 3 }}
+      size={{ xxs: 6, md: 3 }}
       sx={{
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        height: { xs: 'auto', md: '100%' },
-        flexDirection: { xs: 'column', md: 'row' },
+        height: { xxs: 'auto', md: '100%' },
+        flexDirection: { xxs: 'column', md: 'row' },
         gap: 2,
       }}>
 
       <Box display="flex" alignItems="center" justifyContent="flex-start" >
         {icon}
-        <Box sx={{ ml: { xs: 2 }, mb: 1 }}>
+        <Box sx={{ ml: { xxs: 2 }, mb: 1 }}>
           <Typography
             variant="h6"
             sx={{
               fontWeight: 'bold',
-              fontSize: { xs: '1rem', sm: '1.2rem', md: '1.1rem', lg: '1.15rem', xl: '1.2rem' },
+              fontSize: { xxs: '0.8rem', xs: '1rem', sm: '1.2rem', md: '1.1rem', lg: '1.15rem', xl: '1.2rem' },
               textAlign: 'left',
               mb: 0.5,
             }}
@@ -51,7 +51,6 @@ const FeatureItem: React.FC<FeatureItemProps> = ({ icon, title, description }) =
 
           <Typography
             variant="caption"
-
             sx={{
               color: theme.palette.text.secondary,
               fontSize: { xs: '0.83rem', sm: '0.9rem', md: '0.7rem', lg: '0.78rem', xl: '0.9rem' },
@@ -113,26 +112,24 @@ export default function HeroFeature() {
       sx={{
         width: '100%',
         backgroundColor: theme.palette.background.default,
-        boxShadow: { xs: 'none', sm: 'none', md: '0 4px 8px rgba(0, 0, 0, 0.1)' },
-        borderRadius: { xs: 'none', sm: 'none', md: '10px', lg: 'none' },
-        padding: { xs: '1rem', md: '1.6rem', lg: '2.5rem' },
-        mt: { xs: '1vh', sm: '2vh', md: '-8vh', lg: '-13vh', xl: '-12vh' },
+        boxShadow: { xxs: 'none', sm: 'none', md: '0 4px 8px rgba(0, 0, 0, 0.1)' },
+        borderRadius: { xxs: 'none', sm: 'none', md: '10px', lg: 'none' },
+        padding: { xxs: '1rem', md: '1.6rem', lg: '2.5rem' },
+        mt: { xxs: '1vh', sm: '2vh', md: '-8vh', lg: '-13vh', xl: '-12vh' },
         zIndex: 2,
         position: 'relative',
-        maxWidth: { xs: '100%', md: '95%', lg: '85%' },
+        maxWidth: { xxs: '100%', md: '95%', lg: '85%' },
         mx: 'auto',
         display: 'flex',
         justifyContent: 'center',
-
       }}
     >
       <Container sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
         <Grid
           container
-          rowSpacing={{ xs: 3.5, sm: 3, md: 8, lg: 12 }}
-          columnSpacing={{ xs: 6, sm: 0.5, md: 9 }}
-          justifyContent={{ xs: 'center', md: 'space-between' }}>
-
+          rowSpacing={{ xxs: 3.5, sm: 3, md: 8, lg: 12 }}
+          columnSpacing={{ xxs: 6, sm: 0.5, md: 9 }}
+          justifyContent={{ xxs: 'center', md: 'space-between' }}>
 
           {features.map((feature, index) => (             //  Refactoring FeatureItem into an array function 
             <FeatureItem

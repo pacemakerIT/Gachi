@@ -28,7 +28,7 @@ export default function FooterMobile() {
                 <Grid container spacing={4} justifyContent="center" alignItems="center">
 
                     {/* Newsletter Subscription Section */}
-                    <Grid size={{ xs: 12 }} sx={{ textAlign: 'center', margin: '1rem' }}>
+                    <Grid size={{ xxs: 12 }} sx={{ textAlign: 'center', margin: '1rem' }}>
                         <Typography
                             variant="h6"
                             gutterBottom
@@ -52,7 +52,7 @@ export default function FooterMobile() {
                                 alignItems: 'center',
                                 gap: '0.5rem',
                                 flexDirection: 'column',
-                                width: { xs: '100%', sm: '75%' },
+                                width: { xxs: '100%', sm: '75%' },
                                 margin: '0 auto',
                             }}
                         >
@@ -62,7 +62,7 @@ export default function FooterMobile() {
                                 size="small"
                                 sx={{
                                     flex: 1,
-                                    maxWidth: { xs: '100%' },
+                                    maxWidth: { xxs: '100%' },
                                     width: '100%',
                                     mb: '1rem',
                                     '& .MuiInputLabel-root': {
@@ -73,7 +73,7 @@ export default function FooterMobile() {
                             <Button
                                 variant="contained"
                                 sx={{
-                                    maxWidth: { xs: '100%' },
+                                    maxWidth: { xxs: '100%' },
                                     whiteSpace: 'nowrap',
                                     width: '100%',
                                     flex: 1,

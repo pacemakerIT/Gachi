@@ -29,7 +29,7 @@ const AboutItem: React.FC<AboutItemProps> = ({ numericalization, element }) => {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          backgroundColor: theme.palette.info.main,
+          backgroundColor: theme.palette.customColor.darkWhite,
           textAlign: 'center',
         }}
       >
@@ -96,7 +96,7 @@ export default function About(): JSX.Element {
           color: theme.palette.primary.main,
           fontWeight: 'bold',
           mb: 2,
-          fontSize: { xs: '1rem', sm: '1.5rem', md: '2rem', lg: '2rem' }
+          fontSize: { xxs: '1rem', sm: '1.5rem', md: '2rem', lg: '2rem' }
         }}
       >
         낯선 해외살이, 든든한 길잡이가 될 수 있도록
@@ -108,7 +108,7 @@ export default function About(): JSX.Element {
         sx={{
           color: theme.palette.secondary.main,
           mb: 4,
-          fontSize: { xs: '0.6rem', sm: '0.8rem', md: '1.15rem' }
+          fontSize: { xxs: '0.6rem', sm: '0.8rem', md: '1.15rem' }
         }}
       >
         새로운 땅, 새로운 사람들, 그리고 새로운 꿈. <br />
