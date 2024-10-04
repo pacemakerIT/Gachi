@@ -20,6 +20,8 @@ import {
   YouTube,
 } from '@mui/icons-material';
 import { useTheme } from '@mui/material/styles';
+import NewsletterSection from './newsletter-section';
+import CategoryAccountSection from './category-account';
 
 const logoUrl = '/images/logo.png';
 
@@ -29,19 +31,9 @@ type SocialMediaLink = {
   icon: React.ReactNode;
 };
 
-type LinkItem = {
-  name: string;
-  href: string;
-};
-
 // Props type definition
 interface LogoSectionProps {
   socialMediaLinks: SocialMediaLink[];
-}
-
-interface CategoryAccountSectionProps {
-  categories: LinkItem[];
-  accountLinks: LinkItem[];
 }
 
 
@@ -182,176 +174,6 @@ const SocialMediaSection: React.FC<{
           ))}
         </Box>
       </Box>
-    </Grid>
-  );
-};
-
-// Category and Account Section
-const CategoryAccountSection: React.FC<CategoryAccountSectionProps> = ({
-  categories,
-  accountLinks,
-}) => {
-  const theme = useTheme();
-  return (
-    <Grid
-      size={{ xs: 12, md: 3 }}
-      sx={{
-        textAlign: { xs: 'center', md: 'left' },
-        display: { xs: 'none', md: 'block' },
-      }}
-    >
-      <Box
-        sx={{ display: 'flex', justifyContent: 'space-between', gap: '2rem' }}
-      >
-        <Box>
-          <Typography
-            variant="subtitle1"
-            sx={{
-              mb: '1rem',
-              color: theme.palette.text.secondary,
-              fontSize: { xs: '0.875rem', md: '1rem' },
-            }}
-          >
-            CATEGORY
-          </Typography>
-          {categories.map((category) => (
-            <Link
-              key={category.name}
-              href={category.href}
-              underline="hover"
-              color="inherit"
-            >
-              <Typography variant="body2" gutterBottom>
-                {category.name}
-              </Typography>
-            </Link>
-          ))}
-        </Box>
-        <Box>
-          <Typography
-            variant="subtitle1"
-            sx={{
-              mb: '1rem',
-              color: theme.palette.text.secondary,
-              fontSize: { xs: '0.875rem', md: '1rem' },
-            }}
-          >
-            YOUR ACCOUNT
-          </Typography>
-          {accountLinks.map((account) => (
-            <Link
-              key={account.name}
-              href={account.href}
-              underline="hover"
-              color="inherit"
-            >
-              <Typography variant="body2" gutterBottom>
-                {account.name}
-              </Typography>
-            </Link>
-          ))}
-        </Box>
-      </Box>
-    </Grid>
-  );
-};
-
-// Newsletter Section
-const NewsletterSection = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md')); //Mobile
-
-  return (
-    <Grid
-      size={{ xxs: 12, md: 4 }}
-      sx={{
-        textAlign: isMobile ? 'center' : 'left',
-        margin: isMobile ? '1rem' : '0',
-        ml: !isMobile ? '4rem' : '0',
-      }}
-    >
-      {isMobile ? (
-        <Typography
-          variant="h6"
-          sx={{
-            color: theme.palette.primary.main,
-            mb: '1rem',
-            mt: '-1rem',
-          }}
-        >
-          뉴스레터를 통해 <br /> 매주 새로운 소식을 만나보세요!
-        </Typography>
-      ) : (
-        <Typography
-          variant="subtitle1"
-          sx={{ color: theme.palette.text.secondary, mb: '1rem' }}
-        >
-          NEWSLETTER
-        </Typography>
-      )}
-
-      {isMobile && (
-        <Typography
-          variant="body2"
-          sx={{
-            color: theme.palette.text.secondary,
-            mb: '1rem',
-            mt: isMobile ? '0' : '1rem',
-          }}
-        >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-          tincidunt erat enim.
-        </Typography>
-      )}
-
-      <Box
-        sx={{
-          display: 'flex',
-          gap: '0.5rem',
-          flexDirection: isMobile ? 'column' : 'row',
-          width: '100%',
-          maxWidth: isMobile ? '100%' : '500px',
-          justifyContent: isMobile ? 'center' : 'flex-start',
-          margin: isMobile ? '0 auto' : '0',
-          alignItems: 'center',
-        }}
-      >
-        <TextField
-          variant="outlined"
-          label="Your email"
-          size="small"
-          fullWidth={isMobile}
-          sx={{
-            flex: 1,
-            maxWidth: isMobile ? '90%' : '300px',
-            mb: { xxs: '0.5rem', md: 0 },
-          }}
-        />
-        <Button
-          variant="contained"
-          sx={{
-            backgroundColor: theme.palette.primary.main,
-            whiteSpace: 'nowrap',
-            width: isMobile ? '90%' : 'auto',
-            flexShrink: { md: 0 },
-            borderRadius: '8px',
-          }}
-        >
-          Subscribe
-        </Button>
-      </Box>
-      {!isMobile && (
-        <Typography
-          variant="body2"
-          sx={{
-            color: theme.palette.text.secondary,
-            mt: '0.5rem',
-          }}
-        >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-          tincidunt erat enim.
-        </Typography>
-      )}
     </Grid>
   );
 };
