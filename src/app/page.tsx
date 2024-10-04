@@ -1,32 +1,47 @@
+// page.tsx
 import * as React from 'react';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
-import NextLink from 'next/link';
-import ProTip from '@/components/ProTip';
-import Copyright from '@/components/Copyright';
+import { ThemeProvider } from '@mui/material/styles';
+import theme from '@/theme';
+import { Container, Box } from '@mui/material';
+import Hero from '@/components/hero';
+import Program from '@/components/program';
+import Mentor from '@/components/mentor';
+import About from '@/components/about';
+import Review from '@/components/review';
+import { maxContainerWidth } from '../constants';
+
 
 export default function Home() {
   return (
-    <Container maxWidth="lg">
+    <Container sx={{ maxWidth: maxContainerWidth }} disableGutters >
       <Box
         sx={{
-          my: 4,
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
+          gap: { xs: 2, md: 4, lg: 6 }, // Adjust gap between components for different screen sizes
+          padding: 0,  // Padding is completely removed for all screen sizes
+          width: '100%', // Ensure full width usage across all screen sizes
+          margin: 0, // Remove any default margin
         }}
       >
-        <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-          Material UI - Next.js App Router example in TypeScript
-        </Typography>
-        <Link href="/about" color="secondary" component={NextLink}>
-          Go to the about page
-        </Link>
-        <ProTip />
-        <Copyright />
+        <Hero />
+        <Program />
+        <Mentor />
+        <About />
+
+        {/* Review Section - Full Width */}
+        <Box sx={{
+          width: '100vw',
+          position: 'relative',
+          left: '50%',
+          ml: '-50vw',
+          backgroundColor: '#F9F9FB',
+          display: 'flex',
+          justifyContent: 'center',
+        }}>
+          <Review />
+        </Box>
+
       </Box>
     </Container>
   );
