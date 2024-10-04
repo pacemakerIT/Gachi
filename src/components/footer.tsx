@@ -1,10 +1,10 @@
 "use client";
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Typography, TextField, Button, IconButton, Container, Link,useMediaQuery } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { Facebook, Twitter, Instagram, Pinterest, YouTube } from '@mui/icons-material';
-import { useTheme } from '@mui/material/styles';
-
+import { useTheme } from '@mui/material/styles'; 
+import NewsletterSection from './newsletter-section';
 const logoUrl = '/images/logo.png';
 
 // Social Media Link Type Definition
@@ -27,6 +27,7 @@ interface CategoryAccountSectionProps {
     categories: LinkItem[];
     accountLinks: LinkItem[];
 }
+
 
 // Logo and SNS Section
 const LogoSnsSection: React.FC<LogoSectionProps> = ({ socialMediaLinks }) => {
@@ -163,104 +164,7 @@ const CategoryAccountSection: React.FC<CategoryAccountSectionProps> = ({ categor
     );
 };
 
-// Newsletter Section
-const NewsletterSection = () => {
-    const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down('md')); //Mobile
 
-    return (
-        <Grid size={{ xxs: 12, md:4 }}
-            sx={{
-                textAlign: isMobile ? 'center' : 'left',
-                margin: isMobile ? '1rem' : '0',
-                ml: !isMobile ? '4rem' : '0',
-            }}
-        >
-                {isMobile ? (
-                        <Typography
-                            variant='h6'
-                            sx={{ 
-                                color: theme.palette.text.secondary,
-                                mb: '1rem',
-                                mt: '-1rem'
-                             }} 
-                        >
-                            뉴스레터를 통해 <br /> 매주 새로운 소식을 만나보세요!
-                        </Typography>
-                ) : (
-                    <Typography
-                        variant='subtitle1'
-                        sx={{ color: theme.palette.customColor?.gray, mb: '1rem' }} 
-                    >
-                        NEWSLETTER
-                    </Typography>
-                )}
-
-            {isMobile &&(
-                    <Typography
-                    variant="body2"
-                    sx={{
-                        color: theme.palette.customColor?.gray,
-                        mb: '1rem',
-                        mt: isMobile ? '0' : '1rem',
-                    }}
-                >
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt erat enim.
-                </Typography>
-
-            )}
-
-            <Box
-                sx={{
-                    display: 'flex',
-                    gap: '0.5rem',
-                    flexDirection: isMobile ? 'column' : 'row',
-                    width: '100%',
-                    maxWidth: isMobile ? '100%' : '500px',
-                    justifyContent: isMobile ? 'center' : 'flex-start',
-                    margin: isMobile ? '0 auto' : '0',
-                    alignItems: 'center',
-                }}
-            >
-                <TextField
-                    variant="outlined"
-                    label="Your email"
-                    size="small"
-                    fullWidth={isMobile} 
-                    sx={{
-                        flex: 1,
-                        maxWidth: isMobile ? '90%' : '300px',
-                        mb:{xxs:'0.5rem', md:0},
-                    }}
-                />
-                <Button
-                    variant="contained"
-                    sx={{
-                        backgroundColor: theme.palette.primary.main,
-                        whiteSpace: 'nowrap',
-                        width: isMobile ? '90%' : 'auto',
-                        flexShrink: {md:0},
-                        borderRadius: '8px',
-                       
-                    }}
-                >
-                    Subscribe
-                </Button>
-            </Box>
-            {!isMobile && (
-                <Typography
-                    variant="body2"
-                    sx={{
-                        color: theme.palette.customColor?.gray,
-                        mt: '0.5rem',
-                    }}
-                >
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt erat enim.
-                </Typography>
-            )}
-        </Grid>
-    );
-};
 
 // Footer Main Component
 export default function Footer() {
@@ -323,3 +227,4 @@ export default function Footer() {
         </Box>
     );
 }
+
