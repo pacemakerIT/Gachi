@@ -34,12 +34,15 @@ const LogoSnsSection: React.FC<LogoSectionProps> = ({ socialMediaLinks }) => {
     return (
         <Grid size={{md:4 }} sx={{ textAlign: 'left' }}>
             <Box>
+            <Link href='/' underline='none'>
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: '1rem' }}>
-                    <img src={logoUrl} alt="Gachi.live Logo" style={{ width: '40px', height: '40px', marginRight: '10px' }} />
-                    <Typography variant="h6" gutterBottom>
-                        Gachi.live
-                    </Typography>
+                        <img src={logoUrl} alt="Gachi.live Logo" style={{ width: '40px', height: '40px', marginRight: '10px' }} />
+                        <Typography variant="h6" gutterBottom>
+                            Gachi.live
+                        </Typography>
                 </Box>
+            </Link>
+
                 <Typography variant="body2" sx={{ color: theme.palette.customColor.gray, mb: '1rem' }}>
                     Vivamus tristique odio sit amet velit semper, eu posuere turpis interdum. Cras egestas purus.
                 </Typography>
