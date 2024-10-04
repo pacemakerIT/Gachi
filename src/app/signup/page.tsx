@@ -1,20 +1,28 @@
+"use client";
 
-import { Box, Button, Divider, TextField, Typography } from '@mui/material';
-import { Google as GoogleIcon, Facebook as FacebookIcon } from '@mui/icons-material';
+import { useState } from 'react';
+import { Box, Button, Divider, TextField, Typography, Link, InputAdornment, IconButton } from '@mui/material';
+import { Google as GoogleIcon, Facebook as FacebookIcon, Visibility, VisibilityOff } from '@mui/icons-material';
 
 export default function SignUpPage() {
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleTogglePasswordVisibility = () => {
+        setShowPassword((prev) => !prev);
+    };
+
     return (
         <Box 
             sx={{ 
                 width: '100%', 
-                maxWidth: '676px', // Increased by 30% from 520px to 676px
+                maxWidth: '676px', 
                 mx: 'auto', 
                 mt: 4,
-                p: 3, // Padding inside the box
-                borderRadius: '8px', // Rounded corners
-                boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)', // Optional shadow for depth
-                backgroundColor: '#ffffff', // White background color
-                border: 'none', // Remove the border
+                p: 3, 
+                borderRadius: '8px', 
+                boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)', 
+                backgroundColor: '#ffffff', 
+                border: 'none', 
             }}
         >
             <Typography variant="h5" align="center" gutterBottom>회원가입</Typography>
@@ -38,6 +46,7 @@ export default function SignUpPage() {
                     계정을 생성하려면 정보를 입력해주세요.
                 </Typography>
             </Box>
+            
             {/* Input Fields */}
             <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Box sx={{ flex: 1, mr: 1 }}>
@@ -116,7 +125,7 @@ export default function SignUpPage() {
                     margin="normal" 
                     placeholder="e.g. 123456789"
                     variant="outlined" 
-                    type="password" 
+                    type={showPassword ? 'text' : 'password'}
                     sx={{ 
                         border: 'none', 
                         borderRadius: '16px', 
@@ -130,6 +139,18 @@ export default function SignUpPage() {
                             border: 'none', 
                         },
                     }}
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <IconButton
+                                    onClick={handleTogglePasswordVisibility}
+                                    edge="end"
+                                >
+                                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                                </IconButton>
+                            </InputAdornment>
+                        ),
+                    }}
                 />
                 <Typography 
                     variant="caption" 
@@ -140,34 +161,41 @@ export default function SignUpPage() {
             </Box>
 
             <Button fullWidth variant="contained" sx={{ mt: 2 }}>회원가입</Button>
+
+            {/* Login Link */}
+            <Typography align="center" sx={{ mt: 2 }}>
+                이미 계정이 있으신가요? <Link href="/login" sx={{ textDecoration: 'none', color: '#2986FE' }}>로그인</Link>
+            </Typography>
             
             <Divider sx={{ my: 3 }}>or</Divider>
-            
+
             {/* Google Sign Up Button */}
             <Button 
-                fullWidth 
+                fullWidth
                 variant="outlined" 
-                startIcon={< GoogleIcon/>} 
+                startIcon={<GoogleIcon />} 
                 sx={{ 
                     mb: 2, 
-                    color: 'black', // Text color
-                    borderColor: 'black', // Outline color
-                    backgroundColor: 'white' // Background color
+                    color: 'black', 
+                    mx: 'auto', 
+                    borderColor: 'black', 
+                    backgroundColor: 'white' 
                 }}
             >
                 <Typography sx={{ fontWeight: 'bold' }}>Google로 가입하기</Typography>
             </Button>
-
+            
             {/* Facebook Sign Up Button */}
             <Button 
-                fullWidth 
+                fullWidth
                 variant="contained" 
                 startIcon={<FacebookIcon />} 
                 sx={{ 
-                    color: 'white', // Text color
-                    backgroundColor: '#3B5998', // Facebook's color
+                    color: 'white', 
+                    mx: 'auto', 
+                    backgroundColor: '#3B5998', 
                     '&:hover': {
-                        backgroundColor: '#365899' // Darker shade for hover
+                        backgroundColor: '#365899' 
                     }
                 }}
             >

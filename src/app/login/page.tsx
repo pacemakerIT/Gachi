@@ -1,3 +1,4 @@
+"use client";
 
 import { Box, Button, Divider, TextField, Typography, Link, Checkbox, FormControlLabel } from '@mui/material';
 import { Google as GoogleIcon, Facebook as FacebookIcon } from '@mui/icons-material';
@@ -20,7 +21,7 @@ export default function LoginPage() {
             <Typography variant="h5" align="center" gutterBottom>로그인</Typography>
             
             {/* Email Input */}
-            <Box sx={{ mb: 1}}>
+            <Box sx={{ mb: 1 }}>
                 <TextField 
                     fullWidth 
                     margin="normal" 
@@ -73,42 +74,44 @@ export default function LoginPage() {
                     label="자동 로그인" 
                     sx={{ color: '#101010' }} 
                 />
-                <Link href="/lost-password" sx={{ color: '#3f51b5' }}>비밀번호를 잊으셨나요?</Link>
+                <Link href="/lost-password" sx={{ textDecoration: 'none', color: '#2986FE' }}>비밀번호를 잊으셨나요?</Link>
             </Box>
             
             {/* Login Button */}
             <Button fullWidth variant="contained" sx={{ mt: 2 }}>로그인</Button>
             
-            {/* Sign Up Link */}
+            {/* Sign up link */}
             <Typography align="center" sx={{ mt: 2 }}>
-                계정이 없으신가요? <Link href="/sign-up">회원가입</Link>
+                계정이 없으신가요? <Link href="/signup" sx={{ textDecoration: 'none', color: '#2986FE' }}>회원가입</Link>
             </Typography>
             
             {/* Or Divider */}
             <Divider sx={{ my: 3 }}>or</Divider>
-            
-            {/* Social Login */}
+
+           {/* Google Sign Up Button */}
             <Button 
-                fullWidth 
                 variant="outlined" 
+                fullWidth
                 startIcon={<GoogleIcon />} 
                 sx={{ 
                     mb: 2, 
                     color: 'black', // Text color
+                    mx: 'auto', // Center the button
                     borderColor: 'black', // Outline color
                     backgroundColor: 'white' // Background color
                 }}
             >
                 <Typography sx={{ fontWeight: 'bold' }}>Google로 가입하기</Typography>
             </Button>
-
+            
             {/* Facebook Sign Up Button */}
             <Button 
-                fullWidth 
+                fullWidth
                 variant="contained" 
                 startIcon={<FacebookIcon />} 
                 sx={{ 
                     color: 'white', // Text color
+                    mx: 'auto', // Center the button
                     backgroundColor: '#3B5998', // Facebook's color
                     '&:hover': {
                         backgroundColor: '#365899' // Darker shade for hover
