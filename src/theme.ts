@@ -2,7 +2,6 @@
 import { createTheme } from '@mui/material/styles';
 import '@fontsource/ibm-plex-sans-kr';
 
-
 declare module '@mui/material/styles' {
   interface Palette {
     customColor: {
@@ -23,6 +22,32 @@ declare module '@mui/material/styles' {
       overlay?: string;
     };
   }
+
+  interface TypographyVariants {
+    title: {
+      fontSize: string;
+      fontWeight: number;
+    };
+    caption: {
+      fontSize: string;
+      fontWeight: number;
+      textAlign: string; // Keep textAlign for center alignment
+      color: string; // Add color to caption variant
+    };
+  }
+
+  interface TypographyVariantsOptions {
+    title?: {
+      fontSize?: string;
+      fontWeight?: number;
+    };
+    caption?: {
+      fontSize?: string;
+      fontWeight?: number;
+      textAlign?: string; // Keep textAlign for center alignment
+      color?: string; // Add color to caption variant
+    };
+  }
 }
 
 const theme = createTheme({
@@ -37,7 +62,7 @@ const theme = createTheme({
     info: {
       main: '#F9F9FB', // Light background
       light: '#FFFFFF', // White text
-      dark: '#F0F2F3' // Background for button
+      dark: '#F0F2F3', // Background for button
     },
     background: {
       default: '#FFFFFF', // Default background
@@ -69,14 +94,23 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: 'IBM Plex Sans KR, Arial, sans-serif',
+    title: {
+      fontSize: '1.25rem', // Adjust font size as needed
+      fontWeight: 600, // Adjust weight as needed
+    },
     h6: {
       fontSize: '18px',
       fontWeight: 'bold',
       color: '#101010', // Ensure "Gachi.live" text is black
     },
+    caption: {
+      fontSize: '0.875rem', // Adjust font size as needed
+      fontWeight: 400,
+      color: '#808080', // Gray color for caption text
+      textAlign: 'center', // Center text
+    },
     body1: {
       fontSize: '14px', // Text size for nav links
-      // color: '#101010', // Text color for nav links
     },
   },
   components: {
@@ -162,4 +196,3 @@ declare module '@mui/material/styles' {
 }
 
 export default theme;
-

@@ -19,7 +19,7 @@ import MobileDrawer from "./mobile-drawer";
 import ProfileIcon from "./profile-icon";
 import Logo from "./logo";
 
-interface Props { }
+interface Props {}
 
 const NavBar: React.FC<Props> = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
@@ -88,10 +88,20 @@ const NavBar: React.FC<Props> = () => {
   return (
     <>
       {/* Top Black Bar */}
-      <Box sx={{ backgroundColor: theme.palette.secondary.main, height: "25px", width: "100%" }} />
+      <Box
+        sx={{
+          backgroundColor: theme.palette.secondary.main,
+          height: "25px",
+          width: "100%",
+          position: "fixed", // Make sure it's fixed as well
+          top: 0,
+          left: 0,
+          zIndex: theme.zIndex.drawer + 2, // Ensure it's above other content
+        }}
+      />
 
-      {/* AppBar */}
-      <AppBar position="static">
+      {/* AppBar with fixed position */}
+      <AppBar position="fixed" sx={{ top: "25px", zIndex: theme.zIndex.drawer + 1 }}>
         <Toolbar sx={{ justifyContent: "space-between", maxHeight: "20px" }}>
           {isMobile ? (
             <>
@@ -110,7 +120,9 @@ const NavBar: React.FC<Props> = () => {
                 {isLoggedIn ? (
                   <ProfileIcon onClick={toggleProfileDrawer} />
                 ) : (
-                  <Button variant="contained">로그인</Button>
+                  <Link href="/login" passHref>
+                    <Button variant="contained">로그인</Button>
+                  </Link>
                 )}
               </Box>
 
@@ -221,7 +233,9 @@ const NavBar: React.FC<Props> = () => {
                       >
                         회원가입
                       </Link>
-                      <Button variant="contained">로그인</Button>
+                      <Link href="/login" passHref>
+                        <Button variant="contained">로그인</Button>
+                      </Link>
                     </Box>
                   </>
                 )}
@@ -230,6 +244,9 @@ const NavBar: React.FC<Props> = () => {
           )}
         </Toolbar>
       </AppBar>
+
+      {/* Add padding to prevent content from being hidden under the fixed navbar */}
+      <Box sx={{ paddingTop: '125px' }} />
     </>
   );
 };
