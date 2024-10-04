@@ -25,8 +25,12 @@ const NavLinks: React.FC<NavLinksProps> = ({ links }) => {
             transition: 'color 0.3s',
             padding: '0 5px',
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = theme.palette.text.secondary)}
-          onMouseLeave={(e) => (e.currentTarget.style.color = theme.palette.text.primary)}
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.color = theme.palette.text.secondary)
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.color = theme.palette.text.primary)
+          }
         >
           {link.label}
         </Link>
