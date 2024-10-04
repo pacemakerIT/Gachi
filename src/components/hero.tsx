@@ -15,14 +15,17 @@ export default function HeroComponent(): JSX.Element {
       <Box
         sx={{
           position: 'relative',
-          height: { xxs: '60vh', sm: '70vh', lg: '75vh' }, // Adjust height for different screen sizes
-          width: '100%',
+          width: {xxs:'100%', md:'95vw'},
+          height: { xxs: '60vh', sm: '70vh', lg: '75vh' },
           overflow: 'hidden',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
           backgroundColor: theme.palette.customBackground.overlay,
           borderRadius: { xxs: '0px', md: '10px' },
+          left: { xxs:0,md:'50%'},
+          ml: {xxs:0, md:'-47.5vw'},
+          mt: { xxs: 0, md: '20px' } ,
         }}
       >
         <video
