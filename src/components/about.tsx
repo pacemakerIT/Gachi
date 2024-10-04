@@ -14,14 +14,14 @@ const AboutItem: React.FC<AboutItemProps> = ({ numericalization, element }) => {
 
   return (
     <Grid
-      size={{ xxs: 3.8, sm: 3.4, md: 2.5, lg: 2, xl: 1.8 }}
+      size={{ xxs: 3.7, xs:3.6, sm: 3.4, md: 3.3, lg: 3.2, xl: 3.8 }}
       display='flex'
       justifyContent='center'
     >
       <Paper
         elevation={3}
         sx={{
-          width: { xxs: '30vw', sm: '25vw', md: '20vw', lg: '18vw', xl: '10vw' },
+          width: { xxs: '25vw', xs:'24vw',sm: '23vw', md: '22vw', lg: '21vw', xl: '19vw' },
           height: 'auto',
           aspectRatio: '1',
           borderRadius: '10px',
@@ -38,7 +38,7 @@ const AboutItem: React.FC<AboutItemProps> = ({ numericalization, element }) => {
           sx={{
             color: theme.palette.primary.main,
             fontWeight: 'bold',
-            fontSize: { xxs: '1.5rem', sm: '2rem', md: '2.3rem' },
+            fontSize: { xxs: '1.3rem',xs:'1.8rem', sm: '2.3rem', md: '3rem',lg:'3.5rem',xl:'4rem' },
             mb: 1.3
           }}
         >
@@ -50,7 +50,7 @@ const AboutItem: React.FC<AboutItemProps> = ({ numericalization, element }) => {
           sx={{
             color: theme.palette.secondary.main,
             fontWeight: 'bold',
-            fontSize: { xxs: '0.6rem', sm: '1rem' }
+            fontSize: { xxs: '0.6rem',xs:'0.8rem', sm: '1rem', md: '1.2rem',lg:'1.8rem',xl:'2rem' },
           }}
         >
           {element}
@@ -96,7 +96,7 @@ export default function About(): JSX.Element {
           color: theme.palette.primary.main,
           fontWeight: 'bold',
           mb: 2,
-          fontSize: { xxs: '1rem', sm: '1.5rem', md: '2rem', lg: '2rem' }
+          fontSize: { xxs: '0.9rem',xs:'1.2rem', sm: '1.5rem', md: '2rem',lg:'3rem', xl: '3.5rem' }
         }}
       >
         낯선 해외살이, 든든한 길잡이가 될 수 있도록
@@ -108,7 +108,7 @@ export default function About(): JSX.Element {
         sx={{
           color: theme.palette.secondary.main,
           mb: 4,
-          fontSize: { xxs: '0.6rem', sm: '0.8rem', md: '1.15rem' }
+          fontSize: { xxs: '0.55rem',xs:'0.65rem', sm: '1rem', md: '1.15rem' ,lg:'1.5rem',xl:'1.8rem'}
         }}
       >
         새로운 땅, 새로운 사람들, 그리고 새로운 꿈. <br />
