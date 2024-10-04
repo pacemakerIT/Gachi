@@ -91,7 +91,7 @@ export default function Newsletter() {
               value={email}
               onChange={handleEmailChange}
               error={emailError}
-              helperText={emailError ? 'Please enter a valid email address' : ''}
+              helperText={emailError ? '유효한 이메일을 입력해 주세요.' : ''}
               sx={{
                 flex: 1,
                 maxWidth: isMobile ? '90%' : '300px',
