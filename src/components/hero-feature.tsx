@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import React, { useState, useEffect, ReactNode } from 'react';
 import { Box, Typography, Container } from '@mui/material';
 import Grid from '@mui/material/Grid2';
@@ -15,11 +15,20 @@ interface FeatureItemProps {
 }
 
 const iconSizeSx = {
-  fontSize: { xxs: '2.2rem', sm: '2.3rem', md: '2.5rem', lg: '2.8rem', xl: '3rem' }
+  fontSize: {
+    xxs: '2.2rem',
+    sm: '2.3rem',
+    md: '2.5rem',
+    lg: '2.8rem',
+    xl: '3rem',
+  },
 };
 
-const FeatureItem: React.FC<FeatureItemProps> = ({ icon, title, description }) => {
-
+const FeatureItem: React.FC<FeatureItemProps> = ({
+  icon,
+  title,
+  description,
+}) => {
   const theme = useTheme();
 
   return (
@@ -32,16 +41,23 @@ const FeatureItem: React.FC<FeatureItemProps> = ({ icon, title, description }) =
         height: { xxs: 'auto', md: '100%' },
         flexDirection: { xxs: 'column', md: 'row' },
         gap: 2,
-      }}>
-
-      <Box display="flex" alignItems="center" justifyContent="flex-start" >
+      }}
+    >
+      <Box display="flex" alignItems="center" justifyContent="flex-start">
         {icon}
         <Box sx={{ ml: { xxs: 2 }, mb: 1 }}>
           <Typography
             variant="h6"
             sx={{
               fontWeight: 'bold',
-              fontSize: { xxs: '0.8rem', xs: '1rem', sm: '1.2rem', md: '1.1rem', lg: '1.15rem', xl: '1.2rem' },
+              fontSize: {
+                xxs: '0.8rem',
+                xs: '1rem',
+                sm: '1.2rem',
+                md: '1.1rem',
+                lg: '1.15rem',
+                xl: '1.2rem',
+              },
               textAlign: 'left',
               mb: 0.5,
             }}
@@ -53,12 +69,19 @@ const FeatureItem: React.FC<FeatureItemProps> = ({ icon, title, description }) =
             variant="caption"
             sx={{
               color: theme.palette.customColor.gray,
-              fontSize: { xxs: '0.65rem', xs: '0.83rem', sm: '0.9rem', md: '0.7rem', lg: '0.78rem', xl: '0.9rem' },
+              fontSize: {
+                xxs: '0.65rem',
+                xs: '0.83rem',
+                sm: '0.9rem',
+                md: '0.7rem',
+                lg: '0.78rem',
+                xl: '0.9rem',
+              },
               whiteSpace: 'nowrap',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
               textAlign: 'left',
-              fontWeight: 'bold'
+              fontWeight: 'bold',
             }}
           >
             {description}
@@ -68,9 +91,6 @@ const FeatureItem: React.FC<FeatureItemProps> = ({ icon, title, description }) =
     </Grid>
   );
 };
-
-
-
 
 export default function HeroFeature() {
   const theme = useTheme();
@@ -86,28 +106,31 @@ export default function HeroFeature() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-
   const features: FeatureItemProps[] = [
     {
       icon: <CalendarMonthOutlinedIcon sx={iconSizeSx} />,
       title: '프로그램',
-      description: isMobile ? '다양한 분야의 이벤트' : '교육, 모임, 네트워킹 등의 다양한 이벤트'
+      description: isMobile
+        ? '다양한 분야의 이벤트'
+        : '교육, 모임, 네트워킹 등의 다양한 이벤트',
     },
     {
       icon: <MenuBookOutlinedIcon sx={iconSizeSx} />,
       title: '멘토링',
-      description: isMobile ? '1:1 맞춤 멘토링' : '당신을 위한 1:1 맞춤 멘토링'
+      description: isMobile ? '1:1 맞춤 멘토링' : '당신을 위한 1:1 맞춤 멘토링',
     },
     {
       icon: <ChatOutlinedIcon sx={iconSizeSx} />,
       title: '피드백',
-      description: isMobile ? '당신의 소중한 피드백' : '소중한 피드백을 들려주세요'
+      description: isMobile
+        ? '당신의 소중한 피드백'
+        : '소중한 피드백을 들려주세요',
     },
     {
       icon: <SecurityOutlinedIcon sx={iconSizeSx} />,
       title: '안전 결제',
-      description: '100% 안전한 결제'
-    }
+      description: '100% 안전한 결제',
+    },
   ];
 
   return (
@@ -115,7 +138,11 @@ export default function HeroFeature() {
       sx={{
         width: '100%',
         backgroundColor: theme.palette.background.default,
-        boxShadow: { xxs: 'none', sm: 'none', md: '0 4px 8px rgba(0, 0, 0, 0.1)' },
+        boxShadow: {
+          xxs: 'none',
+          sm: 'none',
+          md: '0 4px 8px rgba(0, 0, 0, 0.1)',
+        },
         borderRadius: { xxs: 'none', sm: 'none', md: '10px', lg: 'none' },
         padding: { xxs: '1rem', md: '1.6rem', lg: '2.5rem' },
         mt: { xxs: '1vh', sm: '2vh', md: '-8vh', lg: '-13vh', xl: '-12vh' },
@@ -127,24 +154,30 @@ export default function HeroFeature() {
         justifyContent: 'center',
       }}
     >
-      <Container sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+      <Container
+        sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}
+      >
         <Grid
           container
           rowSpacing={{ xxs: 3.5, sm: 3, md: 8, lg: 12 }}
           columnSpacing={{ xxs: 6, sm: 0.5, md: 9 }}
-          justifyContent={{ xxs: 'center', md: 'space-between' }}>
-
-
-          {features.map((feature, index) => (             //  Refactoring FeatureItem into an array function 
-            <FeatureItem
-              key={index}
-              icon={feature.icon}
-              title={feature.title}
-              description={feature.description}
-            />
-          ))}
+          justifyContent={{ xxs: 'center', md: 'space-between' }}
+        >
+          {features.map(
+            (
+              feature,
+              index //  Refactoring FeatureItem into an array function
+            ) => (
+              <FeatureItem
+                key={index}
+                icon={feature.icon}
+                title={feature.title}
+                description={feature.description}
+              />
+            )
+          )}
         </Grid>
       </Container>
     </Box>
-  )
+  );
 }

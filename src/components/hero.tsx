@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import React from 'react';
 import { Box, Typography, Container, Button } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
@@ -6,7 +6,6 @@ import { useTheme } from '@mui/material/styles';
 import HeroFeature from './hero-feature';
 
 export default function HeroComponent(): JSX.Element {
-
   const theme = useTheme();
 
   return (
@@ -37,7 +36,6 @@ export default function HeroComponent(): JSX.Element {
             height: '100%',
             objectFit: 'cover',
             zIndex: -1,
-
           }}
         >
           <source src="/videos/climbing-video.mp4" type="video/mp4" />
@@ -53,7 +51,7 @@ export default function HeroComponent(): JSX.Element {
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: { xxs: 'center', md: 'flex-start' },
-            ml: { xxs: 'none', md: '10%' }
+            ml: { xxs: 'none', md: '10%' },
           }}
         >
           <Typography
@@ -64,7 +62,7 @@ export default function HeroComponent(): JSX.Element {
               fontSize: { xxs: '2rem', sm: '3rem', lg: '3.5rem' },
               color: theme.palette.primary.main,
               mb: 3,
-              fontWeight: 'bold'
+              fontWeight: 'bold',
             }}
           >
             가치 있는 삶을 같이
@@ -99,8 +97,6 @@ export default function HeroComponent(): JSX.Element {
 
       {/* Feature Section */}
       <HeroFeature />
-
     </>
   );
 }
-

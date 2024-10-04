@@ -7,7 +7,7 @@ interface ProfileIconProps {
 
 const ProfileIcon: React.FC<ProfileIconProps> = ({ onClick }) => {
   const theme = useTheme();
-  
+
   return (
     <IconButton
       color="inherit"
@@ -24,7 +24,9 @@ const ProfileIcon: React.FC<ProfileIconProps> = ({ onClick }) => {
         },
       }}
     >
-      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <Box
+        sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+      >
         <Box
           sx={{
             width: '9px',
