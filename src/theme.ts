@@ -25,7 +25,7 @@ const theme = createTheme({
     info: {
       main: '#F9F9FB', // Light background
       light: '#FFFFFF', // White text
-      dark: '#F0F2F3' // Background for button
+      dark: '#F0F2F3', // Background for button
     },
     background: {
       default: '#FFFFFF', // Default background
@@ -130,12 +130,11 @@ const theme = createTheme({
     MuiInputLabel: {
       styleOverrides: {
         root: {
-          color: '#999999'
-        }
-      }
-    }
+          color: '#999999',
+        },
+      },
+    },
   },
 });
 
 export default theme;
-
