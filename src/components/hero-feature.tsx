@@ -15,7 +15,7 @@ interface FeatureItemProps {
 }
 
 const iconSizeSx = {
-  fontSize: { xxs: '2.2rem', sm: '2.3rem', md: '2.5rem', lg: '2.8rem', xl: '3rem' }
+  fontSize: { xxs: '2rem',xs:'2.1rem', sm: '2.3rem', md: '2rem', lg: '2.3rem', xl: '2.7rem' }
 };
 
 const FeatureItem: React.FC<FeatureItemProps> = ({ icon, title, description }) => {
@@ -41,9 +41,9 @@ const FeatureItem: React.FC<FeatureItemProps> = ({ icon, title, description }) =
             variant="h6"
             sx={{
               fontWeight: 'bold',
-              fontSize: { xxs: '0.8rem', xs: '1rem', sm: '1.2rem', md: '1.1rem', lg: '1.15rem', xl: '1.2rem' },
+              fontSize: { xxs: '0.75rem', xs: '0.9rem', sm: '1.2rem', md: '0.8rem', lg: '1rem', xl: '1.2rem' },
               textAlign: 'left',
-              mb: 0.5,
+              
             }}
           >
             {title}
@@ -53,7 +53,7 @@ const FeatureItem: React.FC<FeatureItemProps> = ({ icon, title, description }) =
             variant="caption"
             sx={{
               color: theme.palette.customColor.gray,
-              fontSize: { xxs: '0.65rem', xs: '0.83rem', sm: '0.9rem', md: '0.7rem', lg: '0.78rem', xl: '0.9rem' },
+              fontSize: { xxs: '0.6rem', xs: '0.75rem', sm: '0.9rem', md: '0.55rem', lg: '0.65rem', xl: '0.7rem' },
               whiteSpace: 'nowrap',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
@@ -118,10 +118,10 @@ export default function HeroFeature() {
         boxShadow: { xxs: 'none', sm: 'none', md: '0 4px 8px rgba(0, 0, 0, 0.1)' },
         borderRadius: { xxs: 'none', sm: 'none', md: '10px', lg: 'none' },
         padding: { xxs: '1rem', md: '1.6rem', lg: '2.5rem' },
-        mt: { xxs: '1vh', sm: '2vh', md: '-8vh', lg: '-13vh', xl: '-12vh' },
+        mt: { xxs: '1rem', sm: '2rem', md: '-5rem', lg: '-8rem', xl: '-7rem' },
         zIndex: 2,
         position: 'relative',
-        maxWidth: { xxs: '100%', md: '95%', lg: '85%' },
+        maxWidth: { xxs: '100%', md:'85%', lg:'90%',xl: '100%' },
         mx: 'auto',
         display: 'flex',
         justifyContent: 'center',
