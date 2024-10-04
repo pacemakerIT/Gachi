@@ -59,7 +59,6 @@ const FeatureItem: React.FC<FeatureItemProps> = ({
                 xl: '1.2rem',
               },
               textAlign: 'left',
-              mb: 0.5,
             }}
           >
             {title}
@@ -145,10 +144,10 @@ export default function HeroFeature() {
         },
         borderRadius: { xxs: 'none', sm: 'none', md: '10px', lg: 'none' },
         padding: { xxs: '1rem', md: '1.6rem', lg: '2.5rem' },
-        mt: { xxs: '1vh', sm: '2vh', md: '-8vh', lg: '-13vh', xl: '-12vh' },
+        mt: { xxs: '1rem', sm: '2rem', md: '-5rem', lg: '-8rem', xl: '-7rem' },
         zIndex: 2,
         position: 'relative',
-        maxWidth: { xxs: '100%', md: '95%', lg: '85%' },
+        maxWidth: { xxs: '100%', md:'85%', lg:'90%',xl: '100%' },
         mx: 'auto',
         display: 'flex',
         justifyContent: 'center',
