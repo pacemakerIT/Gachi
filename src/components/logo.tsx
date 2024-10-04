@@ -47,7 +47,12 @@ const Logo: React.FC<LogoProps> = ({ isMobile }) => {
           </>
         ) : (
           <>
-            <Image src="/images/logo.png" alt="Gachi.live logo" width={40} height={40} />
+            <Image
+              src="/images/logo.png"
+              alt="Gachi.live logo"
+              width={40}
+              height={40}
+            />
             <Box
               component="span" // Changed from h6 to span
               sx={{

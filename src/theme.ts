@@ -184,11 +184,10 @@ const theme = createTheme({
     MuiInputLabel: {
       styleOverrides: {
         root: {
-          color:'#999999'
-        }
-
-      }
-    }
+          color: '#999999',
+        },
+      },
+    },
   },
 });
 
