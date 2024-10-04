@@ -25,6 +25,7 @@ export default function HeroComponent(): JSX.Element {
           borderRadius: { xxs: '0px', md: '10px' },
           left: { xxs:0,md:'50%'},
           ml: {xxs:0, md:'-47.5vw'},
+          mt: { xxs: 0, md: '20px' } ,
         }}
       >
         <video

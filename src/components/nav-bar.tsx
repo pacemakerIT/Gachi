@@ -242,7 +242,7 @@ const NavBar: React.FC<Props> = () => {
       </AppBar>
 
       {/* Add padding to prevent content from being hidden under the fixed navbar */}
-      <Box sx={{ paddingTop: '125px' }} />
+      <Box sx={{ paddingTop: { xxs: '80px', md: '125px' } }} /> 
     </>
   );
 };
