@@ -7,6 +7,7 @@ import { Facebook, Twitter, Instagram, Pinterest, YouTube } from '@mui/icons-mat
 import { useTheme } from '@mui/material/styles';
 import CategoryAccountSection from './category-account'; 
 
+
 const logoUrl = '/images/logo.png';
 
 // Social Media Link Type Definition
