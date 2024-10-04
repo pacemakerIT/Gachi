@@ -2,7 +2,6 @@
 import { createTheme } from '@mui/material/styles';
 import '@fontsource/ibm-plex-sans-kr';
 
-
 declare module '@mui/material/styles' {
   interface Palette {
     customColor: {
@@ -37,7 +36,7 @@ const theme = createTheme({
     info: {
       main: '#F9F9FB', // Light background
       light: '#FFFFFF', // White text
-      dark: '#F0F2F3' // Background for button
+      dark: '#F0F2F3', // Background for button
     },
     background: {
       default: '#FFFFFF', // Default background
@@ -150,11 +149,10 @@ const theme = createTheme({
     MuiInputLabel: {
       styleOverrides: {
         root: {
-          color:'#999999'
-        }
-
-      }
-    }
+          color: '#999999',
+        },
+      },
+    },
   },
 });
 
@@ -170,4 +168,3 @@ declare module '@mui/material/styles' {
 }
 
 export default theme;
-
