@@ -19,7 +19,7 @@ import MobileDrawer from './mobile-drawer';
 import ProfileIcon from './profile-icon';
 import Logo from './logo';
 
-interface Props {}
+interface Props { }
 
 const NavBar: React.FC<Props> = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
@@ -170,8 +170,8 @@ const NavBar: React.FC<Props> = () => {
                       padding: '0 5px',
                     }}
                     onMouseEnter={(e) =>
-                      (e.currentTarget.style.color =
-                        theme.palette.text.secondary)
+                    (e.currentTarget.style.color =
+                      theme.palette.text.secondary)
                     }
                     onMouseLeave={(e) =>
                       (e.currentTarget.style.color = theme.palette.text.primary)
@@ -255,12 +255,12 @@ const NavBar: React.FC<Props> = () => {
                           padding: '0 5px',
                         }}
                         onMouseEnter={(e) =>
-                          (e.currentTarget.style.color =
-                            theme.palette.text.secondary)
+                        (e.currentTarget.style.color =
+                          theme.palette.text.secondary)
                         }
                         onMouseLeave={(e) =>
-                          (e.currentTarget.style.color =
-                            theme.palette.text.primary)
+                        (e.currentTarget.style.color =
+                          theme.palette.text.primary)
                         }
                       >
                         회원가입
@@ -276,7 +276,7 @@ const NavBar: React.FC<Props> = () => {
       </AppBar>
 
       {/* Add padding to prevent content from being hidden under the fixed navbar */}
-      <Box sx={{ paddingTop: { xxs: '80px', md: '125px' } }} /> 
+      <Box sx={{ paddingTop: { xxs: '80px', md: '125px' } }} />
     </>
   );
 };

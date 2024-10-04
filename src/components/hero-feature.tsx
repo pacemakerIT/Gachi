@@ -67,7 +67,7 @@ const FeatureItem: React.FC<FeatureItemProps> = ({
           <Typography
             variant="caption"
             sx={{
-              color: theme.palette.customColor.gray,
+              color: theme.palette.text.secondary,
               fontSize: {
                 xxs: '0.65rem',
                 xs: '0.83rem',
@@ -147,7 +147,7 @@ export default function HeroFeature() {
         mt: { xxs: '1rem', sm: '2rem', md: '-5rem', lg: '-8rem', xl: '-7rem' },
         zIndex: 2,
         position: 'relative',
-        maxWidth: { xxs: '100%', md:'85%', lg:'90%',xl: '100%' },
+        maxWidth: { xxs: '100%', md: '85%', lg: '90%', xl: '100%' },
         mx: 'auto',
         display: 'flex',
         justifyContent: 'center',

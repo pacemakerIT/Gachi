@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Box, Typography, TextField, Button, useMediaQuery } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { useTheme } from '@mui/material/styles';
-import { validateEmail } from '../utils/email-validation'; 
+import { validateEmail } from '../utils/email-validation';
 
 export default function Newsletter() {
   const theme = useTheme();
@@ -39,7 +39,7 @@ export default function Newsletter() {
       {!isMobile && (
         <Typography
           variant='subtitle1'
-          sx={{ color: theme.palette.customColor?.gray, mb: '1rem' }}
+          sx={{ color: theme.palette.text.secondary, mb: '1rem' }}
         >
           NEWSLETTER
         </Typography>
@@ -80,7 +80,7 @@ export default function Newsletter() {
               maxWidth: isMobile ? '100%' : '500px',
               justifyContent: isMobile ? 'center' : 'flex-start',
               margin: isMobile ? '0 auto' : '0',
-              alignItems: {xxs:'center', md:'flex-start'},
+              alignItems: { xxs: 'center', md: 'flex-start' },
             }}
           >
             <TextField
@@ -117,7 +117,7 @@ export default function Newsletter() {
             <Typography
               variant="body2"
               sx={{
-                color: theme.palette.customColor?.gray,
+                color: theme.palette.text.secondary,
                 mt: '0.5rem',
               }}
             >

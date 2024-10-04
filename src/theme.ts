@@ -3,24 +3,13 @@ import { createTheme } from '@mui/material/styles';
 import '@fontsource/ibm-plex-sans-kr';
 
 declare module '@mui/material/styles' {
-  interface Palette {
-    customColor: {
-      darkWhite: string;
-      gray: string;
-    };
-    customBackground: {
-      overlay: string;
-    };
-  }
-
-  interface PaletteOptions {
-    customColor?: {
-      darkWhite?: string;
-      gray?: string;
-    };
-    customBackground?: {
-      overlay?: string;
-    };
+  interface BreakpointOverrides {
+    xxs: true;
+    xs: true;
+    sm: true;
+    md: true;
+    lg: true;
+    xl: true;
   }
 }
 
@@ -28,10 +17,10 @@ const theme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#2986FE',
+      main: '#2986FE', // Main blue color
     },
     secondary: {
-      main: '#101010', // Dark text
+      main: '#101010', // Main dark color
     },
     info: {
       main: '#F9F9FB', // Light background
@@ -42,18 +31,11 @@ const theme = createTheme({
       default: '#FFFFFF', // Default background
     },
     text: {
-      primary: '#101010', // Text color
-      secondary: '#2986FE', // Hover color
+      primary: '#101010', // Main text color
+      secondary: '#999999', // Gray color
     },
     action: {
-      hover: '#f1f1f1', // Slight hover effect for icon buttons
-    },
-    customColor: {
-      darkWhite: '#F0F2F3',
-      gray: '#999999',
-    },
-    customBackground: {
-      overlay: 'rgba(0, 0, 0, 0.5)',
+      hover: '#F1F1F1', // Slight hover effect for icon buttons
     },
   },
   breakpoints: {
@@ -75,7 +57,6 @@ const theme = createTheme({
     },
     body1: {
       fontSize: '14px', // Text size for nav links
-      // color: '#101010', // Text color for nav links
     },
   },
   components: {
@@ -98,7 +79,7 @@ const theme = createTheme({
             padding: '4px',
             boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
             '&:hover': {
-              backgroundColor: '#f1f1f1',
+              backgroundColor: '#F1F1F1',
             },
           },
         },
@@ -155,16 +136,5 @@ const theme = createTheme({
     },
   },
 });
-
-declare module '@mui/material/styles' {
-  interface BreakpointOverrides {
-    xxs: true;
-    xs: true;
-    sm: true;
-    md: true;
-    lg: true;
-    xl: true;
-  }
-}
 
 export default theme;

@@ -14,17 +14,17 @@ export default function HeroComponent(): JSX.Element {
       <Box
         sx={{
           position: 'relative',
-          width: {xxs:'100%', md:'95vw'},
+          width: { xxs: '100%', md: '95vw' },
           height: { xxs: '60vh', sm: '70vh', lg: '75vh' },
           overflow: 'hidden',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          backgroundColor: theme.palette.customBackground.overlay,
-          borderRadius: { xxs: '0px', md: '10px' },
-          left: { xxs:0,md:'50%'},
-          ml: {xxs:0, md:'-47.5vw'},
-          mt: { xxs: 0, md: '20px' } ,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          borderRadius: { xs: '0px', md: '10px' },
+          left: { xxs: 0, md: '50%' },
+          ml: { xxs: 0, md: '-47.5vw' },
+          mt: { xxs: 0, md: '20px' },
         }}
       >
         <video
@@ -47,7 +47,7 @@ export default function HeroComponent(): JSX.Element {
 
         <Container
           sx={{
-            color: theme.palette.primary.main,
+            color: theme.palette.info.light,
             zIndex: 1,
             textAlign: { xxs: 'center', md: 'left' },
             display: 'flex',
@@ -62,8 +62,7 @@ export default function HeroComponent(): JSX.Element {
             component="h1"
             gutterBottom
             sx={{
-              fontSize: { xxs: '2rem', xs:'2.2rem', sm: '2.3rem', md:'2.4rem', lg: '2.8rem', xl:'3rem' },
-              color: theme.palette.info.main,
+              fontSize: { xxs: '2rem', xs: '2.2rem', sm: '2.3rem', md: '2.4rem', lg: '2.8rem', xl: '3rem' },
               mb: 3,
               fontWeight: 'bold',
             }}
@@ -75,8 +74,7 @@ export default function HeroComponent(): JSX.Element {
             component="p"
             gutterBottom
             sx={{
-              fontSize: { xxs: '0.8rem', xs:'0.9rem', sm: '1rem',md:'1.1rem', lg: '1.2rem',xl:'1.5rem' },
-              color: theme.palette.info.main,
+              fontSize: { xxs: '0.8rem', xs: '0.9rem', sm: '1rem', md: '1.1rem', lg: '1.2rem', xl: '1.5rem' },
               fontWeight: 'bold'
             }}
           >
@@ -87,10 +85,8 @@ export default function HeroComponent(): JSX.Element {
             variant="contained"
             sx={{
               mt: 8,
-              backgroundColor: theme.palette.primary.main,
-              color: theme.palette.info.main,
-              padding: { xxs: '8px 16px', sm: '10px 20px',md:'12px 24px' },
-              fontSize: { xxs: '0.75rem',xs:'0.8rem', sm: '1rem',md:'1rem'},
+              padding: { xxs: '8px 16px', sm: '10px 20px', md: '12px 24px' },
+              fontSize: { xxs: '0.75rem', xs: '0.8rem', sm: '1rem', md: '1rem' },
               fontWeight: 'bold',
               borderRadius: '8px',
             }}
