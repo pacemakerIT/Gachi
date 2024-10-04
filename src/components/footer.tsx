@@ -44,6 +44,7 @@ interface CategoryAccountSectionProps {
   accountLinks: LinkItem[];
 }
 
+
 // Logo and SNS Section
 const LogoSnsSection: React.FC<LogoSectionProps> = ({ socialMediaLinks }) => {
   const theme = useTheme();
@@ -186,7 +187,6 @@ const SocialMediaSection: React.FC<{
 };
 
 // Category and Account Section
-
 const CategoryAccountSection: React.FC<CategoryAccountSectionProps> = ({
   categories,
   accountLinks,
