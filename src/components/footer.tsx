@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from 'react';
+import React from 'react';
+import Image from 'next/image';
 import { Box, Typography, TextField, Button, IconButton, Container, Link,useMediaQuery } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { Facebook, Twitter, Instagram, Pinterest, YouTube } from '@mui/icons-material';
@@ -26,7 +27,15 @@ const LogoSnsSection: React.FC<LogoSectionProps> = ({ socialMediaLinks }) => {
         <Grid size={{md:4 }} sx={{ textAlign: 'left' }}>
             <Box>
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: '1rem' }}>
-                    <img src={logoUrl} alt="Gachi.live Logo" style={{ width: '40px', height: '40px', marginRight: '10px' }} />
+                    <Image
+                            src={logoUrl}
+                            alt='Gachi.live Logo'
+                            width={40}
+                            height={40}
+                            style={{
+                                marginRight: '10px'
+                            }}
+                        />
                     <Typography variant="h6" gutterBottom>
                         Gachi.live
                     </Typography>
@@ -68,7 +77,15 @@ const SocialMediaSection: React.FC<{ socialMediaLinksTop: SocialMediaLink[], soc
             >
                 <Link href='/' underline='none'>
                     <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                        <img src="/images/logo.png" alt="Gachi.live Logo" style={{ width: '40px', height: '40px', marginRight: '10px' }} />
+                        <Image
+                                src={logoUrl}
+                                alt='Gachi.live Logo'
+                                width={40}
+                                height={40}
+                                style={{
+                                    marginRight: '10px'
+                                }}
+                            />
                         <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Gachi.live</Typography>
                     </Box>
                 </Link>
