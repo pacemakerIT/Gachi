@@ -51,7 +51,7 @@ export default function HeroComponent(): JSX.Element {
           sx={{
             color: theme.palette.primary.main,
             zIndex: 1,
-            textAlign: { xxs: 'center', lg: 'left' },
+            textAlign: { xxs: 'center', md: 'left' },
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
@@ -64,8 +64,8 @@ export default function HeroComponent(): JSX.Element {
             component="h1"
             gutterBottom
             sx={{
-              fontSize: { xxs: '2rem', sm: '3rem', lg: '3.5rem' },
-              color: theme.palette.primary.main,
+              fontSize: { xxs: '2rem', xs:'2.2rem', sm: '2.3rem', md:'2.4rem', lg: '2.8rem', xl:'3rem' },
+              color: theme.palette.info.main,
               mb: 3,
               fontWeight: 'bold'
             }}
@@ -77,8 +77,9 @@ export default function HeroComponent(): JSX.Element {
             component="p"
             gutterBottom
             sx={{
-              fontSize: { xxs: '0.99rem', sm: '1.25rem', lg: '1.4rem' },
-              color: theme.palette.primary.main,
+              fontSize: { xxs: '0.8rem', xs:'0.9rem', sm: '1rem',md:'1.1rem', lg: '1.2rem',xl:'1.5rem' },
+              color: theme.palette.info.main,
+              fontWeight: 'bold'
             }}
           >
             해외에 거주하는 한인들이 함께 어려운 일들을 <br />
@@ -87,11 +88,13 @@ export default function HeroComponent(): JSX.Element {
           <Button
             variant="contained"
             sx={{
-              mt: 5,
-              backgroundColor: theme.palette.primary.dark,
-              color: theme.palette.primary.main,
-              padding: { xxs: '8px 16px', lg: '10px 18px' },
+              mt: 8,
+              backgroundColor: theme.palette.primary.main,
+              color: theme.palette.info.main,
+              padding: { xxs: '8px 16px', sm: '10px 20px',md:'12px 24px' },
+              fontSize: { xxs: '0.75rem',xs:'0.8rem', sm: '1rem',md:'1rem'},
               fontWeight: 'bold',
+              borderRadius: '8px',
             }}
             endIcon={<ArrowForwardIcon />}
           >
