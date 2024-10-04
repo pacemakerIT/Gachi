@@ -6,6 +6,8 @@ import Grid from '@mui/material/Grid2';
 import { Facebook, Twitter, Instagram, Pinterest, YouTube } from '@mui/icons-material';
 import { useTheme } from '@mui/material/styles'; 
 import NewsletterSection from './newsletter-section';
+import CategoryAccountSection from './category-account'; 
+
 const logoUrl = '/images/logo.png';
 
 // Social Media Link Type Definition
@@ -22,11 +24,6 @@ type LinkItem = {
 // Props type definition
 interface LogoSectionProps {
     socialMediaLinks: SocialMediaLink[];
-}
-
-interface CategoryAccountSectionProps {
-    categories: LinkItem[];
-    accountLinks: LinkItem[];
 }
 
 
@@ -122,56 +119,6 @@ const SocialMediaSection: React.FC<{ socialMediaLinksTop: SocialMediaLink[], soc
         </Grid>
     );
 };
-
-// Category and Account Section
-
-const CategoryAccountSection: React.FC<CategoryAccountSectionProps> = ({ categories, accountLinks }) => {
-    const theme = useTheme();
-    return (
-        <Grid size={{ xs: 12, md:3 }} sx={{ textAlign: { xs: 'center', md: 'left' }, display: { xs: 'none', md: 'block' } }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: '2rem' }}>
-                <Box>
-                    <Typography variant="subtitle1" 
-                        sx={{ 
-                            mb: '1rem', 
-                            color: theme.palette.customColor.gray,
-                            fontSize: { xs: '0.875rem', md: '1rem' }, 
-                            }}
-                    >
-                        CATEGORY
-                    </Typography>
-                    {categories.map((category) => (
-                        <Link key={category.name} href={category.href} underline='hover' color='inherit'>
-                            <Typography variant="body2" gutterBottom>
-                                {category.name}
-                            </Typography>
-                        </Link>
-                    ))}
-                </Box>
-                <Box>
-                    <Typography variant="subtitle1" 
-                        sx={{ 
-                            mb: '1rem', 
-                            color: theme.palette.customColor.gray,
-                            fontSize: { xs: '0.875rem', md: '1rem' } 
-                            }}
-                    >
-                        YOUR ACCOUNT
-                    </Typography>
-                    {accountLinks.map((account) => (
-                        <Link key={account.name} href={account.href} underline='hover' color='inherit'>
-                            <Typography variant="body2" gutterBottom>
-                                {account.name}
-                            </Typography>
-                        </Link>
-                    ))}
-                </Box>
-            </Box>
-        </Grid>
-    );
-};
-
-
 
 // Footer Main Component
 export default function Footer() {
