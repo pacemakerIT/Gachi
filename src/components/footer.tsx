@@ -1,9 +1,10 @@
 "use client";
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Typography, TextField, Button, IconButton, Container, Link,useMediaQuery } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { Facebook, Twitter, Instagram, Pinterest, YouTube } from '@mui/icons-material';
 import { useTheme } from '@mui/material/styles';
+import CategoryAccountSection from './category-account'; 
 
 const logoUrl = '/images/logo.png';
 
@@ -13,19 +14,9 @@ type SocialMediaLink = {
     icon: React.ReactNode;
 };
 
-type LinkItem = {
-    name: string;
-    href: string;
-};
-
 // Props type definition
 interface LogoSectionProps {
     socialMediaLinks: SocialMediaLink[];
-}
-
-interface CategoryAccountSectionProps {
-    categories: LinkItem[];
-    accountLinks: LinkItem[];
 }
 
 // Logo and SNS Section
@@ -104,54 +95,6 @@ const SocialMediaSection: React.FC<{ socialMediaLinksTop: SocialMediaLink[], soc
                     {socialMediaLinksBottom.map((link, index) => (
                         <Link key={index} href={link.href} target='_blank' rel='noopener noreferrer'>
                             <IconButton>{link.icon}</IconButton>
-                        </Link>
-                    ))}
-                </Box>
-            </Box>
-        </Grid>
-    );
-};
-
-// Category and Account Section
-
-const CategoryAccountSection: React.FC<CategoryAccountSectionProps> = ({ categories, accountLinks }) => {
-    const theme = useTheme();
-    return (
-        <Grid size={{ xs: 12, md:3 }} sx={{ textAlign: { xs: 'center', md: 'left' }, display: { xs: 'none', md: 'block' } }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: '2rem' }}>
-                <Box>
-                    <Typography variant="subtitle1" 
-                        sx={{ 
-                            mb: '1rem', 
-                            color: theme.palette.customColor.gray,
-                            fontSize: { xs: '0.875rem', md: '1rem' }, 
-                            }}
-                    >
-                        CATEGORY
-                    </Typography>
-                    {categories.map((category) => (
-                        <Link key={category.name} href={category.href} underline='hover' color='inherit'>
-                            <Typography variant="body2" gutterBottom>
-                                {category.name}
-                            </Typography>
-                        </Link>
-                    ))}
-                </Box>
-                <Box>
-                    <Typography variant="subtitle1" 
-                        sx={{ 
-                            mb: '1rem', 
-                            color: theme.palette.customColor.gray,
-                            fontSize: { xs: '0.875rem', md: '1rem' } 
-                            }}
-                    >
-                        YOUR ACCOUNT
-                    </Typography>
-                    {accountLinks.map((account) => (
-                        <Link key={account.name} href={account.href} underline='hover' color='inherit'>
-                            <Typography variant="body2" gutterBottom>
-                                {account.name}
-                            </Typography>
                         </Link>
                     ))}
                 </Box>
