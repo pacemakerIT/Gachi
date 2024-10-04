@@ -61,7 +61,7 @@ export default function HeroComponent(): JSX.Element {
             component="h1"
             gutterBottom
             sx={{
-              fontSize: { xxs: '2rem', xs:'2.5rem', sm: '3rem', md:'3.5rem', lg: '4rem', xl:'4.3rem' },
+              fontSize: { xxs: '2rem', xs:'2.2rem', sm: '2.3rem', md:'2.4rem', lg: '2.8rem', xl:'3rem' },
               color: theme.palette.info.main,
               mb: 3,
               fontWeight: 'bold'
@@ -74,7 +74,7 @@ export default function HeroComponent(): JSX.Element {
             component="p"
             gutterBottom
             sx={{
-              fontSize: { xxs: '0.9rem', xs:'1.2rem', sm: '1.5rem',md:'1.6rem', lg: '1.7rem',xl:'1.8rem' },
+              fontSize: { xxs: '0.8rem', xs:'0.9rem', sm: '1rem',md:'1.1rem', lg: '1.2rem',xl:'1.5rem' },
               color: theme.palette.info.main,
               fontWeight: 'bold'
             }}
@@ -88,8 +88,8 @@ export default function HeroComponent(): JSX.Element {
               mt: 8,
               backgroundColor: theme.palette.primary.main,
               color: theme.palette.info.main,
-              padding: { xxs: '8px 16px',xs:'10px 20px', sm: '12px 24px',md:'13px 26px' },
-              fontSize: { xxs: '0.75rem',xs:'0.8rem', sm: '1rem',md:'1.2rem'},
+              padding: { xxs: '8px 16px', sm: '10px 20px',md:'12px 24px' },
+              fontSize: { xxs: '0.75rem',xs:'0.8rem', sm: '1rem',md:'1rem'},
               fontWeight: 'bold',
               borderRadius: '8px',
             }}
