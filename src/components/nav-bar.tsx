@@ -103,23 +103,20 @@ const NavBar: React.FC<Props> = () => {
       {/* AppBar with fixed position */}
       <AppBar
         position="fixed"
-        sx={{ top: '25px', zIndex: theme.zIndex.drawer + 1 }}
+        sx={{ top: '25px', zIndex: theme.zIndex.drawer + 1 }} // Lower z-index than drawer to allow the drawer to be on top
       >
         <Toolbar sx={{ justifyContent: 'space-between', maxHeight: '20px' }}>
           {isMobile ? (
             <>
-              {/* Hamburger Icon for Mobile View */}
               <IconButton
                 sx={{ color: theme.palette.secondary.main }}
                 onClick={toggleNavDrawer}
               >
                 <MenuIcon />
               </IconButton>
-
-              {/* Logo and Title in the center */}
+          
               <Logo isMobile={isMobile} />
-
-              {/* Profile Icon or Login Button on the Right */}
+          
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 {isLoggedIn ? (
                   <ProfileIcon onClick={toggleProfileDrawer} />
@@ -129,7 +126,7 @@ const NavBar: React.FC<Props> = () => {
                   </Link>
                 )}
               </Box>
-
+              
               {/* Drawer for Mobile Navigation */}
               <MobileDrawer
                 open={navDrawerOpen}
@@ -143,20 +140,16 @@ const NavBar: React.FC<Props> = () => {
                 open={profileDrawerOpen}
                 onClose={closeProfileDrawer}
                 links={profileLinks}
-                anchor="right" // Open the profile drawer from the right
+                anchor="right"
               />
             </>
           ) : (
             <>
-              {/* Logo and Title */}
               <Box sx={{ display: 'flex', alignItems: 'center', ml: '100px' }}>
                 <Logo isMobile={isMobile} />
               </Box>
-
-              {/* Menu Links */}
-              <Box
-                sx={{ display: 'flex', alignItems: 'center', marginY: '0px' }}
-              >
+          
+              <Box sx={{ display: 'flex', alignItems: 'center', marginY: '0px' }}>
                 {navLinks.map((link, index) => (
                   <Link
                     key={link.href}
@@ -172,8 +165,7 @@ const NavBar: React.FC<Props> = () => {
                       padding: '0 5px',
                     }}
                     onMouseEnter={(e) =>
-                      (e.currentTarget.style.color =
-                        theme.palette.text.secondary)
+                      (e.currentTarget.style.color = theme.palette.text.secondary)
                     }
                     onMouseLeave={(e) =>
                       (e.currentTarget.style.color = theme.palette.text.primary)
@@ -183,10 +175,8 @@ const NavBar: React.FC<Props> = () => {
                   </Link>
                 ))}
 
-                {/* Conditional Icons/Buttons for Logged-in State */}
                 {isLoggedIn ? (
                   <>
-                    {/* Notifications Icon Button */}
                     <IconButton
                       sx={{
                         backgroundColor: 'transparent',
@@ -209,11 +199,9 @@ const NavBar: React.FC<Props> = () => {
                         }}
                       />
                     </IconButton>
-
-                    {/* Profile Icon with dropdown menu */}
+                      
                     <ProfileIcon onClick={handleProfileMenuOpen} />
-
-                    {/* User Menu (Dropdown) */}
+                      
                     <Menu
                       anchorEl={anchorEl}
                       open={Boolean(anchorEl)}
@@ -237,7 +225,6 @@ const NavBar: React.FC<Props> = () => {
                   </>
                 ) : (
                   <>
-                    {/* "Sign up" link and "Login" button for Logged-out State */}
                     <Box
                       sx={{
                         display: 'flex',
@@ -278,7 +265,6 @@ const NavBar: React.FC<Props> = () => {
           )}
         </Toolbar>
       </AppBar>
-
       {/* Add padding to prevent content from being hidden under the fixed navbar */}
       <Box sx={{ paddingTop: { xxs: '80px', md: '125px' } }} /> 
     </>
