@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Card, CardContent, Typography, Box, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import CircularProgress from '@mui/material/CircularProgress';
+import { RiDoubleQuotesR } from "react-icons/ri";
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -60,14 +61,19 @@ export default function Review() {
 
     return (
         <Box sx={{
-            backgroundColor: theme.palette.info.main,
+            width: '100%',
+            maxWidth: '1200px',
             padding: {
                 xxs: '30px 0 30px 30px',
-                md: '30px 80px',
-                lg: '30px 150px'
+                md: '30px 60px',
+                lg: '30px 130px'
             },
         }}>
-            <CarouselHeader title={'Reviews'} swiperRef={swiperRef} />
+            <CarouselHeader
+                title={'Reviews'}
+                swiperRef={swiperRef}
+                styles={{ padding: '0 20px' }}
+            />
 
             {isLoaded ? (
                 <Swiper
@@ -139,11 +145,21 @@ export default function Review() {
                                                     {card.name}
                                                 </Typography>
                                                 <Typography sx={{
-                                                    fontSize: { xs: '0.875rem', sm: '1rem', md: '1.05rem', lg: '1.1rem' },
+                                                    fontSize: { xs: '0.87rem', sm: '1rem', md: '1.05rem', lg: '1.1rem' },
                                                     opacity: '0.7',
                                                 }}>
                                                     {card.jobTitle}
                                                 </Typography>
+                                            </Box>
+                                            <Box sx={{
+                                                display: { xxs: 'none', sm: 'block' },
+                                                '& svg': {
+                                                    width: '90px',
+                                                    height: '90px',
+                                                    color: theme.palette.info.dark,
+                                                }
+                                            }}>
+                                                <RiDoubleQuotesR />
                                             </Box>
                                         </Box>
                                     </Box>
