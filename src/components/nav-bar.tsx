@@ -28,7 +28,7 @@ const NavBar: React.FC<Props> = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const prevIsMobile = React.useRef(isMobile); // To track changes between mobile and desktop
+  const prevIsMobile = React.useRef(isMobile);
 
   const toggleNavDrawer = () => {
     setNavDrawerOpen(!navDrawerOpen);
@@ -60,10 +60,8 @@ const NavBar: React.FC<Props> = () => {
     setAnchorEl(null);
   };
 
-  // UseEffect to close profile drawer and dropdown when switching between mobile and browser modes
   useEffect(() => {
     if (prevIsMobile.current !== isMobile) {
-      // Close profile drawer in mobile and dropdown menu in browser mode on transition
       setProfileDrawerOpen(false);
       setAnchorEl(null);
     }
@@ -93,30 +91,33 @@ const NavBar: React.FC<Props> = () => {
           backgroundColor: theme.palette.secondary.main,
           height: '25px',
           width: '100%',
-          position: 'fixed', // Make sure it's fixed as well
+          position: 'fixed',
           top: 0,
           left: 0,
-          zIndex: theme.zIndex.drawer + 2, // Ensure it's above other content
+          zIndex: theme.zIndex.drawer + 2,
         }}
       />
 
       {/* AppBar with fixed position */}
       <AppBar
         position="fixed"
-        sx={{ top: '25px', zIndex: theme.zIndex.drawer + 1 }} // Lower z-index than drawer to allow the drawer to be on top
+        sx={{ top: '25px', zIndex: theme.zIndex.drawer + 1 }}
       >
         <Toolbar sx={{ justifyContent: 'space-between', maxHeight: '20px' }}>
           {isMobile ? (
             <>
+              {/* Hamburger Icon for Mobile View */}
               <IconButton
                 sx={{ color: theme.palette.secondary.main }}
                 onClick={toggleNavDrawer}
               >
                 <MenuIcon />
               </IconButton>
-          
+
+              {/* Logo and Title in the center */}
               <Logo isMobile={isMobile} />
-          
+
+              {/* Profile Icon or Login Button on the Right */}
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 {isLoggedIn ? (
                   <ProfileIcon onClick={toggleProfileDrawer} />
@@ -126,7 +127,7 @@ const NavBar: React.FC<Props> = () => {
                   </Link>
                 )}
               </Box>
-              
+
               {/* Drawer for Mobile Navigation */}
               <MobileDrawer
                 open={navDrawerOpen}
@@ -145,10 +146,12 @@ const NavBar: React.FC<Props> = () => {
             </>
           ) : (
             <>
+              {/* Logo and Title */}
               <Box sx={{ display: 'flex', alignItems: 'center', ml: '100px' }}>
                 <Logo isMobile={isMobile} />
               </Box>
-          
+
+              {/* Menu Links */}
               <Box sx={{ display: 'flex', alignItems: 'center', marginY: '0px' }}>
                 {navLinks.map((link, index) => (
                   <Link
@@ -158,8 +161,7 @@ const NavBar: React.FC<Props> = () => {
                     style={{
                       textDecoration: 'none',
                       color: theme.palette.text.primary,
-                      marginRight:
-                        index === navLinks.length - 1 ? '50px' : '20px',
+                      marginRight: index === navLinks.length - 1 ? '50px' : '20px',
                       fontSize: theme.typography.body1.fontSize,
                       transition: 'color 0.3s',
                       padding: '0 5px',
@@ -175,8 +177,10 @@ const NavBar: React.FC<Props> = () => {
                   </Link>
                 ))}
 
+                {/* Conditional Icons/Buttons for Logged-in State */}
                 {isLoggedIn ? (
                   <>
+                    {/* Notifications Icon Button */}
                     <IconButton
                       sx={{
                         backgroundColor: 'transparent',
@@ -199,9 +203,11 @@ const NavBar: React.FC<Props> = () => {
                         }}
                       />
                     </IconButton>
-                      
+
+                    {/* Profile Icon with dropdown menu */}
                     <ProfileIcon onClick={handleProfileMenuOpen} />
-                      
+
+                    {/* User Menu (Dropdown) */}
                     <Menu
                       anchorEl={anchorEl}
                       open={Boolean(anchorEl)}
@@ -225,6 +231,7 @@ const NavBar: React.FC<Props> = () => {
                   </>
                 ) : (
                   <>
+                    {/* "Sign up" link and "Login" button for Logged-out State */}
                     <Box
                       sx={{
                         display: 'flex',
@@ -244,12 +251,10 @@ const NavBar: React.FC<Props> = () => {
                           padding: '0 5px',
                         }}
                         onMouseEnter={(e) =>
-                          (e.currentTarget.style.color =
-                            theme.palette.text.secondary)
+                          (e.currentTarget.style.color = theme.palette.text.secondary)
                         }
                         onMouseLeave={(e) =>
-                          (e.currentTarget.style.color =
-                            theme.palette.text.primary)
+                          (e.currentTarget.style.color = theme.palette.text.primary)
                         }
                       >
                         회원가입
@@ -265,8 +270,9 @@ const NavBar: React.FC<Props> = () => {
           )}
         </Toolbar>
       </AppBar>
+
       {/* Add padding to prevent content from being hidden under the fixed navbar */}
-      <Box sx={{ paddingTop: { xxs: '80px', md: '125px' } }} /> 
+      <Box sx={{ paddingTop: { xxs: '80px', md: '125px' } }} />
     </>
   );
 };
