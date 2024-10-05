@@ -179,7 +179,7 @@ export default function Review() {
                               md: '1.05rem',
                               lg: '1.1rem',
                             },
-                            opacity: '0.7',
+                            color: theme.palette.text.secondary,
                           }}
                         >
                           {card.jobTitle}

@@ -21,7 +21,7 @@ import {
 } from '@mui/icons-material';
 import { useTheme } from '@mui/material/styles';
 import NewsletterSection from './newsletter-section';
-import CategoryAccountSection from './category-account'; 
+import CategoryAccountSection from './category-account';
 
 const logoUrl = '/images/logo.png';
 
@@ -60,7 +60,7 @@ const LogoSnsSection: React.FC<LogoSectionProps> = ({ socialMediaLinks }) => {
         </Box>
         <Typography
           variant="body2"
-          sx={{ color: theme.palette.customColor.gray, mb: '1rem' }}
+          sx={{ color: theme.palette.text.secondary, mb: '1rem' }}
         >
           Vivamus tristique odio sit amet velit semper, eu posuere turpis
           interdum. Cras egestas purus.
