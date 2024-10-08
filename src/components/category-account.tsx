@@ -26,7 +26,7 @@ export default function CategoryAccountSection({ categories, accountLinks }: Cat
                         variant="subtitle1"
                         sx={{
                             mb: '1rem',
-                            color: theme.palette.customColor.gray,
+                            color: theme.palette.text.secondary,
                             fontSize: { xs: '0.875rem', md: '1rem' },
                         }}
                     >
@@ -47,7 +47,7 @@ export default function CategoryAccountSection({ categories, accountLinks }: Cat
                             variant="subtitle1"
                             sx={{
                                 mb: '1rem',
-                                color: theme.palette.customColor.gray,
+                                color: theme.palette.text.secondary,
                                 fontSize: { xs: '0.875rem', md: '1rem' }
                             }}
                         >
@@ -67,7 +67,7 @@ export default function CategoryAccountSection({ categories, accountLinks }: Cat
                             variant="subtitle1"
                             sx={{
                                 mb: '1rem',
-                                color: theme.palette.customColor.gray,
+                                color: theme.palette.text.secondary,
                                 fontSize: { md: '1rem' }
                             }}
                         >

@@ -19,7 +19,7 @@ import MobileDrawer from './mobile-drawer';
 import ProfileIcon from './profile-icon';
 import Logo from './logo';
 
-interface Props {}
+interface Props { }
 
 const NavBar: React.FC<Props> = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
