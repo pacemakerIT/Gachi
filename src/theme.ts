@@ -3,6 +3,15 @@ import { createTheme } from '@mui/material/styles';
 import '@fontsource/ibm-plex-sans-kr';
 
 declare module '@mui/material/styles' {
+  interface BreakpointOverrides {
+    xxs: true;
+    xs: true;
+    sm: true;
+    md: true;
+    lg: true;
+    xl: true;
+  }
+
   interface Palette {
     customColor: {
       darkWhite: string;
@@ -31,8 +40,8 @@ declare module '@mui/material/styles' {
     caption: {
       fontSize: string;
       fontWeight: number;
-      textAlign: string; // Keep textAlign for center alignment
-      color: string; // Add color to caption variant
+      textAlign: string;
+      color: string;
     };
   }
 
@@ -44,8 +53,8 @@ declare module '@mui/material/styles' {
     caption?: {
       fontSize?: string;
       fontWeight?: number;
-      textAlign?: string; // Keep textAlign for center alignment
-      color?: string; // Add color to caption variant
+      textAlign?: string;
+      color?: string;
     };
   }
 }
@@ -54,10 +63,10 @@ const theme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#2986FE',
+      main: '#2986FE', // Main blue color
     },
     secondary: {
-      main: '#101010', // Dark text
+      main: '#101010', // Main dark color
     },
     info: {
       main: '#F9F9FB', // Light background
@@ -68,18 +77,18 @@ const theme = createTheme({
       default: '#FFFFFF', // Default background
     },
     text: {
-      primary: '#101010', // Text color
-      secondary: '#2986FE', // Hover color
+      primary: '#101010', // Main text color
+      secondary: '#999999', // Gray color
     },
     action: {
-      hover: '#f1f1f1', // Slight hover effect for icon buttons
+      hover: '#2986FE', // Slight hover effect for icon buttons
     },
     customColor: {
       darkWhite: '#F0F2F3',
       gray: '#999999',
     },
     customBackground: {
-      overlay: 'rgba(0, 0, 0, 0.5)',
+      overlay: 'rgba(0, 0, 0, 0.5)', // Overlay background
     },
   },
   breakpoints: {
@@ -94,23 +103,23 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: 'IBM Plex Sans KR, Arial, sans-serif',
-    title: {
-      fontSize: '1.25rem', // Adjust font size as needed
-      fontWeight: 600, // Adjust weight as needed
-    },
     h6: {
       fontSize: '18px',
       fontWeight: 'bold',
       color: '#101010', // Ensure "Gachi.live" text is black
     },
-    caption: {
-      fontSize: '0.875rem', // Adjust font size as needed
-      fontWeight: 400,
-      color: '#808080', // Gray color for caption text
-      textAlign: 'center', // Center text
-    },
     body1: {
       fontSize: '14px', // Text size for nav links
+    },
+    title: {
+      fontSize: '1.25rem', // Adjust font size as needed
+      fontWeight: 600, // Adjust weight as needed
+    },
+    caption: {
+      fontSize: '0.875rem', // Caption text size
+      fontWeight: 400,
+      color: '#808080', // Caption text color
+      textAlign: 'center', // Center-align text
     },
   },
   components: {
@@ -133,7 +142,7 @@ const theme = createTheme({
             padding: '4px',
             boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
             '&:hover': {
-              backgroundColor: '#f1f1f1',
+              backgroundColor: '#F1F1F1',
             },
           },
         },
@@ -190,16 +199,5 @@ const theme = createTheme({
     },
   },
 });
-
-declare module '@mui/material/styles' {
-  interface BreakpointOverrides {
-    xxs: true;
-    xs: true;
-    sm: true;
-    md: true;
-    lg: true;
-    xl: true;
-  }
-}
 
 export default theme;

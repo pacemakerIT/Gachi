@@ -167,7 +167,7 @@ const NavBar: React.FC<Props> = () => {
                       padding: '0 5px',
                     }}
                     onMouseEnter={(e) =>
-                      (e.currentTarget.style.color = theme.palette.text.secondary)
+                      (e.currentTarget.style.color = theme.palette.primary.main)
                     }
                     onMouseLeave={(e) =>
                       (e.currentTarget.style.color = theme.palette.text.primary)
@@ -251,7 +251,7 @@ const NavBar: React.FC<Props> = () => {
                           padding: '0 5px',
                         }}
                         onMouseEnter={(e) =>
-                          (e.currentTarget.style.color = theme.palette.text.secondary)
+                          (e.currentTarget.style.color = theme.palette.primary.main)
                         }
                         onMouseLeave={(e) =>
                           (e.currentTarget.style.color = theme.palette.text.primary)

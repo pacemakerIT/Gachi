@@ -175,7 +175,7 @@ export default function SignUpPage() {
 
             {/* Login Link */}
             <Typography align="center" sx={{ mt: 2 }}>
-                이미 계정이 있으신가요? <Link href="/login" sx={{ textDecoration: 'none', color: theme.palette.text.secondary }}>로그인</Link>
+                이미 계정이 있으신가요? <Link href="/login" sx={{ textDecoration: 'none', color: theme.palette.primary.main }}>로그인</Link>
             </Typography>
 
             <Divider sx={{ my: 3 }}>or</Divider>
