@@ -27,7 +27,9 @@ export default function SignUpPage() {
                 border: 'none',
             }}
         >
-            <Typography variant="h5" align="center" gutterBottom>회원가입</Typography>
+            <Typography variant="h5" align="center" gutterBottom sx={{ fontWeight: 'bold' }}>
+                회원가입
+            </Typography>
             <Box
                 sx={{
                     mb: 2,
@@ -130,11 +132,11 @@ export default function SignUpPage() {
             </Box>
 
             <Box sx={{ mb: 3 }}>
-                <Typography variant="body1" sx={{ mb: 0.5, fontWeight: 'bold', color: theme.palette.text.primary }}>비번</Typography>
+                <Typography variant="body1" sx={{ mb: 0.5, fontWeight: 'bold', color: theme.palette.text.primary }}>비밀번호</Typography>
                 <TextField
                     fullWidth
                     margin="normal"
-                    placeholder="e.g. 123456789"
+                    placeholder="비밀번호를 입력하세요"
                     variant="outlined"
                     type={showPassword ? 'text' : 'password'}
                     InputProps={{

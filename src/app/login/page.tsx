@@ -20,7 +20,9 @@ export default function LoginPage() {
                 border: 'none', // Remove the border
             }}
         >
-            <Typography variant="h5" align="center" gutterBottom>로그인</Typography>
+            <Typography variant="h5" align="center" gutterBottom sx={{ fontWeight: 'bold' }}>
+                로그인
+            </Typography>
 
             {/* Email Input */}
             <Box sx={{ mb: 1 }}>
