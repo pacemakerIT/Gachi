@@ -20,7 +20,10 @@ jobs:
           node-version: 20.17
 
       - name: Install Node.js dependencies
-        run: yarn --frozen-lockfile
+        run: npm ci
+
+      - name: Install eslint-config-prettier
+        run: npm install eslint-config-prettier --save-dev
 
       - name: Run linters
         uses: wearerequired/lint-action@v2
