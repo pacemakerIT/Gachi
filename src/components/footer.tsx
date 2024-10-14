@@ -4,8 +4,6 @@ import Image from 'next/image';
 import {
   Box,
   Typography,
-  TextField,
-  Button,
   IconButton,
   Container,
   Link,
@@ -22,6 +20,7 @@ import {
 import { useTheme } from '@mui/material/styles';
 import NewsletterSection from './newsletter-section';
 import CategoryAccountSection from './category-account';
+import { maxContainerWidth } from '../constants';
 
 const logoUrl = '/images/logo.png';
 
@@ -230,7 +229,12 @@ export default function Footer() {
         </Container>
       ) : (
         //Desktop view
-        <Container maxWidth="lg" sx={{ paddingX: '1rem' }}>
+        <Container 
+            sx={{ 
+              maxWidth: maxContainerWidth,
+              paddingX: '1rem' 
+              
+          }}>
           <Grid
             container
             spacing={4}
