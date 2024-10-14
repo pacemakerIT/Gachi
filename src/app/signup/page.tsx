@@ -27,7 +27,9 @@ export default function SignUpPage() {
                 border: 'none',
             }}
         >
-            <Typography variant="h5" align="center" gutterBottom>회원가입</Typography>
+            <Typography variant="h5" align="center" gutterBottom sx={{ fontWeight: 'bold' }}>
+                회원가입
+            </Typography>
             <Box
                 sx={{
                     mb: 2,
@@ -130,11 +132,11 @@ export default function SignUpPage() {
             </Box>
 
             <Box sx={{ mb: 3 }}>
-                <Typography variant="body1" sx={{ mb: 0.5, fontWeight: 'bold', color: theme.palette.text.primary }}>비번</Typography>
+                <Typography variant="body1" sx={{ mb: 0.5, fontWeight: 'bold', color: theme.palette.text.primary }}>비밀번호</Typography>
                 <TextField
                     fullWidth
                     margin="normal"
-                    placeholder="e.g. 123456789"
+                    placeholder="비밀번호를 입력하세요"
                     variant="outlined"
                     type={showPassword ? 'text' : 'password'}
                     InputProps={{
@@ -173,7 +175,7 @@ export default function SignUpPage() {
 
             {/* Login Link */}
             <Typography align="center" sx={{ mt: 2 }}>
-                이미 계정이 있으신가요? <Link href="/login" sx={{ textDecoration: 'none', color: theme.palette.text.secondary }}>로그인</Link>
+                이미 계정이 있으신가요? <Link href="/login" sx={{ textDecoration: 'none', color: theme.palette.primary.main }}>로그인</Link>
             </Typography>
 
             <Divider sx={{ my: 3 }}>or</Divider>
