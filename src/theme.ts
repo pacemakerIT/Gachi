@@ -11,6 +11,18 @@ declare module '@mui/material/styles' {
     lg: true;
     xl: true;
   }
+  interface Palette {
+    icon: {
+      main: string;
+      hover: string;
+    };
+  }
+  interface PaletteOptions {
+    icon?: {
+      main?: string;
+      hover?: string;
+    };
+  }
 }
 
 const theme = createTheme({
@@ -37,6 +49,10 @@ const theme = createTheme({
     action: {
       hover: '#F1F1F1', // Slight hover effect for icon buttons
     },
+    icon: {
+      main: '#A9A9A9', // 기본 아이콘 색상
+      hover: '#007580', // 아이콘 hover 색상
+    }
   },
   breakpoints: {
     values: {

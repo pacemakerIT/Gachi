@@ -18,22 +18,32 @@ import {
   YouTube,
 } from '@mui/icons-material';
 import { useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import NewsletterSection from './newsletter-section';
 import CategoryAccountSection from './category-account';
 import { maxContainerWidth } from '../constants';
+
 
 const logoUrl = '/images/logo.png';
 
 // Social Media Link Type Definition
 type SocialMediaLink = {
   href: string;
-  icon: React.ReactNode;
+  icon: React.ReactElement;
 };
 
 // Props type definition
 interface LogoSectionProps {
   socialMediaLinks: SocialMediaLink[];
-}
+};
+
+const CustomIconButton = styled(IconButton)(({ theme }) => ({
+  color: theme.palette.icon.main,
+  '&:hover': {
+    color: theme.palette.icon.hover,
+  },
+}));
+
 
 
 // Logo and SNS Section
@@ -74,7 +84,9 @@ const LogoSnsSection: React.FC<LogoSectionProps> = ({ socialMediaLinks }) => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <IconButton>{link.icon}</IconButton>
+            <CustomIconButton>
+              {link.icon}
+            </CustomIconButton>
           </Link>
         ))}
       </Box>
@@ -138,7 +150,7 @@ const SocialMediaSection: React.FC<{
           display: 'grid',
           gridTemplateColumns: 'repeat(3, 1fr)',
           gap: '1rem',
-          justifyItems: 'center',
+          justifyItems: 'flex-start',
         }}
       >
         <Box sx={{ gridColumn: 'span 2' }}>
@@ -149,7 +161,9 @@ const SocialMediaSection: React.FC<{
               target="_blank"
               rel="noopener noreferrer"
             >
-              <IconButton>{link.icon}</IconButton>
+            <CustomIconButton>
+              {link.icon}
+            </CustomIconButton>
             </Link>
           ))}
         </Box>
@@ -168,7 +182,9 @@ const SocialMediaSection: React.FC<{
               target="_blank"
               rel="noopener noreferrer"
             >
-              <IconButton>{link.icon}</IconButton>
+            <CustomIconButton>
+              {link.icon}
+            </CustomIconButton>
             </Link>
           ))}
         </Box>
