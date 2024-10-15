@@ -2,32 +2,31 @@
 
 import React from 'react';
 import { Box, Drawer, List, ListItem, ListItemIcon, ListItemText, Card, CardContent, Typography, AppBar, Toolbar, InputBase, IconButton } from '@mui/material';
-import DonutLargeOutlinedIcon from '@mui/icons-material/DonutLargeOutlined';
+import SpaceDashboardOutlinedIcon from '@mui/icons-material/SpaceDashboardOutlined';
 import PersonIcon from '@mui/icons-material/Person';
-import BarChartIcon from '@mui/icons-material/BarChart';
+import MarkEmailUnreadOutlinedIcon from '@mui/icons-material/MarkEmailUnreadOutlined';
 import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
 import SettingsIcon from '@mui/icons-material/Settings';
 import NotificationsIcon from '@mui/icons-material/NotificationsOutlined';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import TimelineOutlinedIcon from '@mui/icons-material/TimelineOutlined';
+import PendingActionsOutlinedIcon from '@mui/icons-material/PendingActionsOutlined';
+import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
 import SearchIcon from '@mui/icons-material/Search';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
-import { useTheme } from '@mui/material/styles'; // To use theme values
-import Logo from '../../components/logo'; // Import the Logo component
+import { useTheme } from '@mui/material/styles';
+import Logo from '../../components/logo';
 
 const drawerWidth = 240;
 
 const AdminDashboard: React.FC = () => {
-  const theme = useTheme(); // Get theme values
+  const theme = useTheme();
 
   const menuItems = [
-    { text: 'Dashboard', icon: <DonutLargeOutlinedIcon /> },
-    { text: 'Leaderboard', icon: <BarChartIcon /> },
-    { text: '뉴스레터', icon: <GroupOutlinedIcon /> },
+    { text: 'Dashboard', icon: <SpaceDashboardOutlinedIcon /> },
+    { text: '뉴스레터', icon: <MarkEmailUnreadOutlinedIcon /> },
     { text: '회원 관리', icon: <PersonIcon /> },
     { text: '멘토관리', icon: <GroupOutlinedIcon /> },
-    { text: '프로그램 관리', icon: <ShoppingCartOutlinedIcon /> },
-    { text: '결제 현황', icon: <TimelineOutlinedIcon /> },
+    { text: '프로그램 관리', icon: <PendingActionsOutlinedIcon /> },
+    { text: '결제 현황', icon: <CreditCardOutlinedIcon /> },
     { text: 'Settings', icon: <SettingsIcon /> },
     { text: '로그아웃', icon: <LogoutOutlinedIcon /> }
   ];
@@ -40,45 +39,34 @@ const AdminDashboard: React.FC = () => {
         sx={{
           width: drawerWidth,
           flexShrink: 0,
-          [`& .MuiDrawer-paper`]: { 
-            width: drawerWidth, 
-            boxSizing: 'border-box', 
-            backgroundColor: 'white',
-            border: 'none' // Remove border from Drawer paper
-          },
+          [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box', backgroundColor: 'white', border: 'none' },
         }}
       >
         <Box sx={{ p: 2, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          {/* Sidebar Logo */}
           <Logo isMobile={false} />
         </Box>
         <List>
           {menuItems.map((item, index) => (
             <ListItem
-              component="button"
-              key={index}
-              sx={{
-                backgroundColor: 'white',
-                borderRadius: '4px', // Adjusted rounded corners
-                mb: 1,
-                outline: 'none', // Remove outline
-                border: 'none', // Remove border from ListItem
-                '&:hover': {
-                  backgroundColor: theme.palette.primary.main, // Use the primary color from theme
-                  color: 'white',
-                  '& .MuiListItemIcon-root': {
-                    color: 'white', // Change icon color on hover
-                  },
-                },
-                '& .MuiListItemIcon-root': {
-                  color: 'black', // Icon color when not hovered
-                },
-                transition: 'background-color 0.3s ease', // Smooth hover transition
-              }}
-            >
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.text} />
-            </ListItem>
+            component="button"
+            key={index}
+            sx={{
+              backgroundColor: 'white',
+              borderRadius: '4px',
+              mb: 1,
+              border: 'none', // Ensures there is no border
+              '&:hover': {
+                backgroundColor: theme.palette.primary.main,
+                color: 'white',
+                '& .MuiListItemIcon-root': { color: 'white' },
+              },
+              '& .MuiListItemIcon-root': { color: 'black' },
+              transition: 'background-color 0.3s ease',
+            }}
+          >
+            <ListItemIcon>{item.icon}</ListItemIcon>
+            <ListItemText primary={item.text} />
+          </ListItem>          
           ))}
         </List>
       </Drawer>
@@ -87,91 +75,100 @@ const AdminDashboard: React.FC = () => {
         {/* Header */}
         <AppBar position="static" sx={{ backgroundColor: 'white', boxShadow: 'none', borderBottom: '1px solid #ddd' }}>
           <Toolbar sx={{ justifyContent: 'space-between' }}>
-            {/* Left Section: Logo and Title */}
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Typography variant="h6" sx={{ color: 'black', ml: 2 }}>
-                Dashboard
-              </Typography>
-            </Box>
-
-            {/* Middle Section: Search Bar */}
+            <Typography variant="h6" sx={{ color: 'black', ml: 2 }}>Dashboard</Typography>
             <Box sx={{ display: 'flex', alignItems: 'center', width: '50%', backgroundColor: '#f1f1f1', borderRadius: 1, px: 2 }}>
               <SearchIcon sx={{ color: '#999' }} />
-              <InputBase
-                placeholder="Search…"
-                sx={{ ml: 1, flex: 1, color: 'black' }}
-              />
+              <InputBase placeholder="Search…" sx={{ ml: 1, flex: 1, color: 'black' }} />
             </Box>
-
-            {/* Right Section: Notifications & Profile */}
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <IconButton>
-                <NotificationsIcon sx={{ color: 'black' }} />
-              </IconButton>
-            </Box>
+            <IconButton>
+              <NotificationsIcon sx={{ color: 'black' }} />
+            </IconButton>
           </Toolbar>
         </AppBar>
 
         {/* Dashboard Content */}
         <Box sx={{ flexGrow: 1, bgcolor: 'grey.100', p: 3, minHeight: '100vh' }}>
-          <Typography variant="h4" gutterBottom>
-            Admin Dashboard
-          </Typography>
+          <Typography variant="h4" gutterBottom>Admin Dashboard</Typography>
 
-          {/* Dashboard Widgets */}
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3 }}>
-            {/* Weekly New Users */}
-            <Box sx={{ flex: '1 1 300px' }}>
-              <Card sx={{ boxShadow: 'none', outline: 'none' }}> {/* Remove shadow and outline */}
-                <CardContent>
-                  <Typography variant="h6">주간 신규 회원 수</Typography>
-                  <Typography variant="h3" color="primary">100</Typography>
-                </CardContent>
-              </Card>
-            </Box>
+          {/* 서비스 사용자 현황 & 매출 현황 */}
+          <Box sx={{ display: 'flex', gap: 3 }}>
+            <Card sx={{ flex: 1 }}>
+              <CardContent>
+                <Typography variant="h6">서비스 사용자 현황</Typography>
+                <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
+                  <Card sx={{ flex: 1 }}>
+                    <CardContent>
+                      <Typography variant="body1">주간 신규 회원 수</Typography>
+                    </CardContent>
+                  </Card>
+                  <Card sx={{ flex: 1 }}>
+                    <CardContent>
+                      <Typography variant="body1">월간 신규 회원 수</Typography>
+                    </CardContent>
+                  </Card>
+                  <Card sx={{ flex: 1 }}>
+                    <CardContent>
+                      <Typography variant="body1">회원 수 증감율</Typography>
+                    </CardContent>
+                  </Card>
+                  <Card sx={{ flex: 1 }}>
+                    <CardContent>
+                      <Typography variant="body1">총 회원 수</Typography>
+                    </CardContent>
+                  </Card>
+                </Box>
+              </CardContent>
+            </Card>
 
-            {/* Monthly New Users */}
-            <Box sx={{ flex: '1 1 300px' }}>
-              <Card sx={{ boxShadow: 'none', outline: 'none' }}> {/* Remove shadow and outline */}
-                <CardContent>
-                  <Typography variant="h6">월간 신규 회원 수</Typography>
-                  <Typography variant="h3" color="primary">300</Typography>
-                </CardContent>
-              </Card>
-            </Box>
-
-            {/* Retention Rate */}
-            <Box sx={{ flex: '1 1 300px' }}>
-              <Card sx={{ boxShadow: 'none', outline: 'none' }}> {/* Remove shadow and outline */}
-                <CardContent>
-                  <Typography variant="h6">회원 수 증감률</Typography>
-                  <Typography variant="h3" color="primary">10%</Typography>
-                </CardContent>
-              </Card>
-            </Box>
+            <Card sx={{ flex: 1 }}>
+              <CardContent>
+                <Typography variant="h6">매출 현황</Typography>
+                {/* Add wavy graph component here */}
+              </CardContent>
+            </Card>
           </Box>
 
-          {/* Additional dashboard components like charts */}
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3, mt: 4 }}>
-            {/* Example chart area */}
-            <Box sx={{ flex: '1 1 600px' }}>
-              <Card sx={{ boxShadow: 'none', outline: 'none' }}> {/* Remove shadow and outline */}
-                <CardContent>
-                  <Typography variant="h6">매출 현황</Typography>
-                  {/* Insert chart component here */}
-                </CardContent>
-              </Card>
-            </Box>
+          {/* 멘토 리스트 & 인기 프로그램 */}
+          <Box sx={{ display: 'flex', gap: 3, mt: 4 }}>
+            <Card sx={{ flex: 1 }}>
+              <CardContent>
+                <Typography variant="h6">인기 멘토</Typography>
+                {/* Add leaderboard table for 멘토 */}
+                <Typography variant="body1"># | 멘토 | 프로그램 | 매칭 현황 | 리뷰</Typography>
+              </CardContent>
+            </Card>
 
-            {/* Popular programs */}
-            <Box sx={{ flex: '1 1 300px' }}>
-              <Card sx={{ boxShadow: 'none', outline: 'none' }}> {/* Remove shadow and outline */}
-                <CardContent>
-                  <Typography variant="h6">인기 프로그램</Typography>
-                  <Typography variant="body1">프로그램 A (20 리뷰)</Typography>
-                </CardContent>
-              </Card>
-            </Box>
+            <Card sx={{ flex: 1 }}>
+              <CardContent>
+                <Typography variant="h6">인기 프로그램</Typography>
+                {/* Add leaderboard table for 프로그램 */}
+                <Typography variant="body1"># | 프로그램 | 멘토 | 가격 | 누적 판매수 | 누적 판매액</Typography>
+              </CardContent>
+            </Card>
+          </Box>
+
+          {/* Pie charts & 사용자 유입 현황 */}
+          <Box sx={{ display: 'flex', gap: 3, mt: 4 }}>
+            <Card sx={{ flex: 1 }}>
+              <CardContent>
+                <Typography variant="h6">프로그램별 신청비율</Typography>
+                {/* Add Pie Chart component here */}
+              </CardContent>
+            </Card>
+
+            <Card sx={{ flex: 1 }}>
+              <CardContent>
+                <Typography variant="h6">분야별 신청 비율</Typography>
+                {/* Add Pie Chart component here */}
+              </CardContent>
+            </Card>
+
+            <Card sx={{ flex: 1 }}>
+              <CardContent>
+                <Typography variant="h6">사용자 유입 현황</Typography>
+                {/* Add wavy graph component here */}
+              </CardContent>
+            </Card>
           </Box>
         </Box>
       </Box>
