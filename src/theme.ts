@@ -81,7 +81,7 @@ const theme = createTheme({
       secondary: '#999999', // Gray color
     },
     action: {
-      hover: '#2986FE', // Slight hover effect for icon buttons
+      hover: '#F1F1F1', // Slight hover effect for icon buttons
     },
     customColor: {
       darkWhite: '#F0F2F3',
