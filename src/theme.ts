@@ -12,26 +12,6 @@ declare module '@mui/material/styles' {
     xl: true;
   }
 
-  interface Palette {
-    customColor: {
-      darkWhite: string;
-      gray: string;
-    };
-    customBackground: {
-      overlay: string;
-    };
-  }
-
-  interface PaletteOptions {
-    customColor?: {
-      darkWhite?: string;
-      gray?: string;
-    };
-    customBackground?: {
-      overlay?: string;
-    };
-  }
-
   interface TypographyVariants {
     title: {
       fontSize: string;
@@ -82,13 +62,6 @@ const theme = createTheme({
     },
     action: {
       hover: '#F1F1F1', // Slight hover effect for icon buttons
-    },
-    customColor: {
-      darkWhite: '#F0F2F3',
-      gray: '#999999',
-    },
-    customBackground: {
-      overlay: 'rgba(0, 0, 0, 0.5)', // Overlay background
     },
   },
   breakpoints: {

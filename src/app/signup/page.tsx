@@ -42,7 +42,7 @@ export default function SignUpPage() {
                 <Typography
                     variant="caption"
                     sx={{
-                        color: theme.palette.customColor.gray,
+                        color: theme.palette.text.secondary,
                         textAlign: 'center',
                         width: '100%'
                     }}
@@ -165,7 +165,7 @@ export default function SignUpPage() {
                 />
                 <Typography
                     variant="caption"
-                    sx={{ mt: 1, mb: 2, color: theme.palette.customColor.gray, textAlign: 'center' }}
+                    sx={{ mt: 1, mb: 2, color: theme.palette.text.secondary, textAlign: 'center' }}
                 >
                     비밀번호는 8자리 이상이며, 대소문자와 숫자를 포함해야 합니다.
                 </Typography>
