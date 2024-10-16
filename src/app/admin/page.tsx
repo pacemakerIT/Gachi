@@ -31,7 +31,7 @@ import PendingActionsOutlinedIcon from '@mui/icons-material/PendingActionsOutlin
 import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
 import SearchIcon from '@mui/icons-material/Search';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
-import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer, LineChart } from 'recharts';
 import { useTheme } from '@mui/material/styles';
 import Logo from '../../components/logo';
 
