@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { Box, Typography, TextField, Button, useMediaQuery } from '@mui/material';
+import {
+  Box,
+  Typography,
+  TextField,
+  Button,
+  useMediaQuery,
+} from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { useTheme } from '@mui/material/styles';
 import { validateEmail } from '../utils/email-validation';
@@ -29,7 +35,8 @@ export default function Newsletter() {
   };
 
   return (
-    <Grid size={{ xxs: 12, md: 4 }}
+    <Grid
+      size={{ xxs: 12, md: 4 }}
       sx={{
         textAlign: isMobile ? 'center' : 'left',
         margin: isMobile ? '1rem' : '0',
@@ -38,7 +45,7 @@ export default function Newsletter() {
     >
       {!isMobile && (
         <Typography
-          variant='subtitle1'
+          variant="subtitle1"
           sx={{ color: theme.palette.text.secondary, mb: '1rem' }}
         >
           NEWSLETTER
@@ -47,24 +54,25 @@ export default function Newsletter() {
 
       {isSubscribed ? ( // Display thank you message when subscription is successful
         <Typography
-          variant='h6'
+          variant="h6"
           sx={{
             color: theme.palette.primary.main,
             mb: '1rem',
             mt: isMobile ? '-1rem' : '1rem',
           }}
         >
-          뉴스레터를 신청해 주셔서 감사합니다. <br /> 매주 새로운 소식을 이메일로 만나보세요!
+          뉴스레터를 신청해 주셔서 감사합니다. <br /> 매주 새로운 소식을
+          이메일로 만나보세요!
         </Typography>
       ) : (
         <>
           {isMobile && (
             <Typography
-              variant='h6'
+              variant="h6"
               sx={{
                 color: theme.palette.text.secondary,
                 mb: '1rem',
-                mt: '-1rem'
+                mt: '-1rem',
               }}
             >
               뉴스레터를 통해 <br /> 매주 새로운 소식을 만나보세요!
@@ -121,7 +129,8 @@ export default function Newsletter() {
                 mt: '0.5rem',
               }}
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt erat enim.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
+              tincidunt erat enim.
             </Typography>
           )}
         </>
