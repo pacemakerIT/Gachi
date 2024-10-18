@@ -1,4 +1,4 @@
-'use client';  // Add this line to make the component a Client Component
+'use client'; // Add this line to make the component a Client Component
 
 import * as React from 'react';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';

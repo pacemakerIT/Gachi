@@ -31,7 +31,19 @@ import PendingActionsOutlinedIcon from '@mui/icons-material/PendingActionsOutlin
 import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
 import SearchIcon from '@mui/icons-material/Search';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
-import { PieChart, Pie, Cell, ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import {
+  PieChart,
+  Pie,
+  Cell,
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from 'recharts';
 import { useTheme } from '@mui/material/styles';
 import Logo from '../../components/logo';
 
@@ -46,14 +58,40 @@ const pieData = [
 ];
 
 const mentorData = [
-  { rank: 1, mentor: 'John Doe', program: 'IT Mentoring', match: '5/5', reviews: '4.8' },
-  { rank: 2, mentor: 'Jane Smith', program: 'Design Mentoring', match: '4/5', reviews: '4.6' },
+  {
+    rank: 1,
+    mentor: 'John Doe',
+    program: 'IT Mentoring',
+    match: '5/5',
+    reviews: '4.8',
+  },
+  {
+    rank: 2,
+    mentor: 'Jane Smith',
+    program: 'Design Mentoring',
+    match: '4/5',
+    reviews: '4.6',
+  },
   // Add more data
 ];
 
 const programData = [
-  { rank: 1, program: 'Web Development', mentor: 'John Doe', price: '$200', sales: 150, totalSales: '$30,000' },
-  { rank: 2, program: 'Graphic Design', mentor: 'Jane Smith', price: '$150', sales: 120, totalSales: '$18,000' },
+  {
+    rank: 1,
+    program: 'Web Development',
+    mentor: 'John Doe',
+    price: '$200',
+    sales: 150,
+    totalSales: '$30,000',
+  },
+  {
+    rank: 2,
+    program: 'Graphic Design',
+    mentor: 'Jane Smith',
+    price: '$150',
+    sales: 120,
+    totalSales: '$18,000',
+  },
   // Add more data
 ];
 
@@ -64,8 +102,22 @@ const salesData = [
 ];
 
 const inflowData = [
-  { month: 'Jan', 구글검색: 100, 도메인: 200, 소셜미디어: 150, 친구추천: 100, 카카오톡: 50 },
-  { month: 'Feb', 구글검색: 120, 도메인: 220, 소셜미디어: 160, 친구추천: 110, 카카오톡: 60 },
+  {
+    month: 'Jan',
+    구글검색: 100,
+    도메인: 200,
+    소셜미디어: 150,
+    친구추천: 100,
+    카카오톡: 50,
+  },
+  {
+    month: 'Feb',
+    구글검색: 120,
+    도메인: 220,
+    소셜미디어: 160,
+    친구추천: 110,
+    카카오톡: 60,
+  },
   // Add more data
 ];
 
@@ -98,10 +150,22 @@ const AdminDashboard: React.FC = () => {
         sx={{
           width: drawerWidth,
           flexShrink: 0,
-          '& .MuiDrawer-paper': { width: drawerWidth, boxSizing: 'border-box', backgroundColor: 'white', border: 'none' },
+          '& .MuiDrawer-paper': {
+            width: drawerWidth,
+            boxSizing: 'border-box',
+            backgroundColor: 'white',
+            border: 'none',
+          },
         }}
       >
-        <Box sx={{ p: 2, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Box
+          sx={{
+            p: 2,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
           <Logo isMobile={false} />
         </Box>
         <List>
@@ -132,12 +196,33 @@ const AdminDashboard: React.FC = () => {
 
       <Box sx={{ flexGrow: 1 }}>
         {/* Header */}
-        <AppBar position="static" sx={{ backgroundColor: 'white', boxShadow: 'none', borderBottom: '1px solid #ddd' }}>
+        <AppBar
+          position="static"
+          sx={{
+            backgroundColor: 'white',
+            boxShadow: 'none',
+            borderBottom: '1px solid #ddd',
+          }}
+        >
           <Toolbar sx={{ justifyContent: 'space-between' }}>
-            <Typography variant="h6" sx={{ color: 'black', ml: 2 }}>Dashboard</Typography>
-            <Box sx={{ display: 'flex', alignItems: 'center', width: '50%', backgroundColor: '#f1f1f1', borderRadius: 1, px: 2 }}>
+            <Typography variant="h6" sx={{ color: 'black', ml: 2 }}>
+              Dashboard
+            </Typography>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                width: '50%',
+                backgroundColor: '#f1f1f1',
+                borderRadius: 1,
+                px: 2,
+              }}
+            >
               <SearchIcon sx={{ color: '#999' }} />
-              <InputBase placeholder="Search…" sx={{ ml: 1, flex: 1, color: 'black' }} />
+              <InputBase
+                placeholder="Search…"
+                sx={{ ml: 1, flex: 1, color: 'black' }}
+              />
             </Box>
             <IconButton>
               <NotificationsIcon sx={{ color: 'black' }} />
@@ -146,8 +231,12 @@ const AdminDashboard: React.FC = () => {
         </AppBar>
 
         {/* Dashboard Content */}
-        <Box sx={{ flexGrow: 1, bgcolor: 'grey.100', p: 3, minHeight: '100vh' }}>
-          <Typography variant="h4" gutterBottom>Admin Dashboard</Typography>
+        <Box
+          sx={{ flexGrow: 1, bgcolor: 'grey.100', p: 3, minHeight: '100vh' }}
+        >
+          <Typography variant="h4" gutterBottom>
+            Admin Dashboard
+          </Typography>
 
           {/* 1st Row: 서비스 사용자 현황 & 매출 현황 */}
           <Box sx={{ display: 'flex', gap: 3, mb: 3 }}>
@@ -155,22 +244,46 @@ const AdminDashboard: React.FC = () => {
               <CardContent>
                 <Typography variant="h6">서비스 사용자 현황</Typography>
                 <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
-                  <Card sx={{ flex: 1, background: `linear-gradient(${theme.palette.graph.gradient1})`, minHeight: 150 }}>
+                  <Card
+                    sx={{
+                      flex: 1,
+                      background: `linear-gradient(${theme.palette.graph.gradient1})`,
+                      minHeight: 150,
+                    }}
+                  >
                     <CardContent>
                       <Typography variant="body1">주간 신규 회원 수</Typography>
                     </CardContent>
                   </Card>
-                  <Card sx={{ flex: 1, background: `linear-gradient(${theme.palette.graph.gradient2})`, minHeight: 150 }}>
+                  <Card
+                    sx={{
+                      flex: 1,
+                      background: `linear-gradient(${theme.palette.graph.gradient2})`,
+                      minHeight: 150,
+                    }}
+                  >
                     <CardContent>
                       <Typography variant="body1">월간 신규 회원 수</Typography>
                     </CardContent>
                   </Card>
-                  <Card sx={{ flex: 1, background: `linear-gradient(${theme.palette.graph.gradient5})`, minHeight: 150 }}>
+                  <Card
+                    sx={{
+                      flex: 1,
+                      background: `linear-gradient(${theme.palette.graph.gradient5})`,
+                      minHeight: 150,
+                    }}
+                  >
                     <CardContent>
                       <Typography variant="body1">회원 수 증감율</Typography>
                     </CardContent>
                   </Card>
-                  <Card sx={{ flex: 1, background: `linear-gradient(${theme.palette.graph.gradient3})`, minHeight: 150 }}>
+                  <Card
+                    sx={{
+                      flex: 1,
+                      background: `linear-gradient(${theme.palette.graph.gradient3})`,
+                      minHeight: 150,
+                    }}
+                  >
                     <CardContent>
                       <Typography variant="body1">총 회원 수</Typography>
                     </CardContent>
@@ -189,10 +302,30 @@ const AdminDashboard: React.FC = () => {
                     <YAxis domain={[0, 400]} ticks={[0, 100, 200, 300, 400]} />
                     <Tooltip />
                     <Legend />
-                    <Line type="monotone" dataKey="매출" stroke={colors[0]} strokeWidth={2} />
-                    <Line type="monotone" dataKey="경비" stroke={colors[1]} strokeWidth={2} />
-                    <Line type="monotone" dataKey="순이익" stroke={colors[2]} strokeWidth={2} />
-                    <Line type="monotone" dataKey="무료" stroke={colors[3]} strokeWidth={2} />
+                    <Line
+                      type="monotone"
+                      dataKey="매출"
+                      stroke={colors[0]}
+                      strokeWidth={2}
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="경비"
+                      stroke={colors[1]}
+                      strokeWidth={2}
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="순이익"
+                      stroke={colors[2]}
+                      strokeWidth={2}
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="무료"
+                      stroke={colors[3]}
+                      strokeWidth={2}
+                    />
                   </LineChart>
                 </ResponsiveContainer>
               </CardContent>
@@ -267,9 +400,20 @@ const AdminDashboard: React.FC = () => {
                 <Typography variant="h6">프로그램별 신청비율</Typography>
                 <ResponsiveContainer width="100%" height={250}>
                   <PieChart>
-                    <Pie data={pieData} cx="50%" cy="50%" innerRadius={50} outerRadius={80} paddingAngle={5} dataKey="value">
+                    <Pie
+                      data={pieData}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={50}
+                      outerRadius={80}
+                      paddingAngle={5}
+                      dataKey="value"
+                    >
                       {pieData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={colors[index % colors.length]}
+                        />
                       ))}
                     </Pie>
                   </PieChart>
@@ -282,9 +426,20 @@ const AdminDashboard: React.FC = () => {
                 <Typography variant="h6">분야별 신청 비율</Typography>
                 <ResponsiveContainer width="100%" height={250}>
                   <PieChart>
-                    <Pie data={pieData} cx="50%" cy="50%" innerRadius={50} outerRadius={80} paddingAngle={5} dataKey="value">
+                    <Pie
+                      data={pieData}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={50}
+                      outerRadius={80}
+                      paddingAngle={5}
+                      dataKey="value"
+                    >
                       {pieData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={colors[index % colors.length]}
+                        />
                       ))}
                     </Pie>
                   </PieChart>
@@ -302,11 +457,36 @@ const AdminDashboard: React.FC = () => {
                     <YAxis domain={[0, 400]} ticks={[0, 100, 200, 300, 400]} />
                     <Tooltip />
                     <Legend />
-                    <Line type="monotone" dataKey="구글검색" stroke={colors[0]} strokeWidth={2} />
-                    <Line type="monotone" dataKey="도메인" stroke={colors[1]} strokeWidth={2} />
-                    <Line type="monotone" dataKey="소셜미디어" stroke={colors[2]} strokeWidth={2} />
-                    <Line type="monotone" dataKey="친구추천" stroke={colors[3]} strokeWidth={2} />
-                    <Line type="monotone" dataKey="카카오톡" stroke={colors[4]} strokeWidth={2} />
+                    <Line
+                      type="monotone"
+                      dataKey="구글검색"
+                      stroke={colors[0]}
+                      strokeWidth={2}
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="도메인"
+                      stroke={colors[1]}
+                      strokeWidth={2}
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="소셜미디어"
+                      stroke={colors[2]}
+                      strokeWidth={2}
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="친구추천"
+                      stroke={colors[3]}
+                      strokeWidth={2}
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="카카오톡"
+                      stroke={colors[4]}
+                      strokeWidth={2}
+                    />
                   </LineChart>
                 </ResponsiveContainer>
               </CardContent>
