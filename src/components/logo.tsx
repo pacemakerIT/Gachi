@@ -17,11 +17,11 @@ const Logo: React.FC<LogoProps> = ({ isMobile }) => {
         {isMobile ? (
           <>
             <Box
-              component="h6"
+              component="span" // Changed from h6 to span
               sx={{
-                fontSize: theme.typography.h6.fontSize,
+                fontSize: theme.typography.title.fontSize, // Use title typography
                 marginRight: '10px',
-                fontFamily: theme.typography.h6.fontFamily,
+
                 color: 'black', // Set color to black
               }}
             >
@@ -34,11 +34,11 @@ const Logo: React.FC<LogoProps> = ({ isMobile }) => {
               height={isMobile ? 20 : 40} // Keep height consistent
             />
             <Box
-              component="h6"
+              component="span" // Changed from h6 to span
               sx={{
-                fontSize: theme.typography.h6.fontSize,
+                fontSize: theme.typography.title.fontSize, // Use title typography
                 marginLeft: '10px',
-                fontFamily: theme.typography.h6.fontFamily,
+
                 color: 'black', // Set color to black
               }}
             >
@@ -54,11 +54,11 @@ const Logo: React.FC<LogoProps> = ({ isMobile }) => {
               height={40}
             />
             <Box
-              component="h6"
+              component="span" // Changed from h6 to span
               sx={{
-                fontSize: theme.typography.h6.fontSize,
+                fontSize: theme.typography.title.fontSize, // Use title typography
                 marginLeft: '10px',
-                fontFamily: theme.typography.h6.fontFamily,
+                fontWeight: theme.typography.title.fontWeight,
                 color: 'black', // Set color to black
               }}
             >
