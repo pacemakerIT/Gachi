@@ -15,7 +15,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { Navigation, Autoplay } from 'swiper/modules';
+import { Navigation } from 'swiper/modules';
 import { FiShoppingCart } from 'react-icons/fi';
 import { AiOutlineHeart } from 'react-icons/ai';
 import CarouselHeader from './carousel-header';

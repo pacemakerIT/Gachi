@@ -15,8 +15,8 @@ const AboutItem: React.FC<AboutItemProps> = ({ numericalization, element }) => {
   return (
     <Grid
       size={{ xxs: 3.7, xs: 3.6, sm: 3.4, md: 3.3, lg: 3.2, xl: 3.8 }}
-      display='flex'
-      justifyContent='center'
+      display="flex"
+      justifyContent="center"
     >
       <Paper
         elevation={3}
