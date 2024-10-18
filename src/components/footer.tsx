@@ -4,8 +4,6 @@ import Image from 'next/image';
 import {
   Box,
   Typography,
-  TextField,
-  Button,
   IconButton,
   Container,
   Link,
@@ -35,7 +33,6 @@ type SocialMediaLink = {
 interface LogoSectionProps {
   socialMediaLinks: SocialMediaLink[];
 }
-
 
 // Logo and SNS Section
 const LogoSnsSection: React.FC<LogoSectionProps> = ({ socialMediaLinks }) => {

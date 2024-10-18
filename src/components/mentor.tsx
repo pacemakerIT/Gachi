@@ -149,15 +149,19 @@ export default function Mentor() {
         </Box>
       )}
 
-      <Button sx={{
-        width: '100%',
-        display: { sm: 'block', md: 'none' },
-        backgroundColor: theme.palette.primary.main,
-        borderRadius: '8px',
-        color: theme.palette.info.light,
-        fontSize: { xxs: '0.87rem', sm: '1.1rem' },
-        fontWeight: 600
-      }}>더 많은 멘토 보기</Button>
-    </Box >
-  )
+      <Button
+        sx={{
+          width: '100%',
+          display: { sm: 'block', md: 'none' },
+          backgroundColor: theme.palette.primary.main,
+          borderRadius: '8px',
+          color: theme.palette.info.light,
+          fontSize: { xxs: '0.87rem', sm: '1.1rem' },
+          fontWeight: 600,
+        }}
+      >
+        더 많은 멘토 보기
+      </Button>
+    </Box>
+  );
 }

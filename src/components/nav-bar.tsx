@@ -19,10 +19,11 @@ import MobileDrawer from './mobile-drawer';
 import ProfileIcon from './profile-icon';
 import Logo from './logo';
 
-interface Props { }
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+interface Props {}
 
 const NavBar: React.FC<Props> = () => {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [isLoggedIn] = React.useState(false);
   const [navDrawerOpen, setNavDrawerOpen] = React.useState(false);
   const [profileDrawerOpen, setProfileDrawerOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -152,7 +153,9 @@ const NavBar: React.FC<Props> = () => {
               </Box>
 
               {/* Menu Links */}
-              <Box sx={{ display: 'flex', alignItems: 'center', marginY: '0px' }}>
+              <Box
+                sx={{ display: 'flex', alignItems: 'center', marginY: '0px' }}
+              >
                 {navLinks.map((link, index) => (
                   <Link
                     key={link.href}
@@ -161,7 +164,8 @@ const NavBar: React.FC<Props> = () => {
                     style={{
                       textDecoration: 'none',
                       color: theme.palette.text.primary,
-                      marginRight: index === navLinks.length - 1 ? '50px' : '20px',
+                      marginRight:
+                        index === navLinks.length - 1 ? '50px' : '20px',
                       fontSize: theme.typography.body1.fontSize,
                       transition: 'color 0.3s',
                       padding: '0 5px',
@@ -251,10 +255,12 @@ const NavBar: React.FC<Props> = () => {
                           padding: '0 5px',
                         }}
                         onMouseEnter={(e) =>
-                          (e.currentTarget.style.color = theme.palette.primary.main)
+                          (e.currentTarget.style.color =
+                            theme.palette.primary.main)
                         }
                         onMouseLeave={(e) =>
-                          (e.currentTarget.style.color = theme.palette.text.primary)
+                          (e.currentTarget.style.color =
+                            theme.palette.text.primary)
                         }
                       >
                         회원가입
