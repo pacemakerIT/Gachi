@@ -14,17 +14,7 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({
   links,
   anchor = 'left',
 }) => (
-  <Drawer
-    anchor={anchor}
-    open={open}
-    onClose={onClose}
-    sx={{
-      '& .MuiDrawer-paper': {
-        top: '80px', // This sets the drawer lower, to appear below the nav bar
-        zIndex: (theme) => theme.zIndex.appBar + 2, // Ensure it's above the nav bar
-      },
-    }}
-  >
+  <Drawer anchor={anchor} open={open} onClose={onClose}>
     <List>
       {links.map((link) => (
         <ListItemButton

@@ -28,7 +28,7 @@ const NavBar: React.FC<Props> = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const prevIsMobile = React.useRef(isMobile);
+  const prevIsMobile = React.useRef(isMobile); // To track changes between mobile and desktop
 
   const toggleNavDrawer = () => {
     setNavDrawerOpen(!navDrawerOpen);
@@ -60,8 +60,10 @@ const NavBar: React.FC<Props> = () => {
     setAnchorEl(null);
   };
 
+  // UseEffect to close profile drawer and dropdown when switching between mobile and browser modes
   useEffect(() => {
     if (prevIsMobile.current !== isMobile) {
+      // Close profile drawer in mobile and dropdown menu in browser mode on transition
       setProfileDrawerOpen(false);
       setAnchorEl(null);
     }
@@ -91,10 +93,10 @@ const NavBar: React.FC<Props> = () => {
           backgroundColor: theme.palette.secondary.main,
           height: '25px',
           width: '100%',
-          position: 'fixed',
+          position: 'fixed', // Make sure it's fixed as well
           top: 0,
           left: 0,
-          zIndex: theme.zIndex.drawer + 2,
+          zIndex: theme.zIndex.drawer + 2, // Ensure it's above other content
         }}
       />
 
@@ -122,9 +124,7 @@ const NavBar: React.FC<Props> = () => {
                 {isLoggedIn ? (
                   <ProfileIcon onClick={toggleProfileDrawer} />
                 ) : (
-                  <Link href="/login" passHref>
-                    <Button variant="contained">로그인</Button>
-                  </Link>
+                  <Button variant="contained">로그인</Button>
                 )}
               </Box>
 
@@ -141,7 +141,7 @@ const NavBar: React.FC<Props> = () => {
                 open={profileDrawerOpen}
                 onClose={closeProfileDrawer}
                 links={profileLinks}
-                anchor="right"
+                anchor="right" // Open the profile drawer from the right
               />
             </>
           ) : (
@@ -152,7 +152,9 @@ const NavBar: React.FC<Props> = () => {
               </Box>
 
               {/* Menu Links */}
-              <Box sx={{ display: 'flex', alignItems: 'center', marginY: '0px' }}>
+              <Box
+                sx={{ display: 'flex', alignItems: 'center', marginY: '0px' }}
+              >
                 {navLinks.map((link, index) => (
                   <Link
                     key={link.href}
@@ -161,13 +163,15 @@ const NavBar: React.FC<Props> = () => {
                     style={{
                       textDecoration: 'none',
                       color: theme.palette.text.primary,
-                      marginRight: index === navLinks.length - 1 ? '50px' : '20px',
+                      marginRight:
+                        index === navLinks.length - 1 ? '50px' : '20px',
                       fontSize: theme.typography.body1.fontSize,
                       transition: 'color 0.3s',
                       padding: '0 5px',
                     }}
                     onMouseEnter={(e) =>
-                      (e.currentTarget.style.color = theme.palette.primary.main)
+                    (e.currentTarget.style.color =
+                      theme.palette.text.secondary)
                     }
                     onMouseLeave={(e) =>
                       (e.currentTarget.style.color = theme.palette.text.primary)
@@ -251,17 +255,17 @@ const NavBar: React.FC<Props> = () => {
                           padding: '0 5px',
                         }}
                         onMouseEnter={(e) =>
-                          (e.currentTarget.style.color = theme.palette.primary.main)
+                        (e.currentTarget.style.color =
+                          theme.palette.text.secondary)
                         }
                         onMouseLeave={(e) =>
-                          (e.currentTarget.style.color = theme.palette.text.primary)
+                        (e.currentTarget.style.color =
+                          theme.palette.text.primary)
                         }
                       >
                         회원가입
                       </Link>
-                      <Link href="/login" passHref>
-                        <Button variant="contained">로그인</Button>
-                      </Link>
+                      <Button variant="contained">로그인</Button>
                     </Box>
                   </>
                 )}

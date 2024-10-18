@@ -11,32 +11,6 @@ declare module '@mui/material/styles' {
     lg: true;
     xl: true;
   }
-
-  interface TypographyVariants {
-    title: {
-      fontSize: string;
-      fontWeight: number;
-    };
-    caption: {
-      fontSize: string;
-      fontWeight: number;
-      textAlign: string;
-      color: string;
-    };
-  }
-
-  interface TypographyVariantsOptions {
-    title?: {
-      fontSize?: string;
-      fontWeight?: number;
-    };
-    caption?: {
-      fontSize?: string;
-      fontWeight?: number;
-      textAlign?: string;
-      color?: string;
-    };
-  }
 }
 
 const theme = createTheme({
@@ -83,16 +57,6 @@ const theme = createTheme({
     },
     body1: {
       fontSize: '14px', // Text size for nav links
-    },
-    title: {
-      fontSize: '1.25rem', // Adjust font size as needed
-      fontWeight: 600, // Adjust weight as needed
-    },
-    caption: {
-      fontSize: '0.875rem', // Caption text size
-      fontWeight: 400,
-      color: '#808080', // Caption text color
-      textAlign: 'center', // Center-align text
     },
   },
   components: {
