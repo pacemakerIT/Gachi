@@ -98,7 +98,16 @@ const programData = [
 const salesData = [
   { month: 'Jan', 매출: 300, 경비: 200, 순이익: 100, 무료: 50 },
   { month: 'Feb', 매출: 400, 경비: 250, 순이익: 150, 무료: 60 },
-  // Add more data
+  { month: 'Mar', 매출: 350, 경비: 230, 순이익: 120, 무료: 70 },
+  { month: 'Apr', 매출: 320, 경비: 210, 순이익: 110, 무료: 55 },
+  { month: 'May', 매출: 390, 경비: 260, 순이익: 130, 무료: 65 },
+  { month: 'Jun', 매출: 340, 경비: 230, 순이익: 115, 무료: 60 },
+  { month: 'Jul', 매출: 370, 경비: 240, 순이익: 125, 무료: 50 },
+  { month: 'Aug', 매출: 360, 경비: 240, 순이익: 120, 무료: 55 },
+  { month: 'Sep', 매출: 380, 경비: 250, 순이익: 130, 무료: 60 },
+  { month: 'Oct', 매출: 400, 경비: 270, 순이익: 140, 무료: 65 },
+  { month: 'Nov', 매출: 390, 경비: 260, 순이익: 130, 무료: 60 },
+  { month: 'Dec', 매출: 350, 경비: 240, 순이익: 120, 무료: 55 },
 ];
 
 const inflowData = [
@@ -117,6 +126,86 @@ const inflowData = [
     소셜미디어: 160,
     친구추천: 110,
     카카오톡: 60,
+  },
+  {
+    month: 'Mar',
+    구글검색: 130,
+    도메인: 210,
+    소셜미디어: 170,
+    친구추천: 120,
+    카카오톡: 70,
+  },
+  {
+    month: 'Apr',
+    구글검색: 140,
+    도메인: 230,
+    소셜미디어: 180,
+    친구추천: 130,
+    카카오톡: 75,
+  },
+  {
+    month: 'May',
+    구글검색: 150,
+    도메인: 240,
+    소셜미디어: 190,
+    친구추천: 140,
+    카카오톡: 80,
+  },
+  {
+    month: 'Jun',
+    구글검색: 160,
+    도메인: 250,
+    소셜미디어: 200,
+    친구추천: 150,
+    카카오톡: 85,
+  },
+  {
+    month: 'Jul',
+    구글검색: 170,
+    도메인: 260,
+    소셜미디어: 210,
+    친구추천: 160,
+    카카오톡: 90,
+  },
+  {
+    month: 'Aug',
+    구글검색: 180,
+    도메인: 270,
+    소셜미디어: 220,
+    친구추천: 170,
+    카카오톡: 95,
+  },
+  {
+    month: 'Sep',
+    구글검색: 190,
+    도메인: 280,
+    소셜미디어: 230,
+    친구추천: 180,
+    카카오톡: 100,
+  },
+  {
+    month: 'Oct',
+    구글검색: 200,
+    도메인: 290,
+    소셜미디어: 240,
+    친구추천: 190,
+    카카오톡: 105,
+  },
+  {
+    month: 'Nov',
+    구글검색: 210,
+    도메인: 300,
+    소셜미디어: 250,
+    친구추천: 200,
+    카카오톡: 110,
+  },
+  {
+    month: 'Dec',
+    구글검색: 220,
+    도메인: 310,
+    소셜미디어: 260,
+    친구추천: 210,
+    카카오톡: 115,
   },
   // Add more data
 ];
@@ -176,8 +265,9 @@ const AdminDashboard: React.FC = () => {
               sx={{
                 backgroundColor: 'white',
                 borderRadius: '4px',
-                mb: 1,
+                mb: index === 0 ? 2 : 1, // More margin for the "Dashboard" item
                 border: 'none',
+                padding: '12px 16px', // Add padding for the items
                 '&:hover': {
                   backgroundColor: theme.palette.primary.main,
                   color: 'white',
@@ -395,19 +485,21 @@ const AdminDashboard: React.FC = () => {
 
           {/* 3rd Row: 프로그램별 신청비율, 분야별 신청 비율, 사용자 유입 현황 */}
           <Box sx={{ display: 'flex', gap: 3 }}>
-            <Card sx={{ flex: 1 }}>
+            <Card sx={{ flex: 1, minHeight: 250 }}>
               <CardContent>
                 <Typography variant="h6">프로그램별 신청비율</Typography>
-                <ResponsiveContainer width="100%" height={250}>
+                <ResponsiveContainer width="100%" height={200}>
                   <PieChart>
                     <Pie
                       data={pieData}
                       cx="50%"
                       cy="50%"
-                      innerRadius={50}
-                      outerRadius={80}
-                      paddingAngle={5}
+                      innerRadius="40%"
+                      outerRadius="80%"
                       dataKey="value"
+                      isAnimationActive={false}
+                      fill="#8884d8"
+                      label={false} // Disable labels
                     >
                       {pieData.map((entry, index) => (
                         <Cell
@@ -418,22 +510,45 @@ const AdminDashboard: React.FC = () => {
                     </Pie>
                   </PieChart>
                 </ResponsiveContainer>
+                {/* Horizontal List for the items below the chart */}
+                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+                  {pieData.map((item, index) => (
+                    <Box
+                      key={item.name}
+                      sx={{ display: 'flex', alignItems: 'center', mr: 3 }}
+                    >
+                      {/* Dot with corresponding color */}
+                      <Box
+                        sx={{
+                          width: 10,
+                          height: 10,
+                          backgroundColor: colors[index],
+                          borderRadius: '50%',
+                          mr: 1,
+                        }}
+                      />
+                      <Typography variant="body2">{item.name}</Typography>
+                    </Box>
+                  ))}
+                </Box>
               </CardContent>
             </Card>
 
             <Card sx={{ flex: 1 }}>
               <CardContent>
                 <Typography variant="h6">분야별 신청 비율</Typography>
-                <ResponsiveContainer width="100%" height={250}>
+                <ResponsiveContainer width="100%" height={200}>
                   <PieChart>
                     <Pie
                       data={pieData}
                       cx="50%"
                       cy="50%"
-                      innerRadius={50}
-                      outerRadius={80}
-                      paddingAngle={5}
+                      innerRadius="40%"
+                      outerRadius="80%"
                       dataKey="value"
+                      isAnimationActive={false}
+                      fill="#8884d8"
+                      label={false} // Disable labels
                     >
                       {pieData.map((entry, index) => (
                         <Cell
@@ -444,6 +559,27 @@ const AdminDashboard: React.FC = () => {
                     </Pie>
                   </PieChart>
                 </ResponsiveContainer>
+                {/* Horizontal List for the items below the chart */}
+                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+                  {pieData.map((item, index) => (
+                    <Box
+                      key={item.name}
+                      sx={{ display: 'flex', alignItems: 'center', mr: 3 }}
+                    >
+                      {/* Dot with corresponding color */}
+                      <Box
+                        sx={{
+                          width: 10,
+                          height: 10,
+                          backgroundColor: colors[index],
+                          borderRadius: '50%',
+                          mr: 1,
+                        }}
+                      />
+                      <Typography variant="body2">{item.name}</Typography>
+                    </Box>
+                  ))}
+                </Box>
               </CardContent>
             </Card>
 
