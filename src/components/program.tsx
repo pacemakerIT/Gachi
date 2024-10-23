@@ -20,103 +20,18 @@ import { FiShoppingCart } from 'react-icons/fi';
 import { AiOutlineHeart } from 'react-icons/ai';
 import CarouselHeader from './carousel-header';
 import ProgramCardStatus from './program-card-status';
-import { fetchData } from '../utils/api';
-
-interface ProgramCard {
-  imgUrl: string;
-  title: string;
-  description: string;
-  status?: 'New' | 'Sales';
-}
+import { ProgramType } from '@/utils/types';
 
 interface ProgramProps {
-  data: {
-    programId: string;
-    title: string;
-    dateTime: Date;
-    createdAt: Date;
-    location: string;
-    description: string;
-    cost: number;
-    thumbnailUrl: string;
-    status: string;
-  }[];
+  programs: ProgramType[];
 }
 
-// const Program: React.FC<ProgramProps> = ({ data }) => {
-export default function Program() {
-
-
+export default function Program({ programs }: ProgramProps) {
   const theme = useTheme();
-  const cardData: ProgramCard[] = [
-    {
-      imgUrl: '/img/program-img1.png',
-      title: 'ChatGPT랑 배우는 인공지능 언어',
-      description: '20',
-      status: 'New',
-    },
-    {
-      imgUrl: '/img/program-img2.png',
-      title: 'ChatGPT랑 배우는 인공지능 언어',
-      description: '20',
-      status: 'Sales',
-    },
-    {
-      imgUrl: '/img/program-img1.png',
-      title: 'ChatGPT랑 배우는 인공지능 언어',
-      description: '20',
-    },
-    {
-      imgUrl: '/img/program-img2.png',
-      title: 'ChatGPT랑 배우는 인공지능 언어',
-      description: '20',
-    },
-    {
-      imgUrl: '/img/program-img1.png',
-      title: 'ChatGPT랑 배우는 인공지능 언어',
-      description: '20',
-    },
-    {
-      imgUrl: '/img/program-img2.png',
-      title: 'ChatGPT랑 배우는 인공지능 언어',
-      description: '20',
-    },
-    {
-      imgUrl: '/img/program-img1.png',
-      title: 'ChatGPT랑 배우는 인공지능 언어',
-      description: '20',
-    },
-    {
-      imgUrl: '/img/program-img2.png',
-      title: 'ChatGPT랑 배우는 인공지능 언어',
-      description: '20',
-    },
-  ];
-
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const swiperRef = useRef<SwiperRef>(null);
-
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  const [programs, setPrograms] = useState([]);
-
-
-  const getPosts = async () => {
-    const data = await fetchData();
-    // console.log(data);
-    setPrograms(data.programs);
-  };
-
-  useEffect(() => {
-    getPosts(); // 첫 로드 시 데이터 가져오기
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   return (
     <Box
@@ -126,7 +41,7 @@ export default function Program() {
     >
       <CarouselHeader title={'Popular Programs'} swiperRef={swiperRef} />
 
-      {isLoaded ? (
+      {programs.length > 0 ? (
         <Swiper
           ref={swiperRef}
           slidesPerView={isMobile ? 2.5 : isTablet ? 3.5 : 4}
@@ -137,12 +52,9 @@ export default function Program() {
             padding: isTablet ? 0 : '20px 0',
           }}
         >
-          {/* {posts.map((post: { id: number; name: string; age: number }) => ( */}
-
-          {/* {cardData.map((card, index) => ( */}
-          {programs.map((card: { title: string, cost: number, thumbnailUrl: string }, index: number) => (
+          {programs.map((program, index) => (
             <SwiperSlide
-              key={index}
+              key={program.programId}
               onMouseEnter={() => {
                 setHoveredIndex(index);
               }}
@@ -156,9 +68,9 @@ export default function Program() {
                 }}
               >
                 <CardContent sx={{ padding: 0 }}>
-                  {/* {card.status ? (
-                    <ProgramCardStatus status={card.status} />
-                  ) : null} */}
+                  {program.status ? (
+                    <ProgramCardStatus status={program.status} />
+                  ) : null}
                   <Button
                     sx={{
                       position: 'absolute',
@@ -194,8 +106,8 @@ export default function Program() {
                     }}
                   >
                     <Image
-                      src={card.thumbnailUrl}
-                      alt=""
+                      src={program.thumbnailUrl}
+                      alt={program.title}
                       layout="fill"
                       objectFit="cover"
                       style={{
@@ -239,14 +151,14 @@ export default function Program() {
                               : '',
                         }}
                       >
-                        {index + 1}-{card.title}
+                        {program.title}
                       </Typography>
                       <Typography
                         variant="h6"
                         fontWeight={600}
                         fontSize={{ xxs: '0.87rem', sm: '1.25rem' }}
                       >
-                        ${card.cost}
+                        ${program.cost}
                       </Typography>
                     </Box>
                     <Box
@@ -290,8 +202,7 @@ export default function Program() {
         >
           <CircularProgress />
         </Box>
-      )
-      }
+      )}
 
       <Button
         sx={{
@@ -306,8 +217,6 @@ export default function Program() {
       >
         더 많은 프로그램 보기
       </Button>
-    </Box >
+    </Box>
   );
 }
-
-// export default Program;

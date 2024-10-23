@@ -9,8 +9,13 @@ import Mentor from '@/components/mentor';
 import About from '@/components/about';
 import Review from '@/components/review';
 import { maxContainerWidth } from '../constants';
+import { fetchData } from '@/utils/api';
+import { FetchDataResponse } from '@/utils/types';
 
-export default function Home() {
+export default async function Home() {
+  const data: FetchDataResponse = await fetchData();
+  console.log(data.users);
+
   return (
     <Container sx={{ maxWidth: maxContainerWidth }} disableGutters>
       <Box
@@ -24,8 +29,8 @@ export default function Home() {
         }}
       >
         <Hero />
-        <Program />
-        <Mentor />
+        <Program programs={data.programs} />
+        <Mentor mentors={data.users} />
         <About />
 
         {/* Review Section - Full Width */}
