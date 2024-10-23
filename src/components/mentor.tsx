@@ -17,6 +17,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation, Autoplay } from 'swiper/modules';
 import CarouselHeader from './carousel-header';
+import { fetchData } from '../utils/api';
 
 export default function Mentor() {
   const theme = useTheme();
@@ -37,12 +38,39 @@ export default function Mentor() {
 
   const [isLoaded, setIsLoaded] = useState(false);
 
+  const [mentors, setMentors] = useState([]);
+
+  const getPosts = async () => {
+    const data = await fetchData();
+    setMentors(data.users);
+  };
+
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
-    }, 500);
-    return () => clearTimeout(timer);
+    getPosts();
+
+    console.log(mentors);
+
+    // const timer = setTimeout(() => {
+    //   setIsLoaded(true);
+    // }, 500);
+
+    // return () => clearTimeout(timer);
+
   }, []);
+
+  // const getPosts = async () => {
+  //   try {
+  //     const data = await fetchData(); // 데이터 가져오기
+  //     setMentors(data?.users || []); // programs가 null일 경우 빈 배열 할당
+  //     // mentors = data.users;
+
+  //     // setMentors(data.users); // 성공 시 mentors 상태 업데이트
+  //   } catch (error) {
+  //     console.error('Error fetching data:', error); // 에러 발생 시 처리
+  //   }
+  // };
+
+
 
   return (
     <Box
@@ -68,73 +96,84 @@ export default function Mentor() {
             marginBottom: isTablet ? '24px' : 0,
           }}
         >
-          {cardData.map((card, index) => (
-            <SwiperSlide key={index}>
-              <Card
-                sx={{
-                  position: 'relative',
-                  width: '100%',
-                  boxShadow: 'none',
-                  aspectRatio: '1/1',
-                  borderRadius: '6px',
-                }}
-              >
-                <CardContent>
-                  <Image
-                    src={card.imgUrl}
-                    alt=""
-                    layout="fill"
-                    objectFit="cover"
-                  />
-                  <Box
-                    sx={{
-                      position: 'absolute',
-                      left: 0,
-                      bottom: 0,
-                      width: '100%',
-                      backgroundColor: 'rgba(16,16,16,0.7)',
-                      color: theme.palette.info.light,
-                      padding: { xxs: '10px 10px', sm: '10px 20px' },
-                      boxSizing: 'border-box',
-                      zIndex: 1,
-                      display: { xxs: 'flex', md: 'block' },
-                      alignItems: { xxs: 'center' },
-                      justifyContent: { xxs: 'space-between' },
-                    }}
-                  >
-                    <Typography
+          {/* {cardData.map((card, index) => ( */}
+          {mentors.length === 0 ? (
+            <p>No programs available.</p>
+          ) : (
+            // {
+            mentors.map((card: { firstName: string, lastName: string, photoUrl: string }, index: number) => (
+              <SwiperSlide key={index}>
+                <Card
+                  sx={{
+                    position: 'relative',
+                    width: '100%',
+                    boxShadow: 'none',
+                    aspectRatio: '1/1',
+                    borderRadius: '6px',
+                  }}
+                >
+                  <CardContent>
+                    <Image
+                      src={card.photoUrl}
+                      alt=""
+                      layout="fill"
+                      objectFit="cover"
+                    />
+                    <Box
                       sx={{
-                        fontSize: {
-                          xxs: '0.875rem',
-                          sm: '1.05rem',
-                          md: '1.1rem',
-                          lg: '1.2rem',
-                        },
-                        fontWeight: 600,
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        whiteSpace: 'nowrap',
+                        position: 'absolute',
+                        left: 0,
+                        bottom: 0,
+                        width: '100%',
+                        backgroundColor: 'rgba(16,16,16,0.7)',
+                        color: theme.palette.info.light,
+                        padding: { xxs: '10px 10px', sm: '10px 20px' },
+                        boxSizing: 'border-box',
+                        zIndex: 1,
+                        display: { xxs: 'flex', md: 'block' },
+                        alignItems: { xxs: 'center' },
+                        justifyContent: { xxs: 'space-between' },
                       }}
                     >
-                      {index + 1}-{card.title}
-                    </Typography>
-                    <Typography
-                      sx={{
-                        fontSize: {
-                          xxs: '0.87rem',
-                          sm: '1rem',
-                          md: '1.05rem',
-                          lg: '1.15rem',
-                        },
-                      }}
-                    >
-                      {card.description}
-                    </Typography>
-                  </Box>
-                </CardContent>
-              </Card>
-            </SwiperSlide>
-          ))}
+                      <Typography
+                        sx={{
+                          fontSize: {
+                            xxs: '0.875rem',
+                            sm: '1.05rem',
+                            md: '1.1rem',
+                            lg: '1.2rem',
+                          },
+                          fontWeight: 600,
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap',
+                        }}
+                      >
+                        {index + 1}-
+                        {/* {card.title} */}
+                        {card.firstName} {card.lastName}
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontSize: {
+                            xxs: '0.87rem',
+                            sm: '1rem',
+                            md: '1.05rem',
+                            lg: '1.15rem',
+                          },
+                        }}
+                      >
+                        {/* {card.description} */}
+                        {card.firstName}
+                      </Typography>
+                    </Box>
+                  </CardContent>
+                </Card>
+              </SwiperSlide>
+            ))
+            // }
+          )}
+
         </Swiper>
       ) : (
         <Box

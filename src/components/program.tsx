@@ -20,6 +20,7 @@ import { FiShoppingCart } from 'react-icons/fi';
 import { AiOutlineHeart } from 'react-icons/ai';
 import CarouselHeader from './carousel-header';
 import ProgramCardStatus from './program-card-status';
+import { fetchData } from '../utils/api';
 
 interface ProgramCard {
   imgUrl: string;
@@ -28,7 +29,24 @@ interface ProgramCard {
   status?: 'New' | 'Sales';
 }
 
+interface ProgramProps {
+  data: {
+    programId: string;
+    title: string;
+    dateTime: Date;
+    createdAt: Date;
+    location: string;
+    description: string;
+    cost: number;
+    thumbnailUrl: string;
+    status: string;
+  }[];
+}
+
+// const Program: React.FC<ProgramProps> = ({ data }) => {
 export default function Program() {
+
+
   const theme = useTheme();
   const cardData: ProgramCard[] = [
     {
@@ -79,12 +97,24 @@ export default function Program() {
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const swiperRef = useRef<SwiperRef>(null);
+
   const [isLoaded, setIsLoaded] = useState(false);
 
+  const [programs, setPrograms] = useState([]);
+
+
+  const getPosts = async () => {
+    const data = await fetchData();
+    // console.log(data);
+    setPrograms(data.programs);
+  };
+
   useEffect(() => {
+    getPosts(); // 첫 로드 시 데이터 가져오기
     const timer = setTimeout(() => {
       setIsLoaded(true);
     }, 500);
+
     return () => clearTimeout(timer);
   }, []);
 
@@ -107,7 +137,10 @@ export default function Program() {
             padding: isTablet ? 0 : '20px 0',
           }}
         >
-          {cardData.map((card, index) => (
+          {/* {posts.map((post: { id: number; name: string; age: number }) => ( */}
+
+          {/* {cardData.map((card, index) => ( */}
+          {programs.map((card: { title: string, cost: number, thumbnailUrl: string }, index: number) => (
             <SwiperSlide
               key={index}
               onMouseEnter={() => {
@@ -123,9 +156,9 @@ export default function Program() {
                 }}
               >
                 <CardContent sx={{ padding: 0 }}>
-                  {card.status ? (
+                  {/* {card.status ? (
                     <ProgramCardStatus status={card.status} />
-                  ) : null}
+                  ) : null} */}
                   <Button
                     sx={{
                       position: 'absolute',
@@ -161,7 +194,7 @@ export default function Program() {
                     }}
                   >
                     <Image
-                      src={card.imgUrl}
+                      src={card.thumbnailUrl}
                       alt=""
                       layout="fill"
                       objectFit="cover"
@@ -213,7 +246,7 @@ export default function Program() {
                         fontWeight={600}
                         fontSize={{ xxs: '0.87rem', sm: '1.25rem' }}
                       >
-                        ${card.description}
+                        ${card.cost}
                       </Typography>
                     </Box>
                     <Box
@@ -257,7 +290,8 @@ export default function Program() {
         >
           <CircularProgress />
         </Box>
-      )}
+      )
+      }
 
       <Button
         sx={{
@@ -272,6 +306,8 @@ export default function Program() {
       >
         더 많은 프로그램 보기
       </Button>
-    </Box>
+    </Box >
   );
 }
+
+// export default Program;
