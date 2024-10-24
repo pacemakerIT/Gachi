@@ -1,60 +1,75 @@
-"use client"
+'use client';
+
 import React, { useEffect, useState } from 'react';
-import { Container, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from '@mui/material';
-import { fetchPosts } from '../../utils/api';
+import { CircularProgress, Box, Typography, Card, CardMedia, CardContent } from '@mui/material';
 
-const AboutPage = () => {
-    const [posts, setPosts] = useState([]);
-    const [loading, setLoading] = useState(true);
+// Define the interface for program data
+interface Program {
+  programId: string;
+  title: string;
+  coast: number;
+  status?: 'New' | 'Sales';
+  hostName: string;
+  thumbnailUrl: string; // Add thumbnail URL if needed
+}
 
-    const getPosts = async () => {
-        const data = await fetchPosts();
-        setPosts(data);
-        setLoading(false);
+export default function Program() {
+  const [programs, setPrograms] = useState<Program[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const getPrograms = async () => {
+      try {
+        const res = await fetch('/api/programs'); // Call Next.js API
+        if (!res.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await res.json();
+        setPrograms(data); // Set fetched data to state
+      } catch (error) {
+        console.error('Failed to fetch programs:', error);
+      } finally {
+        setLoading(false); // Set loading to false
+      }
     };
 
-    useEffect(() => {
-        getPosts(); // 첫 로드 시 데이터 가져오기
-        const interval = setInterval(getPosts, 5000); // 5초마다 업데이트
-        return () => clearInterval(interval); // 컴포넌트 언마운트 시 인터벌 정리
-    }, []);
+    getPrograms(); // Fetch programs on component mount
+  }, []);
 
-    return (
-        <Container>
-            <Typography variant="h4" component="h1" gutterBottom>
-                Test
-            </Typography>
-            {loading ? (
-                <Typography>Loading...</Typography>
-            ) : (
-                <TableContainer component={Paper}>
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>ID</TableCell>
-                                <TableCell>Name</TableCell>
-                                <TableCell>Age</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {posts.map((post: { id: number; name: string; age: number }) => (
-                                <TableRow key={post.id}>
-                                    <TableCell>{post.id}</TableCell>
-                                    <TableCell>{post.name}</TableCell>
-                                    <TableCell>{post.age}</TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-            )}
-        </Container>
-    );
-};
-
-export default AboutPage;
-
-
-
-
-
+  return (
+    <Box>
+      {loading ? (
+        <CircularProgress /> // Show loading spinner
+      ) : (
+        <Box sx={{ display: 'grid', gap: '20px', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))' }}>
+          {programs.map((program) => (
+            <Card key={program.programId} sx={{ maxWidth: 345 }}>
+              {/* Use program.programId as key to avoid the warning */}
+              <CardMedia
+                component="img"
+                height="140"
+                image={program.thumbnailUrl}
+                alt={program.title}
+              />
+              <CardContent>
+                <Typography variant="h6">{program.title}</Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {program.coast} USD
+                </Typography>
+                {program.status && (
+                  <Typography variant="body2" color="primary">
+                    Status: {program.status}
+                  </Typography>
+                )}
+                <Typography variant="body2" color="text.secondary">
+                  Host: {program.hostName}
+                </Typography>
+              </CardContent>
+            </Card>
+          ))}
+          
+        </Box>
+      )}
+    </Box>
+  );
+}
