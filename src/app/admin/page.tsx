@@ -265,15 +265,21 @@ const AdminDashboard: React.FC = () => {
               sx={{
                 backgroundColor: 'white',
                 borderRadius: '4px',
-                mb: index === 0 ? 2 : 1, // More margin for the "Dashboard" item
+                mb: index === 0 ? 2 : 1,
                 border: 'none',
-                padding: '12px 16px', // Add padding for the items
+                marginX: 'auto', // Center items horizontally in the drawer
+                paddingY: '10px',
+                width: '90%', // Set a consistent width
+                maxWidth: '200px', // Optional: max width for larger screens
+                textAlign: 'center', // Center the text
+                display: 'flex',
+                justifyContent: 'center', // Center icon and text
                 '&:hover': {
                   backgroundColor: theme.palette.primary.main,
                   color: 'white',
                   '& .MuiListItemIcon-root': { color: 'white' },
                 },
-                '& .MuiListItemIcon-root': { color: 'black' },
+                '& .MuiListItemIcon-root': { color: 'black', minWidth: '30px' }, // Consistent icon spacing
                 transition: 'background-color 0.3s ease',
               }}
             >
@@ -298,6 +304,7 @@ const AdminDashboard: React.FC = () => {
             <Typography variant="h6" sx={{ color: 'black', ml: 2 }}>
               Dashboard
             </Typography>
+            {/* Search bar */}
             <Box
               sx={{
                 display: 'flex',
@@ -314,6 +321,8 @@ const AdminDashboard: React.FC = () => {
                 sx={{ ml: 1, flex: 1, color: 'black' }}
               />
             </Box>
+            {/* Dashboard Text Moved Next to Search Bar */}
+            {/* Notifications */}
             <IconButton>
               <NotificationsIcon sx={{ color: 'black' }} />
             </IconButton>
@@ -324,10 +333,6 @@ const AdminDashboard: React.FC = () => {
         <Box
           sx={{ flexGrow: 1, bgcolor: 'grey.100', p: 3, minHeight: '100vh' }}
         >
-          <Typography variant="h4" gutterBottom>
-            Admin Dashboard
-          </Typography>
-
           {/* 1st Row: 서비스 사용자 현황 & 매출 현황 */}
           <Box sx={{ display: 'flex', gap: 3, mb: 3 }}>
             <Card sx={{ flex: 1, minHeight: 250 }}>
