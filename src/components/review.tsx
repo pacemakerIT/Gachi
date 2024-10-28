@@ -17,46 +17,14 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
 import CarouselHeader from './carousel-header';
+import { ReviewType } from '@/utils/types';
 
-export default function Review() {
+interface ReviewProps {
+  reviews: ReviewType[];
+}
+
+export default function Review({ reviews }: ReviewProps) {
   const theme = useTheme();
-  const cardData = [
-    {
-      imgUrl: '/images/reviewer-photo.png',
-      content:
-        '전이라 생각은 열 딸으로 계산기다 할까. 아무래도 경제는 귀걸이에 곡조가 것 또한 가다. 골인으로 장관에 다다르는 편마암의 다음이는 세상 필사라 우리다 주식의 하다. 풍요롭자 볼 동의하라 있다, 가다. 둘째다 지연됨, 축구를 세월이 그냥 공연히 받는다 보아요.',
-      name: 'Kristin Watson',
-      jobTitle: 'Fashion Designer',
-    },
-    {
-      imgUrl: '/images/reviewer-photo.png',
-      content:
-        '전이라 생각은 열 딸으로 계산기다 할까. 아무래도 경제는 귀걸이에 곡조가 것 또한 가다. 골인으로 장관에 다다르는 편마암의 다음이는 세상 필사라 우리다 주식의 하다. 풍요롭자 볼 동의하라 있다, 가다. 둘째다 지연됨, 축구를 세월이 그냥 공연히 받는다 보아요.',
-      name: 'Kristin Watson',
-      jobTitle: 'Fashion Designer',
-    },
-    {
-      imgUrl: '/images/reviewer-photo.png',
-      content:
-        '전이라 생각은 열 딸으로 계산기다 할까. 아무래도 경제는 귀걸이에 곡조가 것 또한 가다. 골인으로 장관에 다다르는 편마암의 다음이는 세상 필사라 우리다 주식의 하다. 풍요롭자 볼 동의하라 있다, 가다. 둘째다 지연됨, 축구를 세월이 그냥 공연히 받는다 보아요.',
-      name: 'Kristin Watson',
-      jobTitle: 'Fashion Designer',
-    },
-    {
-      imgUrl: '/images/reviewer-photo.png',
-      content:
-        '전이라 생각은 열 딸으로 계산기다 할까. 아무래도 경제는 귀걸이에 곡조가 것 또한 가다. 골인으로 장관에 다다르는 편마암의 다음이는 세상 필사라 우리다 주식의 하다. 풍요롭자 볼 동의하라 있다, 가다. 둘째다 지연됨, 축구를 세월이 그냥 공연히 받는다 보아요.',
-      name: 'Kristin Watson',
-      jobTitle: 'Fashion Designer',
-    },
-    {
-      imgUrl: '/images/reviewer-photo.png',
-      content:
-        '전이라 생각은 열 딸으로 계산기다 할까. 아무래도 경제는 귀걸이에 곡조가 것 또한 가다. 골인으로 장관에 다다르는 편마암의 다음이는 세상 필사라 우리다 주식의 하다. 풍요롭자 볼 동의하라 있다, 가다. 둘째다 지연됨, 축구를 세월이 그냥 공연히 받는다 보아요.',
-      name: 'Kristin Watson',
-      jobTitle: 'Fashion Designer',
-    },
-  ];
 
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
@@ -88,7 +56,7 @@ export default function Review() {
         styles={{ padding: '0 20px' }}
       />
 
-      {isLoaded ? (
+      {reviews.length > 0 && isLoaded ? (
         <Swiper
           ref={swiperRef}
           slidesPerView={isTablet ? 1.5 : 2}
@@ -100,9 +68,9 @@ export default function Review() {
             padding: isTablet ? 0 : '20px',
           }}
         >
-          {cardData.map((card, index) => (
+          {reviews.map((review, index) => (
             <SwiperSlide
-              key={index}
+              key={review.reviewId}
               style={{
                 boxShadow: '0 0 40px' + theme.palette.info.dark,
               }}
@@ -119,24 +87,28 @@ export default function Review() {
                       borderRadius: '12px',
                     }}
                   >
-                    <Box
-                      sx={{
-                        paddingLeft: '20px',
-                        borderLeft: '2px solid #039fae',
-                      }}
-                    >
-                      <Typography
+                    <Box sx={{
+                      height: { xxs: '42px', md: '90px' }
+                    }}>
+                      <Box
                         sx={{
-                          fontSize: { xxs: '0.87rem', sm: '1.25rem' },
-                          display: '-webkit-box',
-                          WebkitBoxOrient: 'vertical',
-                          overflow: 'hidden',
-                          textOverflow: 'ellipsis',
-                          WebkitLineClamp: 5,
+                          paddingLeft: '20px',
+                          borderLeft: '2px solid #039fae',
                         }}
                       >
-                        {index + 1}-{card.content}
-                      </Typography>
+                        <Typography
+                          sx={{
+                            fontSize: { xxs: '0.87rem', sm: '1.25rem' },
+                            display: '-webkit-box',
+                            WebkitBoxOrient: 'vertical',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            WebkitLineClamp: { xxs: 2, md: 3 },
+                          }}
+                        >
+                          {index + 1}-{review.content}
+                        </Typography>
+                      </Box>
                     </Box>
 
                     <Box
@@ -148,7 +120,7 @@ export default function Review() {
                       }}
                     >
                       <Image
-                        src={card.imgUrl}
+                        src={review.User.photoUrl || '/images/reviewer-photo.png'}
                         alt=""
                         width={isMobile ? 50 : 60}
                         height={isMobile ? 50 : 60}
@@ -169,7 +141,7 @@ export default function Review() {
                             fontWeight: '600',
                           }}
                         >
-                          {card.name}
+                          {review.User.firstName} {review.User.lastName}
                         </Typography>
                         <Typography
                           sx={{
@@ -182,7 +154,7 @@ export default function Review() {
                             color: theme.palette.text.secondary,
                           }}
                         >
-                          {card.jobTitle}
+                          {review.User.Industry.title}
                         </Typography>
                       </Box>
                       <Box

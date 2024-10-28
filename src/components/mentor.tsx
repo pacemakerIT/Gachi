@@ -17,32 +17,30 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation, Autoplay } from 'swiper/modules';
 import CarouselHeader from './carousel-header';
-import { fetchData } from '../utils/api';
+import { IndustryType } from '@/utils/types';
 
 interface MentorProps {
   mentors: {
     firstName: string;
     lastName: string;
     photoUrl: string | null;
+    Industry: IndustryType;
   }[];
 }
 
 export default function Mentor({ mentors }: MentorProps) {
   const theme = useTheme();
-  const cardData = [
-    { imgUrl: '/img/mentor-img1.png', title: '크리스', description: '개발자' },
-    { imgUrl: '/img/mentor-img1.png', title: '크리스', description: '개발자' },
-    { imgUrl: '/img/mentor-img1.png', title: '크리스', description: '개발자' },
-    { imgUrl: '/img/mentor-img1.png', title: '크리스', description: '개발자' },
-    { imgUrl: '/img/mentor-img1.png', title: '크리스', description: '개발자' },
-    { imgUrl: '/img/mentor-img1.png', title: '크리스', description: '개발자' },
-    { imgUrl: '/img/mentor-img1.png', title: '크리스', description: '개발자' },
-    { imgUrl: '/img/mentor-img1.png', title: '크리스', description: '개발자' },
-    { imgUrl: '/img/mentor-img1.png', title: '크리스', description: '개발자' },
-  ];
   const swiperRef = useRef<SwiperRef>(null);
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <Box
@@ -52,7 +50,7 @@ export default function Mentor({ mentors }: MentorProps) {
     >
       <CarouselHeader title={'Our Mentors'} swiperRef={swiperRef} />
 
-      {mentors && mentors.length > 0 ? (
+      {mentors && mentors.length > 0 && isLoaded ? (
         <Swiper
           ref={swiperRef}
           slidesPerView={isMobile ? 2.5 : 3}
@@ -80,12 +78,17 @@ export default function Mentor({ mentors }: MentorProps) {
                 }}
               >
                 <CardContent>
+
                   <Image
-                    src={mentor.photoUrl || '/img/default-mentor.png'}
+                    src={mentor.photoUrl || '/img/mentor-img1.png'}
                     alt={`${mentor.firstName} ${mentor.lastName}`}
-                    layout="fill"
-                    objectFit="cover"
+                    fill
+                    sizes='33vw'
+                    style={{
+                      objectFit: "cover",
+                    }}
                   />
+
                   <Box
                     sx={{
                       position: 'absolute',
@@ -117,6 +120,19 @@ export default function Mentor({ mentors }: MentorProps) {
                       }}
                     >
                       {mentor.firstName} {mentor.lastName}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: {
+                          xxs: '0.87rem',
+                          sm: '1rem',
+                          md: '1.05rem',
+                          lg: '1.15rem',
+                        },
+                        opacity: 0.7,
+                      }}
+                    >
+                      {mentor.Industry.title}
                     </Typography>
                   </Box>
                 </CardContent>

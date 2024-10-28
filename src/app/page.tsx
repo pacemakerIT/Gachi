@@ -14,7 +14,6 @@ import { FetchDataResponse } from '@/utils/types';
 
 export default async function Home() {
   const data: FetchDataResponse = await fetchData();
-  console.log(data.users);
 
   return (
     <Container sx={{ maxWidth: maxContainerWidth }} disableGutters>
@@ -45,7 +44,7 @@ export default async function Home() {
             justifyContent: 'center',
           }}
         >
-          <Review />
+          <Review reviews={data.reviews} />
         </Box>
       </Box>
     </Container>

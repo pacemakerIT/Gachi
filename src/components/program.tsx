@@ -32,6 +32,14 @@ export default function Program({ programs }: ProgramProps) {
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const swiperRef = useRef<SwiperRef>(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <Box
@@ -41,7 +49,7 @@ export default function Program({ programs }: ProgramProps) {
     >
       <CarouselHeader title={'Popular Programs'} swiperRef={swiperRef} />
 
-      {programs.length > 0 ? (
+      {programs.length > 0 && isLoaded ? (
         <Swiper
           ref={swiperRef}
           slidesPerView={isMobile ? 2.5 : isTablet ? 3.5 : 4}
@@ -91,6 +99,11 @@ export default function Program({ programs }: ProgramProps) {
                       '& svg': {
                         fontSize: { xxs: 15, sm: 18, md: 24 },
                       },
+                      '&:hover': {
+                        '& svg': {
+                          color: theme.palette.info.light
+                        },
+                      }
                     }}
                   >
                     <AiOutlineHeart />
@@ -108,9 +121,10 @@ export default function Program({ programs }: ProgramProps) {
                     <Image
                       src={program.thumbnailUrl}
                       alt={program.title}
-                      layout="fill"
-                      objectFit="cover"
+                      fill
+                      sizes='33vw'
                       style={{
+                        objectFit: "cover",
                         aspectRatio: '1/1',
                         borderRadius: '6px',
                       }}
@@ -173,7 +187,7 @@ export default function Program({ programs }: ProgramProps) {
                           hoveredIndex === index
                             ? theme.palette.primary.main
                             : theme.palette.info.dark,
-                        transition: 'background-color 0.3s',
+                        transition: 'background-color 0.3s, color 0.3s',
                         '& svg': {
                           color:
                             hoveredIndex === index

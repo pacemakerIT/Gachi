@@ -21,6 +21,7 @@ export interface UserType {
   userId: string;
   industryId: string;
   userTypeId: string;
+  Industry: IndustryType;
 }
 
 export interface ReviewType {
@@ -29,6 +30,12 @@ export interface ReviewType {
   reviewId: string;
   programId: string;
   reviewerId: string;
+  User: UserType;
+}
+
+export interface IndustryType {
+  industryId: string;
+  title: string;
 }
 
 export interface FetchDataResponse {

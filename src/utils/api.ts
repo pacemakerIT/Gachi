@@ -1,7 +1,8 @@
 import { FetchDataResponse } from './types';
 
 export async function fetchData(): Promise<FetchDataResponse> {
-  const res = await fetch('http://127.0.0.1:8000/gachi/test-supabase/');
+  const res = await fetch('http://127.0.0.1:8000/gachi/test-supabase/', { cache: 'no-store' });
+
   if (!res.ok) {
     throw new Error('Failed to fetch posts');
   }
