@@ -21,6 +21,10 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
+import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
+import PieChartOutlineOutlinedIcon from '@mui/icons-material/PieChartOutlineOutlined';
+import LegendToggleOutlinedIcon from '@mui/icons-material/LegendToggleOutlined';
+import EqualizerOutlinedIcon from '@mui/icons-material/EqualizerOutlined';
 import SpaceDashboardOutlinedIcon from '@mui/icons-material/SpaceDashboardOutlined';
 import PersonIcon from '@mui/icons-material/Person';
 import MarkEmailUnreadOutlinedIcon from '@mui/icons-material/MarkEmailUnreadOutlined';
@@ -230,6 +234,12 @@ const AdminDashboard: React.FC = () => {
     { text: 'Settings', icon: <SettingsIcon /> },
     { text: '로그아웃', icon: <LogoutOutlinedIcon /> },
   ];
+  const userStatsData = {
+    weeklyNewMembers: 50,
+    monthlyNewMembers: 200,
+    memberGrowthRate: '25%',
+    totalMembers: 1200,
+  };
 
   return (
     <Box sx={{ display: 'flex', height: '100vh' }}>
@@ -335,59 +345,158 @@ const AdminDashboard: React.FC = () => {
         >
           {/* 1st Row: 서비스 사용자 현황 & 매출 현황 */}
           <Box sx={{ display: 'flex', gap: 3, mb: 3 }}>
-            <Card sx={{ flex: 1, minHeight: 250 }}>
-              <CardContent>
-                <Typography variant="h6">서비스 사용자 현황</Typography>
-                <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
-                  <Card
-                    sx={{
-                      flex: 1,
-                      background: `linear-gradient(${theme.palette.graph.gradient1})`,
-                      minHeight: 150,
-                    }}
-                  >
-                    <CardContent>
-                      <Typography variant="body1">주간 신규 회원 수</Typography>
-                    </CardContent>
-                  </Card>
-                  <Card
-                    sx={{
-                      flex: 1,
-                      background: `linear-gradient(${theme.palette.graph.gradient2})`,
-                      minHeight: 150,
-                    }}
-                  >
-                    <CardContent>
-                      <Typography variant="body1">월간 신규 회원 수</Typography>
-                    </CardContent>
-                  </Card>
-                  <Card
-                    sx={{
-                      flex: 1,
-                      background: `linear-gradient(${theme.palette.graph.gradient5})`,
-                      minHeight: 150,
-                    }}
-                  >
-                    <CardContent>
-                      <Typography variant="body1">회원 수 증감율</Typography>
-                    </CardContent>
-                  </Card>
-                  <Card
-                    sx={{
-                      flex: 1,
-                      background: `linear-gradient(${theme.palette.graph.gradient3})`,
-                      minHeight: 150,
-                    }}
-                  >
-                    <CardContent>
-                      <Typography variant="body1">총 회원 수</Typography>
-                    </CardContent>
-                  </Card>
+            <Card
+              sx={{
+                flex: 1,
+                minHeight: 150,
+                width: 150,
+                borderRadius: '16px',
+                overflow: 'hidden',
+                boxShadow: 'none',
+              }}
+            >
+              <CardContent sx={{ padding: 2 }}>
+                {/* Reduced padding */}
+                <Typography variant="h6" sx={{ textAlign: 'left', mb: 1 }}>
+                  서비스 사용자 현황
+                </Typography>
+                <Box sx={{ display: 'flex', gap: 1, mt: 1 }}>
+                  {[
+                    {
+                      icon: (
+                        <PersonAddAltOutlinedIcon
+                          sx={{ color: 'white', fontSize: 20 }}
+                        />
+                      ),
+                      value: userStatsData.weeklyNewMembers,
+                      label: '주간 신규 회원 수',
+                      gradient: theme.palette.graph.gradient1,
+                      opacity: 1, // Fully opaque background
+                    },
+                    {
+                      icon: (
+                        <PieChartOutlineOutlinedIcon
+                          sx={{ color: 'white', fontSize: 20 }}
+                        />
+                      ),
+                      value: userStatsData.monthlyNewMembers,
+                      label: '월간 신규 회원 수',
+                      gradient: theme.palette.graph.gradient2,
+                      opacity: 0.3, // 30% opacity for the background
+                    },
+                    {
+                      icon: (
+                        <LegendToggleOutlinedIcon
+                          sx={{ color: 'white', fontSize: 20 }}
+                        />
+                      ),
+                      value: userStatsData.memberGrowthRate,
+                      label: '회원 수 증감율',
+                      gradient: theme.palette.graph.gradient5,
+                      opacity: 0.3,
+                    },
+                    {
+                      icon: (
+                        <EqualizerOutlinedIcon
+                          sx={{ color: 'white', fontSize: 20 }}
+                        />
+                      ),
+                      value: userStatsData.totalMembers,
+                      label: '총 회원 수',
+                      gradient: theme.palette.graph.gradient3,
+                      opacity: 0.3,
+                    },
+                  ].map(({ icon, value, label, gradient, opacity }, index) => (
+                    <Card
+                      key={index}
+                      sx={{
+                        flex: 1,
+                        height: 150, // Ensure square shape
+                        width: 150, // Ensure square shape
+                        position: 'relative',
+                        padding: 1, // Reduced padding
+                        overflow: 'hidden', // Hide overflow for rounded corners
+                        borderRadius: '16px', // Ensure rounded edges
+                        boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)', // Custom shadow for consistency
+                      }}
+                    >
+                      {/* Background Box */}
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          bottom: 0,
+                          background: `linear-gradient(180deg, ${gradient[0]} 0%, ${gradient[1]} 100%)`,
+                          opacity, // Background opacity only
+                          zIndex: 0, // Ensure background is behind the content
+                          borderRadius: 'inherit', // Match the parent card's rounded corners
+                        }}
+                      />
+                      {/* Icon and Text Container */}
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          flexDirection: 'column', // Stack icon above text
+                          alignItems: 'flex-start', // Align items to the left
+                          gap: 0.5, // Reduced gap between items
+                          zIndex: 1, // Content above background
+                          position: 'relative',
+                          pt: 0.5, // Reduced top padding for closer alignment
+                          justifyContent: 'flex-start', // Align everything to the top
+                        }}
+                      >
+                        <Box
+                          sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            backgroundColor: theme.palette.primary.main,
+                            borderRadius: '50%', // Make it a circle
+                            width: 40,
+                            height: 40,
+                            mb: 0.5, // Small margin below the icon
+                          }}
+                        >
+                          {icon}
+                        </Box>
+                        <Typography
+                          variant="h5"
+                          sx={{
+                            color: 'black',
+                            fontWeight: 'bold',
+                            fontSize: '1.5rem',
+                          }}
+                        >
+                          {value !== undefined ? value : 'N/A'}
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          sx={{
+                            color: 'black',
+                            mt: 0.5,
+                          }}
+                        >
+                          {label}
+                        </Typography>
+                      </Box>
+                    </Card>
+                  ))}
                 </Box>
               </CardContent>
             </Card>
 
-            <Card sx={{ flex: 1, minHeight: 250 }}>
+            <Card
+              sx={{
+                flex: 1,
+                minHeight: 150,
+                width: 150,
+                borderRadius: '16px',
+                overflow: 'hidden',
+                boxShadow: 'none',
+              }}
+            >
               <CardContent>
                 <Typography variant="h6">매출 현황</Typography>
                 <ResponsiveContainer width="100%" height={200}>
@@ -429,7 +538,16 @@ const AdminDashboard: React.FC = () => {
 
           {/* 2nd Row: 인기 멘토 & 인기 프로그램 */}
           <Box sx={{ display: 'flex', gap: 3, mb: 3 }}>
-            <Card sx={{ flex: 1 }}>
+            <Card
+              sx={{
+                flex: 1,
+                minHeight: 150,
+                width: 150,
+                borderRadius: '16px',
+                overflow: 'hidden',
+                boxShadow: 'none',
+              }}
+            >
               <CardContent>
                 <Typography variant="h6">인기 멘토</Typography>
                 <Table>
@@ -457,7 +575,16 @@ const AdminDashboard: React.FC = () => {
               </CardContent>
             </Card>
 
-            <Card sx={{ flex: 1 }}>
+            <Card
+              sx={{
+                flex: 1,
+                minHeight: 150,
+                width: 150,
+                borderRadius: '16px',
+                overflow: 'hidden',
+                boxShadow: 'none',
+              }}
+            >
               <CardContent>
                 <Typography variant="h6">인기 프로그램</Typography>
                 <Table>
@@ -490,7 +617,16 @@ const AdminDashboard: React.FC = () => {
 
           {/* 3rd Row: 프로그램별 신청비율, 분야별 신청 비율, 사용자 유입 현황 */}
           <Box sx={{ display: 'flex', gap: 3 }}>
-            <Card sx={{ flex: 1, minHeight: 250 }}>
+            <Card
+              sx={{
+                flex: 1,
+                minHeight: 150,
+                width: 70, // Shrunk width for 프로그램별 신청비율
+                borderRadius: '16px',
+                overflow: 'hidden',
+                boxShadow: 'none',
+              }}
+            >
               <CardContent>
                 <Typography variant="h6">프로그램별 신청비율</Typography>
                 <ResponsiveContainer width="100%" height={200}>
@@ -520,7 +656,7 @@ const AdminDashboard: React.FC = () => {
                   {pieData.map((item, index) => (
                     <Box
                       key={item.name}
-                      sx={{ display: 'flex', alignItems: 'center', mr: 3 }}
+                      sx={{ display: 'flex', alignItems: 'center', mr: 1 }} // Adjusted margin-right to reduce gaps
                     >
                       {/* Dot with corresponding color */}
                       <Box
@@ -529,7 +665,7 @@ const AdminDashboard: React.FC = () => {
                           height: 10,
                           backgroundColor: colors[index],
                           borderRadius: '50%',
-                          mr: 1,
+                          mr: 0.5, // Adjusted margin to reduce space between dot and text
                         }}
                       />
                       <Typography variant="body2">{item.name}</Typography>
@@ -538,8 +674,16 @@ const AdminDashboard: React.FC = () => {
                 </Box>
               </CardContent>
             </Card>
-
-            <Card sx={{ flex: 1 }}>
+            <Card
+              sx={{
+                flex: 1,
+                minHeight: 150,
+                width: 70, // Shrunk width for 분야별 신청 비율
+                borderRadius: '16px',
+                overflow: 'hidden',
+                boxShadow: 'none',
+              }}
+            >
               <CardContent>
                 <Typography variant="h6">분야별 신청 비율</Typography>
                 <ResponsiveContainer width="100%" height={200}>
@@ -569,7 +713,7 @@ const AdminDashboard: React.FC = () => {
                   {pieData.map((item, index) => (
                     <Box
                       key={item.name}
-                      sx={{ display: 'flex', alignItems: 'center', mr: 3 }}
+                      sx={{ display: 'flex', alignItems: 'center', mr: 1 }} // Adjusted margin-right to reduce gaps
                     >
                       {/* Dot with corresponding color */}
                       <Box
@@ -578,7 +722,7 @@ const AdminDashboard: React.FC = () => {
                           height: 10,
                           backgroundColor: colors[index],
                           borderRadius: '50%',
-                          mr: 1,
+                          mr: 0.5, // Adjusted margin to reduce space between dot and text
                         }}
                       />
                       <Typography variant="body2">{item.name}</Typography>
@@ -587,8 +731,16 @@ const AdminDashboard: React.FC = () => {
                 </Box>
               </CardContent>
             </Card>
-
-            <Card sx={{ flex: 1 }}>
+            <Card
+              sx={{
+                flex: 1,
+                minHeight: 150,
+                width: 250, // Increased width for 사용자 유입 현황
+                borderRadius: '16px',
+                overflow: 'hidden',
+                boxShadow: 'none',
+              }}
+            >
               <CardContent>
                 <Typography variant="h6">사용자 유입 현황</Typography>
                 <ResponsiveContainer width="100%" height={200}>
