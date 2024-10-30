@@ -1,5 +1,4 @@
-'use client';
-import React, { useState } from 'react'; // Import useState
+import React from 'react';
 import {
   AppBar,
   Toolbar,
@@ -11,57 +10,60 @@ import {
   Menu,
   MenuItem,
 } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 import NotificationsIcon from '@mui/icons-material/NotificationsOutlined';
-import IosShareOutlinedIcon from '@mui/icons-material/IosShareOutlined';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import IosShareOutlined from '@mui/icons-material/IosShareOutlined';
+import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
 
-interface AdminHeaderProps {
+const Header: React.FC<{
   anchorEl: null | HTMLElement;
   handleMenuOpen: (event: React.MouseEvent<HTMLElement>) => void;
   handleMenuClose: () => void;
-}
-
-const AdminHeader: React.FC<AdminHeaderProps> = ({
-  anchorEl,
-  handleMenuOpen,
-  handleMenuClose,
-}) => {
-  const [searchInput, setSearchInput] = useState(''); // State for search input
-
+}> = ({ anchorEl, handleMenuOpen, handleMenuClose }) => {
   return (
-    <AppBar position="static" sx={{ backgroundColor: 'white' }}>
+    <AppBar
+      position="static"
+      sx={{
+        backgroundColor: 'white',
+        boxShadow: 'none',
+        borderBottom: '1px solid #ddd',
+      }}
+    >
       <Toolbar sx={{ justifyContent: 'space-between' }}>
         <Typography variant="h6" sx={{ color: 'black', ml: 2 }}>
           Dashboard
         </Typography>
-        <Box sx={{ display: 'flex', alignItems: 'center', width: '50%' }}>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            width: '50%',
+            backgroundColor: '#f1f1f1',
+            borderRadius: 1,
+            px: 2,
+          }}
+        >
+          <SearchIcon sx={{ color: '#999' }} />
           <InputBase
             placeholder="Search…"
-            value={searchInput} // Bind the input value to state
-            onChange={(e) => setSearchInput(e.target.value)} // Update state on change
-            sx={{
-              ml: 1,
-              flex: 1,
-              color: 'black',
-              backgroundColor: '#f1f1f1',
-              borderRadius: 1,
-              px: 2,
-            }}
+            sx={{ ml: 1, flex: 1, color: 'black' }}
           />
+        </Box>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <IconButton>
             <NotificationsIcon sx={{ color: 'black' }} />
           </IconButton>
           <IconButton>
-            <IosShareOutlinedIcon sx={{ color: 'black' }} />
+            <IosShareOutlined sx={{ color: 'black ' }} />
           </IconButton>
           <Box sx={{ display: 'flex', alignItems: 'center', ml: 1 }}>
             <Avatar
-              src="https://example.com/avatar.jpg" // Replace with actual image URL
+              src="https://example.com/avatar.jpg"
               alt="User  Avatar"
               sx={{ width: 32, height: 32 }}
             />
             <IconButton onClick={handleMenuOpen}>
-              <ArrowDropDownIcon sx={{ color: 'black' }} />
+              <ArrowDropDown sx={{ color: 'black' }} />
             </IconButton>
           </Box>
           <Menu
@@ -81,4 +83,4 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({
   );
 };
 
-export default AdminHeader;
+export default Header;
