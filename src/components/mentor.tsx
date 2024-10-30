@@ -68,22 +68,22 @@ export default function Mentor({ mentors }: MentorProps) {
         >
           {mentors.map((mentor, index) => (
             <SwiperSlide key={index}>
-              <Card
-                sx={{
+              <Card>
+                <CardContent sx={{
                   position: 'relative',
-                  width: '100%',
+                  width: 'auto',
+                  height: '100%',
                   boxShadow: 'none',
                   aspectRatio: '1/1',
                   borderRadius: '6px',
-                }}
-              >
-                <CardContent>
+                }}>
 
                   <Image
                     src={mentor.photoUrl || '/img/mentor-img1.png'}
                     alt={`${mentor.firstName} ${mentor.lastName}`}
                     fill
                     sizes='33vw'
+                    priority={true}
                     style={{
                       objectFit: "cover",
                     }}
@@ -123,6 +123,7 @@ export default function Mentor({ mentors }: MentorProps) {
                     </Typography>
                     <Typography
                       sx={{
+                        display: { xxs: 'none', sm: 'inherit' },
                         fontSize: {
                           xxs: '0.87rem',
                           sm: '1rem',
