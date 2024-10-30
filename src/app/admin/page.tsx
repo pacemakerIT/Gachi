@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Drawer,
@@ -20,6 +20,9 @@ import {
   TableCell,
   TableHead,
   TableRow,
+  Avatar,
+  Menu,
+  MenuItem,
 } from '@mui/material';
 import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 import PieChartOutlineOutlinedIcon from '@mui/icons-material/PieChartOutlineOutlined';
@@ -35,6 +38,8 @@ import PendingActionsOutlinedIcon from '@mui/icons-material/PendingActionsOutlin
 import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
 import SearchIcon from '@mui/icons-material/Search';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import IosShareOutlinedIcon from '@mui/icons-material/IosShareOutlined';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import {
   PieChart,
   Pie,
@@ -211,10 +216,19 @@ const inflowData = [
     친구추천: 210,
     카카오톡: 115,
   },
-  // Add more data
 ];
 
 const AdminDashboard: React.FC = () => {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget as HTMLElement); // Cast to HTMLElement
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
   const theme = useTheme();
   const colors = [
     theme.palette.graph.color1,
@@ -314,7 +328,7 @@ const AdminDashboard: React.FC = () => {
             <Typography variant="h6" sx={{ color: 'black', ml: 2 }}>
               Dashboard
             </Typography>
-            {/* Search bar */}
+            {/* Search Bar */}
             <Box
               sx={{
                 display: 'flex',
@@ -331,11 +345,38 @@ const AdminDashboard: React.FC = () => {
                 sx={{ ml: 1, flex: 1, color: 'black' }}
               />
             </Box>
-            {/* Dashboard Text Moved Next to Search Bar */}
-            {/* Notifications */}
-            <IconButton>
-              <NotificationsIcon sx={{ color: 'black' }} />
-            </IconButton>
+            {/* Notifications, Share, Avatar, and Dropdown */}
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <IconButton>
+                <NotificationsIcon sx={{ color: 'black' }} />
+              </IconButton>
+              <IconButton>
+                <IosShareOutlinedIcon sx={{ color: 'black' }} />
+              </IconButton>
+              {/* Avatar and Dropdown Menu */}
+              <Box sx={{ display: 'flex', alignItems: 'center', ml: 1 }}>
+                <Avatar
+                  src="https://example.com/avatar.jpg" // Replace with actual image URL
+                  alt="User Avatar"
+                  sx={{ width: 32, height: 32 }}
+                />
+                <IconButton onClick={handleMenuOpen}>
+                  <ArrowDropDownIcon sx={{ color: 'black' }} />
+                </IconButton>
+              </Box>
+              {/* Dropdown Menu */}
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleMenuClose}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+              >
+                <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+                <MenuItem onClick={handleMenuClose}>Back to Home Page</MenuItem>
+                <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+              </Menu>
+            </Box>
           </Toolbar>
         </AppBar>
 
