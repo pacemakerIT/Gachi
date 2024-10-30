@@ -60,7 +60,7 @@ const SalesChart: React.FC = () => {
             <Line
               type="monotone"
               dataKey="매출"
-              stroke={colors[0]}
+              stroke={colors[4]}
               strokeWidth={2}
             />
             <Line

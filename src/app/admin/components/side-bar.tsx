@@ -6,7 +6,7 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Typography,
+  Typography, // Import Typography for text
 } from '@mui/material';
 import Image from 'next/image'; // Import the Image component
 import Logo from '../../../../public/images/logo.png'; // Import the logo image
@@ -54,6 +54,7 @@ const Sidebar: React.FC = () => {
           p: 2,
           display: 'flex',
           alignItems: 'center',
+          justifyContent: 'center', // Center the container
         }}
       >
         {/* Logo and text container */}
@@ -66,7 +67,7 @@ const Sidebar: React.FC = () => {
             height={40}
             style={{ objectFit: 'contain' }}
           />
-          <Typography variant="h6" sx={{ ml: 1 }}>
+          <Typography variant="h6" sx={{ ml: 1, textAlign: 'center' }}>
             Gachi.Live
           </Typography>
         </Box>

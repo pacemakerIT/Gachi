@@ -143,7 +143,7 @@ const InflowChart: React.FC = () => {
             <Line
               type="monotone"
               dataKey="구글검색"
-              stroke={colors[0]}
+              stroke={colors[5]}
               strokeWidth={2}
             />
             <Line
