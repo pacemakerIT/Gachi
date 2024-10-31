@@ -29,7 +29,7 @@ export default async function Home() {
       >
         <Hero />
         <Program programs={data.programs} />
-        <Mentor mentors={data.users} />
+        <Mentor mentors={data.mentors} />
         <About />
 
         {/* Review Section - Full Width */}

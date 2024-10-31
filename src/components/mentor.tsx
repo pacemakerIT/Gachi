@@ -24,7 +24,7 @@ interface MentorProps {
     firstName: string;
     lastName: string;
     photoUrl: string | null;
-    Industry: IndustryType;
+    industryTitle: string;
   }[];
 }
 
@@ -133,7 +133,7 @@ export default function Mentor({ mentors }: MentorProps) {
                         opacity: 0.7,
                       }}
                     >
-                      {mentor.Industry.title}
+                      {mentor.industryTitle}
                     </Typography>
                   </Box>
                 </CardContent>

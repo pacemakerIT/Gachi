@@ -14,14 +14,13 @@ export interface UserType {
   firstName: string;
   lastName: string;
   email: string;
-  password: string | null;
   careerGoal: string | null;
   photoUrl: string | null;
   linkedInUrl: string | null;
   userId: string;
   industryId: string;
+  industryTitle: string;
   userTypeId: string;
-  Industry: IndustryType;
 }
 
 export interface ReviewType {
@@ -30,7 +29,11 @@ export interface ReviewType {
   reviewId: string;
   programId: string;
   reviewerId: string;
-  User: UserType;
+  firstName: string;
+  lastName: string;
+  photoUrl: string | null;
+  industryId: string;
+  industryTitle: string;
 }
 
 export interface IndustryType {
@@ -40,6 +43,6 @@ export interface IndustryType {
 
 export interface FetchDataResponse {
   programs: ProgramType[];
-  users: UserType[];
+  mentors: UserType[];
   reviews: ReviewType[];
 }

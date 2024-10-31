@@ -120,7 +120,7 @@ export default function Review({ reviews }: ReviewProps) {
                       }}
                     >
                       <Image
-                        src={review.User.photoUrl || '/images/reviewer-photo.png'}
+                        src={review.photoUrl || '/images/reviewer-photo.png'}
                         alt=""
                         width={isMobile ? 50 : 60}
                         height={isMobile ? 50 : 60}
@@ -141,7 +141,7 @@ export default function Review({ reviews }: ReviewProps) {
                             fontWeight: '600',
                           }}
                         >
-                          {review.User.firstName} {review.User.lastName}
+                          {review.firstName} {review.lastName}
                         </Typography>
                         <Typography
                           sx={{
@@ -154,7 +154,7 @@ export default function Review({ reviews }: ReviewProps) {
                             color: theme.palette.text.secondary,
                           }}
                         >
-                          {review.User.Industry.title}
+                          {review.industryTitle}
                         </Typography>
                       </Box>
                       <Box
