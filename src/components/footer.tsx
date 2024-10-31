@@ -34,7 +34,6 @@ interface LogoSectionProps {
   socialMediaLinks: SocialMediaLink[];
 }
 
-
 // Logo and SNS Section
 const LogoSnsSection: React.FC<LogoSectionProps> = ({ socialMediaLinks }) => {
   const theme = useTheme();

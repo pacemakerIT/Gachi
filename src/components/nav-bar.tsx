@@ -19,14 +19,17 @@ import MobileDrawer from './mobile-drawer';
 import ProfileIcon from './profile-icon';
 import Logo from './logo';
 
-const NavBar = () => {
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+interface Props {}
+
+const NavBar: React.FC<Props> = () => {
   const [isLoggedIn] = React.useState(false);
   const [navDrawerOpen, setNavDrawerOpen] = React.useState(false);
   const [profileDrawerOpen, setProfileDrawerOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const prevIsMobile = React.useRef(isMobile); // To track changes between mobile and desktop
+  const prevIsMobile = React.useRef(isMobile);
 
   const toggleNavDrawer = () => {
     setNavDrawerOpen(!navDrawerOpen);
@@ -58,10 +61,8 @@ const NavBar = () => {
     setAnchorEl(null);
   };
 
-  // UseEffect to close profile drawer and dropdown when switching between mobile and browser modes
   useEffect(() => {
     if (prevIsMobile.current !== isMobile) {
-      // Close profile drawer in mobile and dropdown menu in browser mode on transition
       setProfileDrawerOpen(false);
       setAnchorEl(null);
     }
@@ -91,10 +92,10 @@ const NavBar = () => {
           backgroundColor: theme.palette.secondary.main,
           height: '25px',
           width: '100%',
-          position: 'fixed', // Make sure it's fixed as well
+          position: 'fixed',
           top: 0,
           left: 0,
-          zIndex: theme.zIndex.drawer + 2, // Ensure it's above other content
+          zIndex: theme.zIndex.drawer + 2,
         }}
       />
 
@@ -122,7 +123,9 @@ const NavBar = () => {
                 {isLoggedIn ? (
                   <ProfileIcon onClick={toggleProfileDrawer} />
                 ) : (
-                  <Button variant="contained">로그인</Button>
+                  <Link href="/login" passHref>
+                    <Button variant="contained">로그인</Button>
+                  </Link>
                 )}
               </Box>
 
@@ -139,7 +142,7 @@ const NavBar = () => {
                 open={profileDrawerOpen}
                 onClose={closeProfileDrawer}
                 links={profileLinks}
-                anchor="right" // Open the profile drawer from the right
+                anchor="right"
               />
             </>
           ) : (
@@ -168,8 +171,7 @@ const NavBar = () => {
                       padding: '0 5px',
                     }}
                     onMouseEnter={(e) =>
-                    (e.currentTarget.style.color =
-                      theme.palette.text.secondary)
+                      (e.currentTarget.style.color = theme.palette.primary.main)
                     }
                     onMouseLeave={(e) =>
                       (e.currentTarget.style.color = theme.palette.text.primary)
@@ -253,17 +255,19 @@ const NavBar = () => {
                           padding: '0 5px',
                         }}
                         onMouseEnter={(e) =>
-                        (e.currentTarget.style.color =
-                          theme.palette.text.secondary)
+                          (e.currentTarget.style.color =
+                            theme.palette.primary.main)
                         }
                         onMouseLeave={(e) =>
-                        (e.currentTarget.style.color =
-                          theme.palette.text.primary)
+                          (e.currentTarget.style.color =
+                            theme.palette.text.primary)
                         }
                       >
                         회원가입
                       </Link>
-                      <Button variant="contained">로그인</Button>
+                      <Link href="/login" passHref>
+                        <Button variant="contained">로그인</Button>
+                      </Link>
                     </Box>
                   </>
                 )}
