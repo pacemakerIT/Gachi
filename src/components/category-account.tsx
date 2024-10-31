@@ -16,7 +16,7 @@ interface CategoryAccountSectionProps {
 
 export default function CategoryAccountSection({ categories, accountLinks }: CategoryAccountSectionProps) {
     const theme = useTheme();
-    const [isLoggedIn, setIsLoggedIn] = useState(true); // Temporarily set login status
+    const [isLoggedIn] = useState(true); // Temporarily set login status
 
     return (
         <Grid size={{ xs: 12, md: 3 }} sx={{ textAlign: { xs: 'center', md: 'left' }, display: { xs: 'none', md: 'block' } }}>

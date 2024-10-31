@@ -36,11 +36,6 @@ export interface ReviewType {
   industryTitle: string;
 }
 
-export interface IndustryType {
-  industryId: string;
-  title: string;
-}
-
 export interface FetchDataResponse {
   programs: ProgramType[];
   mentors: UserType[];

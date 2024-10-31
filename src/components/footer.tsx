@@ -4,8 +4,6 @@ import Image from 'next/image';
 import {
   Box,
   Typography,
-  TextField,
-  Button,
   IconButton,
   Container,
   Link,

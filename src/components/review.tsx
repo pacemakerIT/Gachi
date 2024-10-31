@@ -87,9 +87,11 @@ export default function Review({ reviews }: ReviewProps) {
                       borderRadius: '12px',
                     }}
                   >
-                    <Box sx={{
-                      height: { xxs: '42px', md: '90px' }
-                    }}>
+                    <Box
+                      sx={{
+                        height: { xxs: '42px', md: '90px' },
+                      }}
+                    >
                       <Box
                         sx={{
                           paddingLeft: '20px',

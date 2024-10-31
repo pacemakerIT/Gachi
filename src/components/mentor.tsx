@@ -17,7 +17,6 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation, Autoplay } from 'swiper/modules';
 import CarouselHeader from './carousel-header';
-import { IndustryType } from '@/utils/types';
 
 interface MentorProps {
   mentors: {
@@ -69,23 +68,24 @@ export default function Mentor({ mentors }: MentorProps) {
           {mentors.map((mentor, index) => (
             <SwiperSlide key={index}>
               <Card>
-                <CardContent sx={{
-                  position: 'relative',
-                  width: 'auto',
-                  height: '100%',
-                  boxShadow: 'none',
-                  aspectRatio: '1/1',
-                  borderRadius: '6px',
-                }}>
-
+                <CardContent
+                  sx={{
+                    position: 'relative',
+                    width: 'auto',
+                    height: '100%',
+                    boxShadow: 'none',
+                    aspectRatio: '1/1',
+                    borderRadius: '6px',
+                  }}
+                >
                   <Image
                     src={mentor.photoUrl || '/img/mentor-img1.png'}
                     alt={`${mentor.firstName} ${mentor.lastName}`}
                     fill
-                    sizes='33vw'
+                    sizes="33vw"
                     priority={true}
                     style={{
-                      objectFit: "cover",
+                      objectFit: 'cover',
                     }}
                   />
 

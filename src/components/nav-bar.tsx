@@ -19,10 +19,8 @@ import MobileDrawer from './mobile-drawer';
 import ProfileIcon from './profile-icon';
 import Logo from './logo';
 
-interface Props { }
-
-const NavBar: React.FC<Props> = () => {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+const NavBar = () => {
+  const [isLoggedIn] = React.useState(false);
   const [navDrawerOpen, setNavDrawerOpen] = React.useState(false);
   const [profileDrawerOpen, setProfileDrawerOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);

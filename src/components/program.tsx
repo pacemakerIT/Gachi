@@ -15,7 +15,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { Navigation, Autoplay } from 'swiper/modules';
+import { Navigation } from 'swiper/modules';
 import { FiShoppingCart } from 'react-icons/fi';
 import { AiOutlineHeart } from 'react-icons/ai';
 import CarouselHeader from './carousel-header';
@@ -101,9 +101,9 @@ export default function Program({ programs }: ProgramProps) {
                       },
                       '&:hover': {
                         '& svg': {
-                          color: theme.palette.info.light
+                          color: theme.palette.info.light,
                         },
-                      }
+                      },
                     }}
                   >
                     <AiOutlineHeart />
@@ -122,9 +122,9 @@ export default function Program({ programs }: ProgramProps) {
                       src={program.thumbnailUrl}
                       alt={program.title}
                       fill
-                      sizes='33vw'
+                      sizes="33vw"
                       style={{
-                        objectFit: "cover",
+                        objectFit: 'cover',
                         aspectRatio: '1/1',
                         borderRadius: '6px',
                       }}
