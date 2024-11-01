@@ -19,10 +19,7 @@ import MobileDrawer from './mobile-drawer';
 import ProfileIcon from './profile-icon';
 import Logo from './logo';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-interface Props {}
-
-const NavBar: React.FC<Props> = () => {
+const NavBar: React.FC = () => {
   const [isLoggedIn] = React.useState(false);
   const [navDrawerOpen, setNavDrawerOpen] = React.useState(false);
   const [profileDrawerOpen, setProfileDrawerOpen] = React.useState(false);
