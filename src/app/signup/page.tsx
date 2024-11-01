@@ -13,7 +13,6 @@ import {
 } from '@mui/material';
 import {
   Google as GoogleIcon,
-  Facebook as FacebookIcon,
   Visibility,
   VisibilityOff,
 } from '@mui/icons-material';
@@ -262,25 +261,6 @@ export default function SignUpPage() {
         }}
       >
         <Typography sx={{ fontWeight: 'bold' }}>Google로 가입하기</Typography>
-      </Button>
-
-      {/* Facebook Sign Up Button */}
-      <Button
-        fullWidth
-        variant="contained"
-        startIcon={<FacebookIcon />}
-        sx={{
-          color: theme.palette.info.light,
-          mx: 'auto',
-          backgroundColor: '#3B5998',
-          '&:hover': {
-            backgroundColor: '#365899',
-          },
-        }}
-      >
-        <Typography sx={{ fontWeight: 'bold' }}>
-          Facebook으로 가입하기
-        </Typography>
       </Button>
     </Box>
   );

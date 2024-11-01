@@ -11,10 +11,7 @@ import {
   FormControlLabel,
   useTheme,
 } from '@mui/material';
-import {
-  Google as GoogleIcon,
-  Facebook as FacebookIcon,
-} from '@mui/icons-material';
+import { Google as GoogleIcon } from '@mui/icons-material';
 
 export default function LoginPage() {
   const theme = useTheme(); // Access theme here
@@ -156,25 +153,6 @@ export default function LoginPage() {
         }}
       >
         <Typography sx={{ fontWeight: 'bold' }}>Google로 가입하기</Typography>
-      </Button>
-
-      {/* Facebook Sign Up Button */}
-      <Button
-        fullWidth
-        variant="contained"
-        startIcon={<FacebookIcon />}
-        sx={{
-          color: theme.palette.info.light, // Text color (white) from theme
-          mx: 'auto', // Center the button
-          backgroundColor: '#3B5998', // Facebook's color
-          '&:hover': {
-            backgroundColor: '#365899', // Darker shade for hover
-          },
-        }}
-      >
-        <Typography sx={{ fontWeight: 'bold' }}>
-          Facebook으로 가입하기
-        </Typography>
       </Button>
     </Box>
   );
