@@ -1,17 +1,9 @@
 'use client';
 
 import React from 'react';
-import {
-  Box,
-  Drawer,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Typography, // Import Typography for text
-} from '@mui/material';
-import Image from 'next/image'; // Import the Image component
-import Logo from '../../../../public/images/logo.png'; // Import the logo image
+import { Box, Drawer, List, Button, Typography, useTheme } from '@mui/material';
+import Image from 'next/image';
+import Logo from '../../../../public/images/logo.png';
 import {
   SpaceDashboardOutlined,
   MarkEmailUnreadOutlined,
@@ -22,21 +14,40 @@ import {
   Settings,
   LogoutOutlined,
 } from '@mui/icons-material';
+import Link from 'next/link';
 
 const drawerWidth = 240;
 
 const menuItems = [
-  { text: 'Dashboard', icon: <SpaceDashboardOutlined /> },
-  { text: '뉴스레터', icon: <MarkEmailUnreadOutlined /> },
-  { text: '회원 관리', icon: <Person /> },
-  { text: '멘토관리', icon: <GroupOutlined /> },
-  { text: '프로그램 관리', icon: <PendingActionsOutlined /> },
-  { text: '결제 현황', icon: <CreditCardOutlined /> },
-  { text: 'Settings', icon: <Settings /> },
-  { text: '로그아웃', icon: <LogoutOutlined /> },
+  {
+    text: 'Dashboard',
+    icon: <SpaceDashboardOutlined />,
+    path: '/admin/dashboard',
+  },
+  {
+    text: '뉴스레터',
+    icon: <MarkEmailUnreadOutlined />,
+    path: '/admin/newsletter',
+  },
+  { text: '회원 관리', icon: <Person />, path: '/admin/users' },
+  { text: '멘토관리', icon: <GroupOutlined />, path: '/admin/mentors' },
+  {
+    text: '프로그램 관리',
+    icon: <PendingActionsOutlined />,
+    path: '/admin/programs',
+  },
+  {
+    text: '결제 현황',
+    icon: <CreditCardOutlined />,
+    path: '/admin/transactions',
+  },
+  { text: 'Settings', icon: <Settings />, path: '/admin/settings' },
+  { text: '로그아웃', icon: <LogoutOutlined />, path: '#' }, // Placeholder for logout
 ];
 
 const Sidebar: React.FC = () => {
+  const theme = useTheme();
+
   return (
     <Drawer
       variant="permanent"
@@ -56,12 +67,10 @@ const Sidebar: React.FC = () => {
           p: 2,
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center', // Center the container
+          justifyContent: 'center',
         }}
       >
-        {/* Logo and text container */}
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          {/* Use Image component for the logo */}
           <Image
             src={Logo}
             alt="Logo"
@@ -74,31 +83,39 @@ const Sidebar: React.FC = () => {
           </Typography>
         </Box>
       </Box>
-      <List>
+      <List
+        sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+      >
         {menuItems.map((item, index) => (
-          <ListItem
-            component="button"
-            key={index}
-            sx={{
-              backgroundColor: 'white',
-              borderRadius: '4px',
-              mb: index === 0 ? 2 : 1,
-              border: 'none',
-              marginX: 'auto',
-              paddingY: '10px',
-              width: '90%',
-              textAlign: 'center',
-              display: 'flex',
-              justifyContent: 'center',
-              '&:hover': {
-                backgroundColor: 'primary.main',
-                color: 'white',
-              },
-            }}
-          >
-            <ListItemIcon>{item.icon}</ListItemIcon>
-            <ListItemText primary={item.text} />
-          </ListItem>
+          <Link href={item.path} key={index} passHref>
+            <Button
+              startIcon={item.icon}
+              variant="text" // or "contained" based on your design choice
+              sx={{
+                width: '154.42px', // Set consistent width
+                height: '48.5px', // Set consistent height
+                justifyContent: 'flex-start',
+                textAlign: 'left',
+                padding: '0 10px', // Adjust padding as needed
+                margin: index === 1 ? '16px 0' : '8px 0', // Add extra margin for the "뉴스레터" button
+                color: theme.palette.text.primary,
+                borderRadius: '8px', // Set rounded corners
+                '&:hover': {
+                  backgroundColor: theme.palette.primary.main, // Use theme's primary color for hover
+                  color: theme.palette.background.default, // Change text color if needed
+                },
+                '&:active': {
+                  backgroundColor: theme.palette.primary.dark, // Optional: Darker shade on active
+                },
+                '& .MuiButton-startIcon': {
+                  marginRight: '16px', // Increase gap between icon and text
+                  paddingLeft: '4px',
+                },
+              }}
+            >
+              {item.text}
+            </Button>
+          </Link>
         ))}
       </List>
     </Drawer>
