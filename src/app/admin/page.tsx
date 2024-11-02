@@ -1,10 +1,8 @@
-'use client';
-
-import React, { useState } from 'react';
+import React from 'react';
 import { Box } from '@mui/material';
 import Sidebar from './components/side-bar';
 import Header from './components/header';
-import UserStatsCard from './components/user-stats-card'; // Adjust the path as needed
+import UserStatsCard from './components/user-stats-card';
 import SalesChart from './components/sales-chart';
 import MentorTable from './components/mentor-table';
 import ProgramTable from './components/program-table';
@@ -16,25 +14,11 @@ import {
 import InflowChart from './components/inflow-chart';
 
 const AdminDashboard: React.FC = () => {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget as HTMLElement);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
-
   return (
     <Box sx={{ display: 'flex', height: '100vh' }}>
       <Sidebar />
       <Box sx={{ flexGrow: 1 }}>
-        <Header
-          anchorEl={anchorEl}
-          handleMenuOpen={handleMenuOpen}
-          handleMenuClose={handleMenuClose}
-        />
+        <Header />
         <Box
           sx={{ flexGrow: 1, bgcolor: 'grey.100', p: 3, minHeight: '100vh' }}
         >

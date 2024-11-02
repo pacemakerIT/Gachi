@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import {
   AppBar,
   Toolbar,
@@ -15,11 +17,17 @@ import NotificationsIcon from '@mui/icons-material/NotificationsOutlined';
 import IosShareOutlined from '@mui/icons-material/IosShareOutlined';
 import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
 
-const Header: React.FC<{
-  anchorEl: null | HTMLElement;
-  handleMenuOpen: (event: React.MouseEvent<HTMLElement>) => void;
-  handleMenuClose: () => void;
-}> = ({ anchorEl, handleMenuOpen, handleMenuClose }) => {
+const Header: React.FC = () => {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget as HTMLElement);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <AppBar
       position="static"

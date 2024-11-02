@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { Box, Card, CardContent, Typography } from '@mui/material';
 import { ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
