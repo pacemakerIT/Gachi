@@ -17,7 +17,11 @@ import NotificationsIcon from '@mui/icons-material/NotificationsOutlined';
 import IosShareOutlined from '@mui/icons-material/IosShareOutlined';
 import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  title: string; // Add title prop
+}
+
+const Header: React.FC<HeaderProps> = ({ title }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -39,7 +43,7 @@ const Header: React.FC = () => {
     >
       <Toolbar sx={{ justifyContent: 'space-between' }}>
         <Typography variant="h6" sx={{ color: 'black', ml: 2 }}>
-          Dashboard
+          {title}
         </Typography>
         <Box
           sx={{
