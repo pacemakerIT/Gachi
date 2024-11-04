@@ -13,18 +13,72 @@ import {
 } from '@mui/material';
 import {
   Google as GoogleIcon,
-  Facebook as FacebookIcon,
   Visibility,
   VisibilityOff,
 } from '@mui/icons-material';
 import { useTheme } from '@mui/material/styles';
+import { useRouter } from 'next/navigation';
 
 export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
   const theme = useTheme();
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+  });
 
   const handleTogglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // should be fixed
+    if (
+      formData.password.length < 8 ||
+      !/[A-Z]/.test(formData.password) ||
+      !/[0-9]/.test(formData.password)
+    ) {
+      alert('비밀번호는 8자리 이상이며, 대소문자와 숫자를 포함해야 합니다.');
+      return;
+    } else {
+      signUpUser(formData);
+    }
+  };
+
+  const signUpUser = async (formData: object) => {
+    try {
+      const response = await fetch(
+        'http://127.0.0.1:8000/sign_up/sign-up-user/',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      if (response.ok) {
+        router.push('/');
+      } else {
+        alert('Failed to Signup');
+      }
+    } catch (error) {
+      console.error('회원가입 중 오류 발생:', error);
+    }
   };
 
   return (
@@ -71,7 +125,14 @@ export default function SignUpPage() {
       </Box>
 
       {/* Input Fields */}
-      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+        }}
+        component="form"
+        onSubmit={handleSubmit}
+      >
         <Box sx={{ flex: 1, mr: 1 }}>
           <Typography
             variant="body1"
@@ -84,6 +145,9 @@ export default function SignUpPage() {
             이름
           </Typography>
           <TextField
+            name="firstName"
+            value={formData.firstName}
+            onChange={handleChange}
             margin="normal"
             placeholder="e.g. John"
             variant="outlined"
@@ -118,6 +182,9 @@ export default function SignUpPage() {
             성
           </Typography>
           <TextField
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleChange}
             margin="normal"
             placeholder="e.g. Doe"
             variant="outlined"
@@ -154,6 +221,9 @@ export default function SignUpPage() {
           이메일
         </Typography>
         <TextField
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
           fullWidth
           margin="normal"
           placeholder="e.g. email@gmail.com"
@@ -189,6 +259,9 @@ export default function SignUpPage() {
           비밀번호
         </Typography>
         <TextField
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
           fullWidth
           margin="normal"
           placeholder="비밀번호를 입력하세요"
@@ -231,7 +304,13 @@ export default function SignUpPage() {
         </Typography>
       </Box>
 
-      <Button fullWidth variant="contained" sx={{ mt: 2 }}>
+      <Button
+        type="submit"
+        fullWidth
+        variant="contained"
+        sx={{ mt: 2 }}
+        onClick={() => signUpUser(formData)}
+      >
         회원가입
       </Button>
 
@@ -262,25 +341,6 @@ export default function SignUpPage() {
         }}
       >
         <Typography sx={{ fontWeight: 'bold' }}>Google로 가입하기</Typography>
-      </Button>
-
-      {/* Facebook Sign Up Button */}
-      <Button
-        fullWidth
-        variant="contained"
-        startIcon={<FacebookIcon />}
-        sx={{
-          color: theme.palette.info.light,
-          mx: 'auto',
-          backgroundColor: '#3B5998',
-          '&:hover': {
-            backgroundColor: '#365899',
-          },
-        }}
-      >
-        <Typography sx={{ fontWeight: 'bold' }}>
-          Facebook으로 가입하기
-        </Typography>
       </Button>
     </Box>
   );
