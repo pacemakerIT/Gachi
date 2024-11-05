@@ -45,7 +45,6 @@ const CustomIconButton = styled(IconButton)(({ theme }) => ({
 }));
 
 
-
 // Logo and SNS Section
 const LogoSnsSection: React.FC<LogoSectionProps> = ({ socialMediaLinks }) => {
   const theme = useTheme();
