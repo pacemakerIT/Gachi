@@ -6,6 +6,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import theme from '@/theme';
 import NavBar from '@/components/nav-bar';
 import Footer from '@/components/footer';
+import { AuthProvider } from '../../context/AuthContext';
 
 export default function RootLayout({
   children,
@@ -18,9 +19,11 @@ export default function RootLayout({
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            <NavBar />
-            {children}
-            <Footer />
+            <AuthProvider>
+              <NavBar />
+              {children}
+              <Footer />
+            </AuthProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import {
   Box,
   Button,
@@ -10,27 +12,78 @@ import {
   Checkbox,
   FormControlLabel,
   useTheme,
+  IconButton,
+  InputAdornment,
 } from '@mui/material';
 import {
   Google as GoogleIcon,
-  Facebook as FacebookIcon,
+  Visibility,
+  VisibilityOff,
 } from '@mui/icons-material';
+import { useAuth } from 'context/AuthContext';
 
 export default function LoginPage() {
-  const theme = useTheme(); // Access theme here
+  const theme = useTheme();
+  const router = useRouter();
+  const { setIsLoggedIn } = useAuth();
+
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleTogglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
+
+  const login = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch('http://127.0.0.1:8000/sign_in/login/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error);
+      }
+      const data = await response.json();
+
+      localStorage.setItem('access_token', data.access_token);
+      localStorage.setItem('refresh_token', data.refresh_token);
+
+      setIsLoggedIn(true);
+      router.push('/');
+
+      return data;
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError('Failed to login');
+      }
+    }
+  };
 
   return (
     <Box
+      component="form"
+      onSubmit={login}
       sx={{
         width: '100%',
         maxWidth: '600px',
         mx: 'auto',
         mt: 4,
-        p: 3, // Padding inside the box
-        borderRadius: '8px', // Rounded corners for the main box
-        boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)', // Optional shadow for depth
-        backgroundColor: theme.palette.background.default, // Background from theme
-        border: 'none', // Remove the border
+        p: 3,
+        borderRadius: '8px',
+        boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
+        backgroundColor: theme.palette.background.default,
+        border: 'none',
       }}
     >
       <Typography
@@ -49,17 +102,19 @@ export default function LoginPage() {
           margin="normal"
           placeholder="이메일"
           variant="outlined"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           InputProps={{
             sx: {
               height: '40px',
               display: 'flex',
-              alignItems: 'center', // Center text vertically
+              alignItems: 'center',
             },
           }}
           sx={{
             border: 'none',
-            borderRadius: '4px', // Subtle rounded edges
-            backgroundColor: theme.palette.info.main, // Light background from theme
+            borderRadius: '4px',
+            backgroundColor: theme.palette.info.main,
             boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.2)',
             '& .MuiOutlinedInput-notchedOutline': {
               border: 'none',
@@ -78,27 +133,39 @@ export default function LoginPage() {
           margin="normal"
           placeholder="비밀번호"
           variant="outlined"
-          type="password"
+          type={showPassword ? 'text' : 'password'}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           InputProps={{
             sx: {
               height: '40px',
               display: 'flex',
-              alignItems: 'center', // Center text vertically
+              alignItems: 'center',
             },
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton onClick={handleTogglePasswordVisibility} edge="end">
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            ),
           }}
           sx={{
             border: 'none',
-            borderRadius: '4px', // Subtle rounded edges
-            backgroundColor: theme.palette.info.main, // Light background from theme
+            borderRadius: '4px',
+            backgroundColor: theme.palette.info.main,
             boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.2)',
             '& .MuiOutlinedInput-notchedOutline': {
               border: 'none',
             },
-            '&:hover .MuiOutlinedInput-notchedOutline': {
-              border: 'none',
-            },
           }}
         />
+        {/* Error Message */}
+        {error && (
+          <Typography color="error" align="center" sx={{ mt: 2 }}>
+            {error}
+          </Typography>
+        )}
       </Box>
 
       {/* Auto Login and Lost Password */}
@@ -113,7 +180,7 @@ export default function LoginPage() {
         <FormControlLabel
           control={<Checkbox />}
           label="자동 로그인"
-          sx={{ color: theme.palette.text.primary }} // Text color from theme
+          sx={{ color: theme.palette.text.primary }}
         />
         <Link
           href="/lost-password"
@@ -124,7 +191,7 @@ export default function LoginPage() {
       </Box>
 
       {/* Login Button */}
-      <Button fullWidth variant="contained" sx={{ mt: 2 }}>
+      <Button type="submit" fullWidth variant="contained" sx={{ mt: 2 }}>
         로그인
       </Button>
 
@@ -149,32 +216,13 @@ export default function LoginPage() {
         startIcon={<GoogleIcon />}
         sx={{
           mb: 2,
-          color: theme.palette.text.primary, // Text color from theme
-          mx: 'auto', // Center the button
-          borderColor: theme.palette.text.primary, // Outline color from theme
-          backgroundColor: theme.palette.background.default, // Background from theme
+          color: theme.palette.text.primary,
+          mx: 'auto',
+          borderColor: theme.palette.text.primary,
+          backgroundColor: theme.palette.background.default,
         }}
       >
         <Typography sx={{ fontWeight: 'bold' }}>Google로 가입하기</Typography>
-      </Button>
-
-      {/* Facebook Sign Up Button */}
-      <Button
-        fullWidth
-        variant="contained"
-        startIcon={<FacebookIcon />}
-        sx={{
-          color: theme.palette.info.light, // Text color (white) from theme
-          mx: 'auto', // Center the button
-          backgroundColor: '#3B5998', // Facebook's color
-          '&:hover': {
-            backgroundColor: '#365899', // Darker shade for hover
-          },
-        }}
-      >
-        <Typography sx={{ fontWeight: 'bold' }}>
-          Facebook으로 가입하기
-        </Typography>
       </Button>
     </Box>
   );

@@ -18,12 +18,13 @@ import MenuIcon from '@mui/icons-material/Menu';
 import MobileDrawer from './mobile-drawer';
 import ProfileIcon from './profile-icon';
 import Logo from './logo';
+import { useAuth } from 'context/AuthContext';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface Props {}
 
 const NavBar: React.FC<Props> = () => {
-  const [isLoggedIn] = React.useState(false);
+  const { isLoggedIn } = useAuth();
   const [navDrawerOpen, setNavDrawerOpen] = React.useState(false);
   const [profileDrawerOpen, setProfileDrawerOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
