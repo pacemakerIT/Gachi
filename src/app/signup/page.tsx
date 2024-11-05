@@ -19,6 +19,13 @@ import {
 import { useTheme } from '@mui/material/styles';
 import { useRouter } from 'next/navigation';
 
+interface FormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+}
+
 export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
@@ -36,29 +43,21 @@ export default function SignUpPage() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+    setFormData((prev) => ({
+      ...prev,
       [name]: value,
-    });
+    }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // should be fixed
-    if (
-      formData.password.length < 8 ||
-      !/[A-Z]/.test(formData.password) ||
-      !/[0-9]/.test(formData.password)
-    ) {
-      alert('비밀번호는 8자리 이상이며, 대소문자와 숫자를 포함해야 합니다.');
-      return;
-    } else {
+    if (validateFormData(formData)) {
       signUpUser(formData);
     }
   };
 
-  const signUpUser = async (formData: object) => {
+  const signUpUser = async (formData: FormData) => {
     try {
       const response = await fetch(
         'http://127.0.0.1:8000/sign_up/sign-up-user/',
@@ -77,8 +76,35 @@ export default function SignUpPage() {
         alert('Failed to Signup');
       }
     } catch (error) {
-      console.error('회원가입 중 오류 발생:', error);
+      alert('Error: ' + error);
     }
+  };
+
+  const validateFormData = (formData: FormData) => {
+    const namePattern = /^[^\d]+$/;
+    if (
+      !namePattern.test(formData.firstName) ||
+      !namePattern.test(formData.lastName)
+    ) {
+      alert('이름 필드에는 숫자 없이 문자만 포함되어야 합니다.');
+      return false;
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(formData.email)) {
+      alert('올바른 이메일 형식을 입력해주세요.');
+      return false;
+    }
+
+    if (
+      formData.password.length < 8 ||
+      !/[A-Z]/.test(formData.password) ||
+      !/[0-9]/.test(formData.password)
+    ) {
+      alert('비밀번호는 8자리 이상이며, 대소문자와 숫자를 포함해야 합니다.');
+      return false;
+    }
+    return true;
   };
 
   return (
@@ -130,8 +156,6 @@ export default function SignUpPage() {
           display: 'flex',
           justifyContent: 'space-between',
         }}
-        component="form"
-        onSubmit={handleSubmit}
       >
         <Box sx={{ flex: 1, mr: 1 }}>
           <Typography
@@ -260,13 +284,13 @@ export default function SignUpPage() {
         </Typography>
         <TextField
           name="password"
+          type={showPassword ? 'text' : 'password'}
           value={formData.password}
           onChange={handleChange}
           fullWidth
           margin="normal"
           placeholder="비밀번호를 입력하세요"
           variant="outlined"
-          type={showPassword ? 'text' : 'password'}
           InputProps={{
             sx: {
               height: '40px',
@@ -309,7 +333,7 @@ export default function SignUpPage() {
         fullWidth
         variant="contained"
         sx={{ mt: 2 }}
-        onClick={() => signUpUser(formData)}
+        onClick={handleSubmit}
       >
         회원가입
       </Button>
