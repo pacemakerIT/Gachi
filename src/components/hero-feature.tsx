@@ -16,7 +16,7 @@ interface FeatureItemProps {
 
 const iconSizeSx = {
   fontSize: {
-    xxs: '1.5rem',  
+    xxs: '1.5rem',
     sm: '1.8rem',
     md: '1.5rem',
     lg: '2rem',
@@ -41,7 +41,7 @@ const FeatureItem: React.FC<FeatureItemProps> = ({
         height: { xxs: 'auto', md: '100%' },
         flexDirection: { xxs: 'column', md: 'row' },
         gap: 1,
-        textAlign: 'center',  
+        textAlign: 'center',
       }}
     >
       <Box display="flex" alignItems="center" justifyContent="center">
@@ -155,17 +155,17 @@ export default function HeroFeature() {
       }}
     >
       <Container
-        sx={{ 
-            display: 'flex', 
-            justifyContent: 'center', 
-            width: '100%',
-            px: { xxs: 2, md: 7 }, 
-          }}
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          width: '100%',
+          px: { xxs: 2, md: 7 },
+        }}
       >
         <Grid
           container
           rowSpacing={{ xxs: 3.5, sm: 3, md: 8, lg: 12 }}
-          columnSpacing={{ xxs: 4, sm: 0.5, md: 7}}
+          columnSpacing={{ xxs: 4, sm: 0.5, md: 7 }}
           justifyContent={{ xxs: 'center', md: 'center' }}
         >
           {features.map(

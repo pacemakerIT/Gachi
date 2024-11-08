@@ -26,8 +26,8 @@ export default function HeroComponent(): JSX.Element {
           ml: { xxs: 0, md: '-47.5vw' },
           mt: { xxs: 0, md: '20px' },
           '@media (min-width: 1700px)': {
-            width: '1600px', 
-            left: 'calc(50% - 800px)', 
+            width: '1600px',
+            left: 'calc(50% - 800px)',
             ml: '0px',
           },
         }}

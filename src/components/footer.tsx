@@ -23,7 +23,6 @@ import NewsletterSection from './newsletter-section';
 import CategoryAccountSection from './category-account';
 import { maxContainerWidth } from '../constants';
 
-
 const logoUrl = '/images/logo.png';
 
 // Social Media Link Type Definition
@@ -35,7 +34,7 @@ type SocialMediaLink = {
 // Props type definition
 interface LogoSectionProps {
   socialMediaLinks: SocialMediaLink[];
-};
+}
 
 const CustomIconButton = styled(IconButton)(({ theme }) => ({
   color: theme.palette.icon.main,
@@ -43,7 +42,6 @@ const CustomIconButton = styled(IconButton)(({ theme }) => ({
     color: theme.palette.icon.hover,
   },
 }));
-
 
 // Logo and SNS Section
 const LogoSnsSection: React.FC<LogoSectionProps> = ({ socialMediaLinks }) => {
@@ -83,9 +81,7 @@ const LogoSnsSection: React.FC<LogoSectionProps> = ({ socialMediaLinks }) => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <CustomIconButton>
-              {link.icon}
-            </CustomIconButton>
+            <CustomIconButton>{link.icon}</CustomIconButton>
           </Link>
         ))}
       </Box>
@@ -160,9 +156,7 @@ const SocialMediaSection: React.FC<{
               target="_blank"
               rel="noopener noreferrer"
             >
-            <CustomIconButton>
-              {link.icon}
-            </CustomIconButton>
+              <CustomIconButton>{link.icon}</CustomIconButton>
             </Link>
           ))}
         </Box>
@@ -181,9 +175,7 @@ const SocialMediaSection: React.FC<{
               target="_blank"
               rel="noopener noreferrer"
             >
-            <CustomIconButton>
-              {link.icon}
-            </CustomIconButton>
+              <CustomIconButton>{link.icon}</CustomIconButton>
             </Link>
           ))}
         </Box>
@@ -244,12 +236,12 @@ export default function Footer() {
         </Container>
       ) : (
         //Desktop view
-        <Container 
-            sx={{ 
-              maxWidth: maxContainerWidth,
-              paddingX: '1rem' 
-              
-          }}>
+        <Container
+          sx={{
+            maxWidth: maxContainerWidth,
+            paddingX: '1rem',
+          }}
+        >
           <Grid
             container
             spacing={4}
