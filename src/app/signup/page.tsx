@@ -59,16 +59,13 @@ export default function SignUpPage() {
 
   const signUpUser = async (formData: FormData) => {
     try {
-      const response = await fetch(
-        'http://127.0.0.1:8000/sign_up/sign-up-user/',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const response = await fetch('http://127.0.0.1:8000/user/signup/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
       if (response.ok) {
         router.push('/');
