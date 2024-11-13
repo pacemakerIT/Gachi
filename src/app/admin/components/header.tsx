@@ -1,6 +1,9 @@
+// src/app/admin/components/header.tsx
+
 'use client';
 
 import React, { useState } from 'react';
+import { usePathname } from 'next/navigation';
 import {
   AppBar,
   Toolbar,
@@ -17,11 +20,32 @@ import NotificationsIcon from '@mui/icons-material/NotificationsOutlined';
 import IosShareOutlined from '@mui/icons-material/IosShareOutlined';
 import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
 
-interface HeaderProps {
-  title: string; // Add title prop
-}
+const Header: React.FC = () => {
+  const pathname = usePathname();
 
-const Header: React.FC<HeaderProps> = ({ title }) => {
+  // Determine the title based on the current path
+  const getTitle = () => {
+    switch (pathname) {
+      case '/admin/dashboard':
+        return 'Dashboard';
+      case '/admin/newsletter':
+        return '뉴스레터';
+      case '/admin/users':
+        return '회원 관리';
+      case '/admin/mentors':
+        return '멘토 관리';
+      case '/admin/programs':
+        return '프로그램 관리';
+      case '/admin/transactions':
+        return '거래 관리';
+      case '/admin/settings':
+        return '설정';
+      default:
+        return 'Admin';
+    }
+  };
+
+  const title = getTitle();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -71,7 +95,7 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
           <Box sx={{ display: 'flex', alignItems: 'center', ml: 1 }}>
             <Avatar
               src="https://example.com/avatar.jpg"
-              alt="User  Avatar"
+              alt="User Avatar"
               sx={{ width: 32, height: 32 }}
             />
             <IconButton onClick={handleMenuOpen}>

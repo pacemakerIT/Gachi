@@ -8,7 +8,6 @@ import {
   SpaceDashboardOutlined,
   MarkEmailUnreadOutlined,
   Person,
-  GroupOutlined,
   PendingActionsOutlined,
   CreditCardOutlined,
   Settings,
@@ -30,7 +29,7 @@ const menuItems = [
     path: '/admin/newsletter',
   },
   { text: '회원 관리', icon: <Person />, path: '/admin/users' },
-  { text: '멘토관리', icon: <GroupOutlined />, path: '/admin/mentors' },
+  // Removed the mentor management item
   {
     text: '프로그램 관리',
     icon: <PendingActionsOutlined />,
