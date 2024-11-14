@@ -17,14 +17,10 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation, Autoplay } from 'swiper/modules';
 import CarouselHeader from './carousel-header';
+import { UserType } from '@/utils/types';
 
 interface MentorProps {
-  mentors?: {
-    firstName: string;
-    lastName: string;
-    photoUrl: string | null;
-    industryTitle: string;
-  }[];
+  mentors?: UserType[];
 }
 
 export default function Mentor({ mentors }: MentorProps) {
