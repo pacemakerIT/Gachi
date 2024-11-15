@@ -13,6 +13,13 @@ declare module '@mui/material/styles' {
   }
 
   interface Palette {
+    customColor: {
+      darkWhite: string;
+      gray: string;
+    };
+    customBackground: {
+      overlay: string;
+    };
     graph: {
       color1: string;
       gradient1: string[];
@@ -28,6 +35,13 @@ declare module '@mui/material/styles' {
   }
 
   interface PaletteOptions {
+    customColor?: {
+      darkWhite?: string;
+      gray?: string;
+    };
+    customBackground?: {
+      overlay?: string;
+    };
     graph?: {
       color1?: string;
       gradient1?: string[];
@@ -92,6 +106,13 @@ const theme = createTheme({
     },
     action: {
       hover: '#F1F1F1',
+    },
+    customColor: {
+      darkWhite: '#F0F2F3',
+      gray: '#999999',
+    },
+    customBackground: {
+      overlay: 'rgba(0, 0, 0, 0.5)',
     },
     graph: {
       color1: '#E4F0FF',
