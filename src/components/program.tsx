@@ -119,7 +119,7 @@ export default function Program({ programs }: ProgramProps) {
                     }}
                   >
                     <Image
-                      src={program.thumbnailUrl}
+                      src={program.thumbnailUrl || '/img/program-img1.png'}
                       alt={program.title}
                       fill
                       sizes="33vw"

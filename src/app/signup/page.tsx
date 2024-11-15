@@ -57,6 +57,10 @@ export default function SignUpPage() {
     }
   };
 
+  const handleGoogleLogin = () => {
+    window.location.href = 'http://127.0.0.1:8000/accounts/google/login/';
+  };
+
   const signUpUser = async (formData: FormData) => {
     try {
       const response = await fetch('http://127.0.0.1:8000/user/signup/', {
@@ -353,6 +357,7 @@ export default function SignUpPage() {
         fullWidth
         variant="outlined"
         startIcon={<GoogleIcon />}
+        onClick={handleGoogleLogin}
         sx={{
           mb: 2,
           color: theme.palette.text.primary,

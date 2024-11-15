@@ -24,7 +24,7 @@ import { useAuth } from 'context/AuthContext';
 interface Props {}
 
 const NavBar: React.FC<Props> = () => {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
   const [navDrawerOpen, setNavDrawerOpen] = React.useState(false);
   const [profileDrawerOpen, setProfileDrawerOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -62,6 +62,10 @@ const NavBar: React.FC<Props> = () => {
     setAnchorEl(null);
   };
 
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+  };
+
   useEffect(() => {
     if (prevIsMobile.current !== isMobile) {
       setProfileDrawerOpen(false);
@@ -80,9 +84,8 @@ const NavBar: React.FC<Props> = () => {
 
   const profileLinks = [
     { href: '/profile', label: 'Profile' },
-    { href: '/myMentors', label: 'My Mentors' },
-    { href: '/myPrograms', label: 'My Programs' },
-    { href: '/logout', label: 'Logout' },
+    { href: '/about', label: 'My Mentors' },
+    { href: '/about', label: 'My Programs' },
   ];
 
   return (
@@ -232,6 +235,9 @@ const NavBar: React.FC<Props> = () => {
                           {link.label}
                         </MenuItem>
                       ))}
+                      <MenuItem key="1" onClick={handleLogout}>
+                        logout
+                      </MenuItem>
                     </Menu>
                   </>
                 ) : (

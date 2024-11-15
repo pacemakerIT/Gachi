@@ -36,6 +36,10 @@ export default function LoginPage() {
     setShowPassword((prev) => !prev);
   };
 
+  const handleGoogleLogin = () => {
+    window.location.href = 'http://127.0.0.1:8000/accounts/google/login/';
+  };
+
   const login = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -214,6 +218,7 @@ export default function LoginPage() {
         variant="outlined"
         fullWidth
         startIcon={<GoogleIcon />}
+        onClick={handleGoogleLogin}
         sx={{
           mb: 2,
           color: theme.palette.text.primary,
