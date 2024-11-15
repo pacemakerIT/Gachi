@@ -13,6 +13,10 @@ declare module '@mui/material/styles' {
   }
 
   interface Palette {
+    icon: {
+      main: string;
+      hover: string;
+    };
     graph: {
       color1: string;
       gradient1: string[];
