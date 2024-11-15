@@ -12,6 +12,36 @@ declare module '@mui/material/styles' {
     xl: true;
   }
 
+  interface Palette {
+    graph: {
+      color1: string;
+      gradient1: string[];
+      color2: string;
+      gradient2: string[];
+      color3: string;
+      gradient3: string[];
+      color4: string;
+      gradient4: string[];
+      color5: string;
+      gradient5: string[];
+    };
+  }
+
+  interface PaletteOptions {
+    graph?: {
+      color1?: string;
+      gradient1?: string[];
+      color2?: string;
+      gradient2?: string[];
+      color3?: string;
+      gradient3?: string[];
+      color4?: string;
+      gradient4?: string[];
+      color5?: string;
+      gradient5?: string[];
+    };
+  }
+
   interface TypographyVariants {
     title: {
       fontSize: string;
@@ -43,25 +73,55 @@ const theme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#2986FE', // Main blue color
+      main: '#2986FE',
     },
     secondary: {
-      main: '#101010', // Main dark color
+      main: '#101010',
     },
     info: {
-      main: '#F9F9FB', // Light background
-      light: '#FFFFFF', // White text
-      dark: '#F0F2F3', // Background for button
+      main: '#F9F9FB',
+      light: '#FFFFFF',
+      dark: '#F0F2F3',
     },
     background: {
-      default: '#FFFFFF', // Default background
+      default: '#FFFFFF',
     },
     text: {
-      primary: '#101010', // Main text color
-      secondary: '#999999', // Gray color
+      primary: '#101010',
+      secondary: '#999999',
     },
     action: {
-      hover: '#F1F1F1', // Slight hover effect for icon buttons
+      hover: '#F1F1F1',
+    },
+    graph: {
+      color1: '#E4F0FF',
+      gradient1: ['#DAE8FC', '#E4F0FF'],
+      color2: '#70AFFF',
+      gradient2: ['#B8D7FF', '#70AFFF'],
+      color3: '#2986FE',
+      gradient3: ['#8BBEFF', '#2986FE'],
+      color4: '#23446F',
+      gradient4: ['#5D90D2', '#23446F'],
+      color5: '#45B6DE',
+      gradient5: ['#B0EAFF', '#45B6DE'],
+    },
+  },
+  typography: {
+    fontFamily: 'IBM Plex Sans KR, Arial, sans-serif',
+    h6: {
+      fontSize: '18px',
+      fontWeight: 'bold',
+      color: '#101010',
+    },
+    caption: {
+      fontSize: '0.875rem',
+      fontWeight: 400,
+      color: '#808080',
+      textAlign: 'center',
+    },
+    title: {
+      fontSize: '1.25rem',
+      fontWeight: 600,
     },
   },
   breakpoints: {
@@ -72,103 +132,6 @@ const theme = createTheme({
       md: 900,
       lg: 1200,
       xl: 1536,
-    },
-  },
-  typography: {
-    fontFamily: 'IBM Plex Sans KR, Arial, sans-serif',
-    h6: {
-      fontSize: '18px',
-      fontWeight: 'bold',
-      color: '#101010', // Ensure "Gachi.live" text is black
-    },
-    body1: {
-      fontSize: '14px', // Text size for nav links
-    },
-    title: {
-      fontSize: '1.25rem', // Adjust font size as needed
-      fontWeight: 600, // Adjust weight as needed
-    },
-    caption: {
-      fontSize: '0.875rem', // Caption text size
-      fontWeight: 400,
-      color: '#808080', // Caption text color
-      textAlign: 'center', // Center-align text
-    },
-  },
-  components: {
-    MuiAppBar: {
-      styleOverrides: {
-        root: {
-          backgroundColor: '#F9F9FB', // NavBar background color
-          boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)', // Drop shadow
-        },
-      },
-    },
-    MuiIconButton: {
-      styleOverrides: {
-        root: {
-          '&.profileIcon': {
-            backgroundColor: 'transparent',
-            borderRadius: '8px',
-            width: '40px',
-            height: '40px',
-            padding: '4px',
-            boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
-            '&:hover': {
-              backgroundColor: '#F1F1F1',
-            },
-          },
-        },
-      },
-    },
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          backgroundColor: '#2986FE', // Default background color
-          color: 'white', // Default text color
-          boxShadow: 'none', // Remove default shadow
-          borderRadius: '4px', // Set border radius
-          '&:hover': {
-            backgroundColor: '#2986FE', // Maintain background color on hover
-          },
-          '&:active': {
-            backgroundColor: 'white', // White background when clicked
-            color: '#2986FE', // Change text color to primary dark
-          },
-        },
-      },
-    },
-    MuiDrawer: {
-      styleOverrides: {
-        paper: {
-          backgroundColor: '#F9F9FB', // Drawer background color
-          padding: '20px', // Padding for drawer items
-        },
-      },
-    },
-    MuiMenu: {
-      styleOverrides: {
-        paper: {
-          backgroundColor: '#F9F9FB', // Menu background color
-          borderRadius: '8px', // Round off the edges
-        },
-      },
-    },
-    MuiMenuItem: {
-      styleOverrides: {
-        root: {
-          '&:hover': {
-            backgroundColor: '#f1f1f1', // Background color on hover
-          },
-        },
-      },
-    },
-    MuiInputLabel: {
-      styleOverrides: {
-        root: {
-          color: '#999999',
-        },
-      },
     },
   },
 });
