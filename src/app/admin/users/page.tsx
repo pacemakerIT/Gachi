@@ -8,14 +8,23 @@ import {
   Box,
   Button,
   Popover,
-  FormControlLabel,
-  Checkbox,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   IconButton,
+  Menu,
+  MenuItem,
   Stack,
+  TextField,
 } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import NoteAltOutlinedIcon from '@mui/icons-material/NoteAltOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 
 // Sample rows for demonstration purposes
 const rows = [
@@ -50,23 +59,204 @@ const columns: GridColDef[] = [
     field: 'memo',
     headerName: '메모',
     width: 100,
-    renderCell: () => (
-      <IconButton>
-        <NoteAltOutlinedIcon />
-      </IconButton>
+    renderCell: (params) => (
+      <MemoDialog userId={params.row.id} initialNote={params.row.note} />
     ),
   },
   {
     field: 'manage',
     headerName: '관리',
     width: 100,
-    renderCell: () => (
-      <IconButton>
-        <MoreVertIcon />
-      </IconButton>
-    ),
+    renderCell: (params) => <ManageMenu userId={params.row.id} />,
   },
 ];
+
+const MemoDialog: React.FC<{ userId: number; initialNote: string }> = ({
+  userId,
+  initialNote,
+}) => {
+  const [note, setNote] = useState(initialNote); // Track the note
+  const [tempNote, setTempNote] = useState(initialNote); // Temporary state for edits
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isUnsaved, setIsUnsaved] = useState(false);
+
+  const handleDialogOpen = () => {
+    setIsDialogOpen(true);
+  };
+
+  const handleDialogClose = () => {
+    if (isUnsaved) {
+      if (!window.confirm('You still have unsaved notes. Continue?')) return;
+    }
+    setIsDialogOpen(false);
+    setTempNote(note); // Reset temp note to saved state
+    setIsUnsaved(false);
+  };
+
+  const handleNoteSubmit = () => {
+    // Simulate saving the note (you can replace this with an API call)
+    console.log(`Note for user ${userId}:`, tempNote);
+    setNote(tempNote);
+    setIsUnsaved(false);
+    setIsDialogOpen(false);
+  };
+
+  const handleNoteChange = (value: string) => {
+    setTempNote(value);
+    setIsUnsaved(value !== note); // Track unsaved changes
+  };
+
+  return (
+    <>
+      <IconButton onClick={handleDialogOpen}>
+        <NoteAltOutlinedIcon />
+      </IconButton>
+      <Dialog open={isDialogOpen} onClose={handleDialogClose} fullWidth>
+        <Box
+          sx={{
+            backgroundColor: '#2986FE',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            px: 2,
+            py: 1,
+          }}
+        >
+          <Typography sx={{ color: 'white', fontWeight: 'bold' }}>
+            유저노트
+          </Typography>
+          <IconButton onClick={handleDialogClose} sx={{ color: 'white' }}>
+            <ClearOutlinedIcon />
+          </IconButton>
+        </Box>
+        <DialogContent
+          sx={{
+            backgroundColor: '#f5f5f5',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2,
+          }}
+        >
+          <Typography
+            sx={{
+              backgroundColor: '#e0e0e0',
+              borderRadius: 1,
+              px: 2,
+              py: 1,
+            }}
+          >
+            {note || 'No note available.'}
+          </Typography>
+          <TextField
+            value={tempNote}
+            onChange={(e) => handleNoteChange(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                handleNoteSubmit();
+              }
+            }}
+            multiline
+            fullWidth
+            rows={4}
+            variant="outlined"
+            placeholder="Write your note here..."
+            sx={{
+              backgroundColor: 'white',
+              borderRadius: 1,
+            }}
+          />
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+};
+
+// ManageMenu component for displaying the options
+const ManageMenu: React.FC<{ userId: number }> = ({ userId }) => {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+
+  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleDeleteUser = async () => {
+    try {
+      const response = await fetch(`/api/users/${userId}`, {
+        method: 'DELETE',
+      });
+      if (response.ok) {
+        console.log(`User with ID ${userId} deleted.`);
+        // Update state to reflect deletion
+      } else {
+        console.error('Failed to delete user');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+      setDeleteDialogOpen(false);
+    }
+  };
+
+  return (
+    <>
+      <IconButton onClick={handleMenuOpen}>
+        <MoreVertIcon />
+      </IconButton>
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleMenuClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+      >
+        <MenuItem
+          onClick={() => {
+            setDeleteDialogOpen(true);
+            handleMenuClose();
+          }}
+        >
+          <DeleteOutlineOutlinedIcon sx={{ mr: 1 }} />
+          회원삭제
+        </MenuItem>
+        <MenuItem onClick={handleMenuClose}>
+          <EditOutlinedIcon sx={{ mr: 1 }} />
+          회원정보수정
+        </MenuItem>
+      </Menu>
+
+      {/* Confirmation Dialog for Deleting User */}
+      <Dialog
+        open={deleteDialogOpen}
+        onClose={() => setDeleteDialogOpen(false)}
+      >
+        <DialogTitle>Delete User</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            This action is irreversible. Are you sure?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setDeleteDialogOpen(false)}>No</Button>
+          <Button onClick={handleDeleteUser} color="error" variant="contained">
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
+  );
+};
 
 // Button component for 멘토/멘티 selection with a popover and checkboxes
 const MentorMenteeButton: React.FC = () => {
@@ -94,7 +284,13 @@ const MentorMenteeButton: React.FC = () => {
         onClick={handleClick}
         variant="contained"
         color="primary"
-        sx={{ color: 'white' }}
+        sx={{
+          color: 'white',
+          borderRadius: '12px',
+          padding: '4px 8px',
+          minWidth: '55px',
+          height: '32px',
+        }}
       >
         {selectedRole}
       </Button>
@@ -104,41 +300,37 @@ const MentorMenteeButton: React.FC = () => {
         onClose={handleClose}
         anchorOrigin={{
           vertical: 'bottom',
-          horizontal: 'center',
+          horizontal: 'left',
         }}
         transformOrigin={{
           vertical: 'top',
-          horizontal: 'center',
+          horizontal: 'left',
         }}
         PaperProps={{
           sx: {
-            backgroundColor: '#2986FE', // Blue background
-            borderRadius: 2, // Rounded edges
-            minWidth: 100, // Smaller width
-            padding: 0.5, // Reduced padding for tighter spacing
+            backgroundColor: '#2986FE',
+            borderRadius: 2,
+            minWidth: 100,
+            padding: 0,
           },
         }}
       >
-        <Box p={2}>
-          <Stack direction="column" spacing={1}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={selectedRole === '멘토'}
-                  onChange={() => handleSelectRole('멘토')}
-                />
-              }
-              label="멘토"
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={selectedRole === '멘티'}
-                  onChange={() => handleSelectRole('멘티')}
-                />
-              }
-              label="멘티"
-            />
+        <Box p="4px 8px">
+          <Stack direction="column" spacing={0.5}>
+            <Button
+              variant="text"
+              onClick={() => handleSelectRole('멘토')}
+              sx={{ color: 'white' }}
+            >
+              멘토
+            </Button>
+            <Button
+              variant="text"
+              onClick={() => handleSelectRole('멘티')}
+              sx={{ color: 'white' }}
+            >
+              멘티
+            </Button>
           </Stack>
         </Box>
       </Popover>
