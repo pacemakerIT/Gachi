@@ -32,12 +32,9 @@ declare module '@mui/material/styles' {
   }
 
   interface PaletteOptions {
-    customColor?: {
-      darkWhite?: string;
-      gray?: string;
-    };
-    customBackground?: {
-      overlay?: string;
+    icon?: {
+      main?: string;
+      hover?: string;
     };
     graph?: {
       color1?: string;
@@ -104,12 +101,9 @@ const theme = createTheme({
     action: {
       hover: '#F1F1F1',
     },
-    customColor: {
-      darkWhite: '#F0F2F3',
-      gray: '#999999',
-    },
-    customBackground: {
-      overlay: 'rgba(0, 0, 0, 0.5)',
+    icon: {
+      main: '#6C757D', // Default icon color
+      hover: '#495057', // Icon color on hover
     },
     graph: {
       color1: '#E4F0FF',
