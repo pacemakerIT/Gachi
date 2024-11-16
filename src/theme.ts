@@ -13,6 +13,10 @@ declare module '@mui/material/styles' {
   }
 
   interface Palette {
+    icon: {
+      main: string;
+      hover: string;
+    };
     graph: {
       color1: string;
       gradient1: string[];
@@ -28,6 +32,10 @@ declare module '@mui/material/styles' {
   }
 
   interface PaletteOptions {
+    icon?: {
+      main?: string;
+      hover?: string;
+    };
     graph?: {
       color1?: string;
       gradient1?: string[];
@@ -92,6 +100,10 @@ const theme = createTheme({
     },
     action: {
       hover: '#F1F1F1',
+    },
+    icon: {
+      main: '#6C757D', // Default icon color
+      hover: '#495057', // Icon color on hover
     },
     graph: {
       color1: '#E4F0FF',
