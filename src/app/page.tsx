@@ -1,4 +1,3 @@
-// page.tsx
 import * as React from 'react';
 import { Container, Box } from '@mui/material';
 import Hero from '@/components/hero';
@@ -7,8 +6,14 @@ import Mentor from '@/components/mentor';
 import About from '@/components/about';
 import Review from '@/components/review';
 import { maxContainerWidth } from '../constants';
+import { fetchData } from '@/utils/api';
+import { FetchDataResponse } from '@/utils/types';
 
-export default function Home() {
+export default async function Home() {
+  let data: FetchDataResponse | null = null;
+
+  data = await fetchData();
+
   return (
     <Container sx={{ maxWidth: maxContainerWidth }} disableGutters>
       <Box
@@ -22,8 +27,8 @@ export default function Home() {
         }}
       >
         <Hero />
-        <Program />
-        <Mentor />
+        <Program programs={data?.programs} />
+        <Mentor mentors={data?.mentors} />
         <About />
 
         {/* Review Section - Full Width */}
@@ -38,7 +43,7 @@ export default function Home() {
             justifyContent: 'center',
           }}
         >
-          <Review />
+          <Review reviews={data?.reviews} />
         </Box>
       </Box>
     </Container>
