@@ -11,10 +11,7 @@ import {
   FormControlLabel,
   useTheme,
 } from '@mui/material';
-import {
-  Google as GoogleIcon,
-  Facebook as FacebookIcon,
-} from '@mui/icons-material';
+import { Google as GoogleIcon } from '@mui/icons-material';
 
 export default function LoginPage() {
   const theme = useTheme(); // Access theme here
@@ -53,19 +50,26 @@ export default function LoginPage() {
             sx: {
               height: '40px',
               display: 'flex',
-              alignItems: 'center', // Center text vertically
+              alignItems: 'center',
             },
           }}
           sx={{
-            border: 'none',
-            borderRadius: '4px', // Subtle rounded edges
-            backgroundColor: theme.palette.info.main, // Light background from theme
-            boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.2)',
+            // Original TextField styling
+            height: '40px',
+            borderRadius: '10px',
+            boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)', // Keep the shadow
             '& .MuiOutlinedInput-notchedOutline': {
               border: 'none',
             },
-            '&:hover .MuiOutlinedInput-notchedOutline': {
-              border: 'none',
+            '& .MuiOutlinedInput-input': {
+              padding: '10px', // Keep the original padding
+            },
+            // Autofill-specific styles to make the overlay transparent
+            '& input:-webkit-autofill': {
+              backgroundColor: 'transparent !important', // Remove autofill's blue background
+              WebkitBoxShadow: '0 0 0px 1000px transparent inset', // Transparent autofill background
+              WebkitTextFillColor: (theme) => theme.palette.text.primary, // Keep text color consistent
+              borderRadius: '10px', // Preserve the border-radius
             },
           }}
         />
@@ -83,19 +87,26 @@ export default function LoginPage() {
             sx: {
               height: '40px',
               display: 'flex',
-              alignItems: 'center', // Center text vertically
+              alignItems: 'center',
             },
           }}
           sx={{
-            border: 'none',
-            borderRadius: '4px', // Subtle rounded edges
-            backgroundColor: theme.palette.info.main, // Light background from theme
-            boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.2)',
+            // Original TextField styling
+            height: '40px',
+            borderRadius: '10px',
+            boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)', // Keep the shadow
             '& .MuiOutlinedInput-notchedOutline': {
               border: 'none',
             },
-            '&:hover .MuiOutlinedInput-notchedOutline': {
-              border: 'none',
+            '& .MuiOutlinedInput-input': {
+              padding: '10px', // Keep the original padding
+            },
+            // Autofill-specific styles to make the overlay transparent
+            '& input:-webkit-autofill': {
+              backgroundColor: 'transparent !important', // Remove autofill's blue background
+              WebkitBoxShadow: '0 0 0px 1000px transparent inset', // Transparent autofill background
+              WebkitTextFillColor: (theme) => theme.palette.text.primary, // Keep text color consistent
+              borderRadius: '10px', // Preserve the border-radius
             },
           }}
         />
@@ -156,25 +167,6 @@ export default function LoginPage() {
         }}
       >
         <Typography sx={{ fontWeight: 'bold' }}>Google로 가입하기</Typography>
-      </Button>
-
-      {/* Facebook Sign Up Button */}
-      <Button
-        fullWidth
-        variant="contained"
-        startIcon={<FacebookIcon />}
-        sx={{
-          color: theme.palette.info.light, // Text color (white) from theme
-          mx: 'auto', // Center the button
-          backgroundColor: '#3B5998', // Facebook's color
-          '&:hover': {
-            backgroundColor: '#365899', // Darker shade for hover
-          },
-        }}
-      >
-        <Typography sx={{ fontWeight: 'bold' }}>
-          Facebook으로 가입하기
-        </Typography>
       </Button>
     </Box>
   );

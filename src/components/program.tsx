@@ -20,61 +20,14 @@ import { FiShoppingCart } from 'react-icons/fi';
 import { AiOutlineHeart } from 'react-icons/ai';
 import CarouselHeader from './carousel-header';
 import ProgramCardStatus from './program-card-status';
+import { ProgramType } from '@/utils/types';
 
-interface ProgramCard {
-  imgUrl: string;
-  title: string;
-  description: string;
-  status?: 'New' | 'Sales';
+interface ProgramProps {
+  programs?: ProgramType[];
 }
 
-export default function Program() {
+export default function Program({ programs }: ProgramProps) {
   const theme = useTheme();
-  const cardData: ProgramCard[] = [
-    {
-      imgUrl: '/img/program-img1.png',
-      title: 'ChatGPT랑 배우는 인공지능 언어',
-      description: '20',
-      status: 'New',
-    },
-    {
-      imgUrl: '/img/program-img2.png',
-      title: 'ChatGPT랑 배우는 인공지능 언어',
-      description: '20',
-      status: 'Sales',
-    },
-    {
-      imgUrl: '/img/program-img1.png',
-      title: 'ChatGPT랑 배우는 인공지능 언어',
-      description: '20',
-    },
-    {
-      imgUrl: '/img/program-img2.png',
-      title: 'ChatGPT랑 배우는 인공지능 언어',
-      description: '20',
-    },
-    {
-      imgUrl: '/img/program-img1.png',
-      title: 'ChatGPT랑 배우는 인공지능 언어',
-      description: '20',
-    },
-    {
-      imgUrl: '/img/program-img2.png',
-      title: 'ChatGPT랑 배우는 인공지능 언어',
-      description: '20',
-    },
-    {
-      imgUrl: '/img/program-img1.png',
-      title: 'ChatGPT랑 배우는 인공지능 언어',
-      description: '20',
-    },
-    {
-      imgUrl: '/img/program-img2.png',
-      title: 'ChatGPT랑 배우는 인공지능 언어',
-      description: '20',
-    },
-  ];
-
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -96,7 +49,19 @@ export default function Program() {
     >
       <CarouselHeader title={'Popular Programs'} swiperRef={swiperRef} />
 
-      {isLoaded ? (
+      {programs == null ? (
+        <Typography
+          sx={{
+            width: '100%',
+            margin: '20px',
+            textAlign: 'center',
+            color: 'red',
+            fontSize: { xxs: '0.87rem', sm: '1.1rem' },
+          }}
+        >
+          Failed to fetch program data from the database
+        </Typography>
+      ) : programs?.length > 0 && isLoaded ? (
         <Swiper
           ref={swiperRef}
           slidesPerView={isMobile ? 2.5 : isTablet ? 3.5 : 4}
@@ -107,9 +72,9 @@ export default function Program() {
             padding: isTablet ? 0 : '20px 0',
           }}
         >
-          {cardData.map((card, index) => (
+          {programs.map((program, index) => (
             <SwiperSlide
-              key={index}
+              key={program.programId}
               onMouseEnter={() => {
                 setHoveredIndex(index);
               }}
@@ -123,8 +88,8 @@ export default function Program() {
                 }}
               >
                 <CardContent sx={{ padding: 0 }}>
-                  {card.status ? (
-                    <ProgramCardStatus status={card.status} />
+                  {program.status ? (
+                    <ProgramCardStatus status={program.status} />
                   ) : null}
                   <Button
                     sx={{
@@ -146,6 +111,11 @@ export default function Program() {
                       '& svg': {
                         fontSize: { xxs: 15, sm: 18, md: 24 },
                       },
+                      '&:hover': {
+                        '& svg': {
+                          color: theme.palette.info.light,
+                        },
+                      },
                     }}
                   >
                     <AiOutlineHeart />
@@ -161,11 +131,12 @@ export default function Program() {
                     }}
                   >
                     <Image
-                      src={card.imgUrl}
-                      alt=""
-                      layout="fill"
-                      objectFit="cover"
+                      src={program.thumbnailUrl}
+                      alt={program.title}
+                      fill
+                      sizes="33vw"
                       style={{
+                        objectFit: 'cover',
                         aspectRatio: '1/1',
                         borderRadius: '6px',
                       }}
@@ -206,14 +177,14 @@ export default function Program() {
                               : '',
                         }}
                       >
-                        {index + 1}-{card.title}
+                        {program.title}
                       </Typography>
                       <Typography
                         variant="h6"
                         fontWeight={600}
                         fontSize={{ xxs: '0.87rem', sm: '1.25rem' }}
                       >
-                        ${card.description}
+                        ${program.cost}
                       </Typography>
                     </Box>
                     <Box
@@ -228,7 +199,7 @@ export default function Program() {
                           hoveredIndex === index
                             ? theme.palette.primary.main
                             : theme.palette.info.dark,
-                        transition: 'background-color 0.3s',
+                        transition: 'background-color 0.3s, color 0.3s',
                         '& svg': {
                           color:
                             hoveredIndex === index
