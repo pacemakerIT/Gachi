@@ -11,6 +11,7 @@ import {
   MenuItem,
   useMediaQuery,
 } from '@mui/material';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useTheme } from '@mui/material/styles';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
@@ -24,11 +25,13 @@ import { useAuth } from 'context/AuthContext';
 interface Props {}
 
 const NavBar: React.FC<Props> = () => {
+  const theme = useTheme();
+  const router = useRouter();
   const { isLoggedIn, setIsLoggedIn } = useAuth();
+
   const [navDrawerOpen, setNavDrawerOpen] = React.useState(false);
   const [profileDrawerOpen, setProfileDrawerOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const prevIsMobile = React.useRef(isMobile);
 
@@ -64,6 +67,7 @@ const NavBar: React.FC<Props> = () => {
 
   const handleLogout = () => {
     setIsLoggedIn(false);
+    router.push('/');
   };
 
   useEffect(() => {

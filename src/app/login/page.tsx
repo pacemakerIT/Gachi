@@ -1,7 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+import { useGoogleLogin } from '@react-oauth/google';
 import { useRouter } from 'next/navigation';
+import axios from 'axios';
 import {
   Box,
   Button,
@@ -36,9 +38,25 @@ export default function LoginPage() {
     setShowPassword((prev) => !prev);
   };
 
-  const handleGoogleLogin = () => {
-    window.location.href = 'http://127.0.0.1:8000/accounts/google/login/';
-  };
+  const handleGoogleLogin = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      try {
+        await axios.post('http://127.0.0.1:8000/user/auth/google/', {
+          tokenResponse,
+        });
+
+        setIsLoggedIn(true);
+        router.push('/about');
+      } catch (error) {
+        if (error instanceof Error) {
+          alert(error.message);
+        } else {
+          alert('Failed to login with Google');
+        }
+      }
+    },
+    flow: 'auth-code',
+  });
 
   const login = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -62,7 +80,7 @@ export default function LoginPage() {
       localStorage.setItem('refresh_token', data.refresh_token);
 
       setIsLoggedIn(true);
-      router.push('/');
+      router.push('/about');
 
       return data;
     } catch (error) {

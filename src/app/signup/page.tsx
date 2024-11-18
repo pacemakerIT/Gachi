@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { useGoogleLogin } from '@react-oauth/google';
+import axios from 'axios';
 import {
   Box,
   Button,
@@ -18,6 +20,7 @@ import {
 } from '@mui/icons-material';
 import { useTheme } from '@mui/material/styles';
 import { useRouter } from 'next/navigation';
+import { useAuth } from 'context/AuthContext';
 
 interface FormData {
   firstName: string;
@@ -27,9 +30,12 @@ interface FormData {
 }
 
 export default function SignUpPage() {
-  const [showPassword, setShowPassword] = useState(false);
-  const router = useRouter();
   const theme = useTheme();
+  const router = useRouter();
+  const { setIsLoggedIn } = useAuth();
+
+  const [error, setError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -57,9 +63,25 @@ export default function SignUpPage() {
     }
   };
 
-  const handleGoogleLogin = () => {
-    window.location.href = 'http://127.0.0.1:8000/accounts/google/login/';
-  };
+  const handleGoogleLogin = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      try {
+        await axios.post('http://127.0.0.1:8000/user/auth/google/', {
+          tokenResponse,
+        });
+
+        setIsLoggedIn(true);
+        router.push('/about');
+      } catch (error) {
+        if (error instanceof Error) {
+          alert(error.message);
+        } else {
+          alert('Failed to login with Google');
+        }
+      }
+    },
+    flow: 'auth-code',
+  });
 
   const signUpUser = async (formData: FormData) => {
     try {
@@ -87,13 +109,13 @@ export default function SignUpPage() {
       !namePattern.test(formData.firstName) ||
       !namePattern.test(formData.lastName)
     ) {
-      alert('이름 필드에는 숫자 없이 문자만 포함되어야 합니다.');
+      setError('이름 필드에는 숫자 없이 문자만 포함되어야 합니다.');
       return false;
     }
 
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(formData.email)) {
-      alert('올바른 이메일 형식을 입력해주세요.');
+      setError('올바른 이메일 형식을 입력해주세요.');
       return false;
     }
 
@@ -102,7 +124,7 @@ export default function SignUpPage() {
       !/[A-Z]/.test(formData.password) ||
       !/[0-9]/.test(formData.password)
     ) {
-      alert('비밀번호는 8자리 이상이며, 대소문자와 숫자를 포함해야 합니다.');
+      setError('비밀번호는 8자리 이상이며, 대소문자와 숫자를 포함해야 합니다.');
       return false;
     }
     return true;
@@ -150,7 +172,6 @@ export default function SignUpPage() {
           계정을 생성하려면 정보를 입력해주세요.
         </Typography>
       </Box>
-
       {/* Input Fields */}
       <Box
         sx={{
@@ -233,7 +254,6 @@ export default function SignUpPage() {
           />
         </Box>
       </Box>
-
       <Box sx={{ mb: 3 }}>
         <Typography
           variant="body1"
@@ -271,7 +291,6 @@ export default function SignUpPage() {
           }}
         />
       </Box>
-
       <Box sx={{ mb: 3 }}>
         <Typography
           variant="body1"
@@ -327,8 +346,14 @@ export default function SignUpPage() {
         >
           비밀번호는 8자리 이상이며, 대소문자와 숫자를 포함해야 합니다.
         </Typography>
-      </Box>
 
+        {/* Error Message */}
+        {error && (
+          <Typography color="error" align="center" sx={{ mt: 2 }}>
+            {error}
+          </Typography>
+        )}
+      </Box>
       <Button
         type="submit"
         fullWidth
@@ -338,7 +363,6 @@ export default function SignUpPage() {
       >
         회원가입
       </Button>
-
       {/* Login Link */}
       <Typography align="center" sx={{ mt: 2 }}>
         이미 계정이 있으신가요?{' '}
@@ -349,15 +373,13 @@ export default function SignUpPage() {
           로그인
         </Link>
       </Typography>
-
       <Divider sx={{ my: 3 }}>or</Divider>
-
       {/* Google Sign Up Button */}
       <Button
         fullWidth
         variant="outlined"
         startIcon={<GoogleIcon />}
-        onClick={handleGoogleLogin}
+        onClick={() => handleGoogleLogin()}
         sx={{
           mb: 2,
           color: theme.palette.text.primary,
