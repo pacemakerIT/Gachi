@@ -2,7 +2,7 @@ import { FetchDataResponse } from './types';
 
 export async function fetchData(): Promise<FetchDataResponse | null> {
   const res = await fetch(
-    'http://127.0.0.1:8000/landing_page/landing-page-supabase/',
+    'http://127.0.0.1:8000/landing_page/supabase/',
     { cache: 'no-store' }
   );
 
