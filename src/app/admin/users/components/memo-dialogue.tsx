@@ -54,10 +54,11 @@ const MemoDialog: React.FC<MemoDialogProps> = ({ userId, initialNote }) => {
   // Adjust the height of the TextField based on content
   useEffect(() => {
     if (textFieldRef.current) {
-      textFieldRef.current.style.height = 'auto'; // Reset height
-      textFieldRef.current.style.height = `${Math.min(textFieldRef.current.scrollHeight, 120)}px`; // Set height based on scrollHeight, max 120px
+      const element = textFieldRef.current;
+      element.style.height = 'auto'; // Reset height
+      element.style.height = `${Math.min(element.scrollHeight, 120)}px`; // Set height based on content
     }
-  }, [tempNote]); // Run this effect whenever tempNote changes
+  }, [tempNote]);
 
   return (
     <>
@@ -101,7 +102,7 @@ const MemoDialog: React.FC<MemoDialogProps> = ({ userId, initialNote }) => {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'flex-end', // Align saved note and input correctly
-            height: '300px', // Adjust dialog height to maintain balance
+            height: '400px', // Adjust dialog height to maintain balance
             gap: 2,
             p: 2,
           }}
@@ -148,7 +149,6 @@ const MemoDialog: React.FC<MemoDialogProps> = ({ userId, initialNote }) => {
             inputProps={{
               maxLength: 400,
               style: {
-                overflow: 'hidden', // Hide visible scrollbar
                 resize: 'none', // Prevent resizing
               },
             }}
@@ -158,14 +158,24 @@ const MemoDialog: React.FC<MemoDialogProps> = ({ userId, initialNote }) => {
                 backgroundColor: 'white',
                 borderRadius: '16px', // Rounded edges
                 padding: '8px 16px',
-                maxHeight: '120px', // Limit height to approximately 3 rows
-                overflow: 'hidden', // Hide scrollbar
+                overflowY: 'hidden', // Prevent visible scrollbar
               },
             }}
             sx={{
-              border: 'none', // No border for the text field
+              '& .MuiInputBase-root': {
+                height: 'auto', // Allow the height to adjust dynamically
+              },
+              '& .MuiInputBase-input': {
+                overflowY: 'scroll', // Enable scrolling for overflow
+                maxHeight: '120px', // Restrict height to 120px (approx. 3 rows)
+                scrollbarWidth: 'none', // Hide scrollbar in Firefox
+                '&::-webkit-scrollbar': {
+                  display: 'none', // Hide scrollbar in WebKit browsers
+                },
+              },
             }}
           />
+
           {/* Character Counter */}
           <Typography
             sx={{
