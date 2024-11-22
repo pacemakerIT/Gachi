@@ -56,9 +56,10 @@ const MemoDialog: React.FC<MemoDialogProps> = ({ userId, initialNote }) => {
     if (textFieldRef.current) {
       const element = textFieldRef.current;
       element.style.height = 'auto'; // Reset height
-      element.style.height = `${Math.min(element.scrollHeight, 120)}px`; // Set height based on content
+      const newHeight = Math.min(element.scrollHeight, 120); // Calculate height based on content, with a max
+      element.style.height = `${newHeight}px`;
     }
-  }, [tempNote]);
+  }, [tempNote]); // Run this effect whenever tempNote changes
 
   return (
     <>
@@ -135,7 +136,10 @@ const MemoDialog: React.FC<MemoDialogProps> = ({ userId, initialNote }) => {
           <TextField
             inputRef={textFieldRef} // Attach the ref to the TextField
             value={tempNote}
-            onChange={(e) => handleNoteChange(e.target.value)}
+            onChange={(e) => {
+              const newValue = e.target.value.replace(/\n/g, ' '); // Replace newlines with spaces
+              handleNoteChange(newValue); // Update the note with the new value
+            }}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 e.preventDefault();
@@ -150,6 +154,8 @@ const MemoDialog: React.FC<MemoDialogProps> = ({ userId, initialNote }) => {
               maxLength: 400,
               style: {
                 resize: 'none', // Prevent resizing
+                overflow: 'hidden', // Hide visible scrollbar
+                padding: '8px 16px', // Padding for better appearance
               },
             }}
             InputProps={{
@@ -157,8 +163,9 @@ const MemoDialog: React.FC<MemoDialogProps> = ({ userId, initialNote }) => {
               style: {
                 backgroundColor: 'white',
                 borderRadius: '16px', // Rounded edges
-                padding: '8px 16px',
-                overflowY: 'hidden', // Prevent visible scrollbar
+                maxHeight: '120px', // Restrict height to 3 rows
+                overflowY: 'auto', // Allow vertical scrolling
+                padding: '8px 16px', // Padding for better appearance
               },
             }}
             sx={{
@@ -166,16 +173,17 @@ const MemoDialog: React.FC<MemoDialogProps> = ({ userId, initialNote }) => {
                 height: 'auto', // Allow the height to adjust dynamically
               },
               '& .MuiInputBase-input': {
-                overflowY: 'scroll', // Enable scrolling for overflow
-                maxHeight: '120px', // Restrict height to 120px (approx. 3 rows)
+                overflowY: 'auto', // Allow scrolling in the input
                 scrollbarWidth: 'none', // Hide scrollbar in Firefox
                 '&::-webkit-scrollbar': {
                   display: 'none', // Hide scrollbar in WebKit browsers
                 },
+                whiteSpace: 'pre-wrap', // Preserve whitespace and allow wrapping
+                wordWrap: 'break-word', // Break long words if necessary
+                minHeight: '48px', // Ensure there's a minimum height to show content
               },
             }}
           />
-
           {/* Character Counter */}
           <Typography
             sx={{
