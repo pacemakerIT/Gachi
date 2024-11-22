@@ -40,3 +40,11 @@ After setting the correct Node.js version, install the project dependencies:
 ```bash
 npm install
 ```
+
+## Environment variable
+
+Create `.env` file on the root directory and add variable.
+
+```bash
+NEXT_PUBLIC_BASE_URL=https://gachi-backend.onrender.com
+```
