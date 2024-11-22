@@ -37,7 +37,6 @@ const MemoDialog: React.FC<MemoDialogProps> = ({ userId, initialNote }) => {
   };
 
   const handleNoteSubmit = () => {
-    // Simulate saving the note (you can replace this with an API call)
     console.log(`Note for user ${userId}:`, tempNote);
     setNote(tempNote);
     setIsUnsaved(false);
@@ -45,8 +44,10 @@ const MemoDialog: React.FC<MemoDialogProps> = ({ userId, initialNote }) => {
   };
 
   const handleNoteChange = (value: string) => {
-    setTempNote(value);
-    setIsUnsaved(value !== note); // Track unsaved changes
+    if (value.length <= 400) {
+      setTempNote(value);
+      setIsUnsaved(value !== note); // Track unsaved changes
+    }
   };
 
   return (
@@ -103,11 +104,22 @@ const MemoDialog: React.FC<MemoDialogProps> = ({ userId, initialNote }) => {
               borderRadius: '8px',
               padding: 2,
               flex: 1, // Allow the saved note section to grow
-              overflowY: 'auto',
+              overflowY: 'hidden', // Hide scrolling for notes
               minHeight: '100px', // Minimum height for the saved notes area
             }}
           >
-            <Typography>{note || 'No note available.'}</Typography>
+            <Typography
+              sx={{
+                whiteSpace: 'pre-wrap', // Ensure long notes wrap to the next line
+                wordBreak: 'break-word', // Break words if they're too long
+                overflow: 'hidden',
+                display: '-webkit-box',
+                WebkitLineClamp: 6, // Limit preview to 6 lines
+                WebkitBoxOrient: 'vertical',
+              }}
+            >
+              {note || 'No note available.'}
+            </Typography>
           </Box>
           {/* Note Input Section */}
           <TextField
@@ -121,22 +133,40 @@ const MemoDialog: React.FC<MemoDialogProps> = ({ userId, initialNote }) => {
             }}
             multiline
             fullWidth
-            rows={1} // Single line
+            rows={1} // Start with 1 visible row
             variant="standard"
             placeholder="Write your note here..."
+            inputProps={{
+              maxLength: 400,
+              style: {
+                overflow: 'hidden', // Hide visible scrollbar
+                resize: 'none', // Prevent resizing
+              },
+            }}
             InputProps={{
               disableUnderline: true, // Remove the underline
               style: {
                 backgroundColor: 'white',
-                borderRadius: '16px', // Rounded edges for left and right
+                borderRadius: '16px', // Rounded edges
                 padding: '8px 16px',
+                maxHeight: '120px', // Limit height to approximately 3 rows
+                overflow: 'hidden', // Hide scrollbar
               },
             }}
             sx={{
               border: 'none', // No border for the text field
-              minHeight: '40px', // Minimum height to maintain balance
             }}
           />
+          {/* Character Counter */}
+          <Typography
+            sx={{
+              textAlign: 'right',
+              fontSize: '12px',
+              color: '#757575',
+            }}
+          >
+            {tempNote.length}/400
+          </Typography>
         </DialogContent>
       </Dialog>
     </>
@@ -146,7 +176,7 @@ const MemoDialog: React.FC<MemoDialogProps> = ({ userId, initialNote }) => {
 export default MemoDialog;
 
 //code below is a potential replacement.
-//
+
 //'use client';
 //
 //import React, { useState } from 'react';

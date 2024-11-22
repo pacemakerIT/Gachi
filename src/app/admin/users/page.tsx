@@ -1,11 +1,24 @@
 'use client';
 
 import React from 'react';
-import { Card, CardContent, Typography, Box } from '@mui/material';
+import {
+  Card,
+  CardContent,
+  Typography,
+  Box,
+  TextField,
+  MenuItem,
+  Select,
+  IconButton,
+  Button,
+  Stack,
+} from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import IosShareOutlinedIcon from '@mui/icons-material/IosShareOutlined';
 import MemoDialog from './components/memo-dialogue';
 import ManageMenu from './components/manage-menu';
 import MentorMenteeButton from './components/mentor-mentee-button';
+import PersonAddAlt1OutlinedIcon from '@mui/icons-material/PersonAddAlt1Outlined';
 
 const rows = [
   {
@@ -61,8 +74,62 @@ const columns: GridColDef[] = [
 const UsersPage: React.FC = () => (
   <Card>
     <CardContent>
-      <Typography variant="h6">회원 관리</Typography>
-      <Box sx={{ height: 400, width: '100%', marginTop: 2 }}>
+      {/* Top Bar */}
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        mb={2}
+      >
+        <Typography variant="h6">회원 관리</Typography>
+
+        {/* Right-Side Controls */}
+        <Stack direction="row" spacing={2} alignItems="center">
+          {/* Search Bar */}
+          <TextField
+            size="small"
+            placeholder="Search by Name or ID"
+            variant="outlined"
+            sx={{
+              backgroundColor: 'white',
+              borderRadius: '4px',
+              width: 200,
+            }}
+          />
+
+          {/* Filter Dropdown */}
+          <Select
+            size="small"
+            defaultValue=""
+            displayEmpty
+            sx={{
+              backgroundColor: 'white',
+              borderRadius: '4px',
+              width: 150,
+            }}
+          >
+            <MenuItem value="" disabled>
+              Filter
+            </MenuItem>
+            <MenuItem value="Matched">Matched</MenuItem>
+            <MenuItem value="Unmatched">Unmatched</MenuItem>
+            <MenuItem value="All">All</MenuItem>
+          </Select>
+
+          {/* Share Icon */}
+          <IconButton>
+            <IosShareOutlinedIcon />
+          </IconButton>
+
+          {/* Add User Button */}
+          <Button variant="contained" color="primary">
+            <PersonAddAlt1OutlinedIcon />
+          </Button>
+        </Stack>
+      </Box>
+
+      {/* Data Grid */}
+      <Box sx={{ height: 400, width: '100%' }}>
         <DataGrid
           rows={rows}
           columns={columns}
