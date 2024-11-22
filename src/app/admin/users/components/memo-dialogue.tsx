@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   Box,
   Dialog,
@@ -22,6 +22,7 @@ const MemoDialog: React.FC<MemoDialogProps> = ({ userId, initialNote }) => {
   const [tempNote, setTempNote] = useState(initialNote); // Temporary state for edits
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isUnsaved, setIsUnsaved] = useState(false);
+  const textFieldRef = useRef<HTMLTextAreaElement | null>(null); // Create a ref for the text field
 
   const handleDialogOpen = () => {
     setIsDialogOpen(true);
@@ -49,6 +50,14 @@ const MemoDialog: React.FC<MemoDialogProps> = ({ userId, initialNote }) => {
       setIsUnsaved(value !== note); // Track unsaved changes
     }
   };
+
+  // Adjust the height of the TextField based on content
+  useEffect(() => {
+    if (textFieldRef.current) {
+      textFieldRef.current.style.height = 'auto'; // Reset height
+      textFieldRef.current.style.height = `${Math.min(textFieldRef.current.scrollHeight, 120)}px`; // Set height based on scrollHeight, max 120px
+    }
+  }, [tempNote]); // Run this effect whenever tempNote changes
 
   return (
     <>
@@ -123,6 +132,7 @@ const MemoDialog: React.FC<MemoDialogProps> = ({ userId, initialNote }) => {
           </Box>
           {/* Note Input Section */}
           <TextField
+            inputRef={textFieldRef} // Attach the ref to the TextField
             value={tempNote}
             onChange={(e) => handleNoteChange(e.target.value)}
             onKeyDown={(e) => {
@@ -133,7 +143,6 @@ const MemoDialog: React.FC<MemoDialogProps> = ({ userId, initialNote }) => {
             }}
             multiline
             fullWidth
-            rows={1} // Start with 1 visible row
             variant="standard"
             placeholder="Write your note here..."
             inputProps={{
