@@ -1,13 +1,10 @@
 import { FetchDataResponse } from './types';
 
 export async function fetchData(): Promise<FetchDataResponse | null> {
-  const res = await fetch('http://127.0.0.1:8000/landing_page/supabase/', {
-    cache: 'no-store',
-  });
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
-  if (!res.ok) {
-    return null;
-  }
+  const res = await fetch(`${baseUrl}/landing_page/supabase/`);
+
   const data = await res.json();
   return data as FetchDataResponse;
 }
