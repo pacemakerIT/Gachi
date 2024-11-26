@@ -6,7 +6,8 @@ import CssBaseline from '@mui/material/CssBaseline';
 import theme from '@/theme';
 import NavBar from '@/components/nav-bar';
 import Footer from '@/components/footer';
-import { AuthProvider } from '../../context/AuthContext';
+import { AuthProvider } from 'context/AuthContext';
+
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
 export default function RootLayout({

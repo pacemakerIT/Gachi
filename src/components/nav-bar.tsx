@@ -27,7 +27,8 @@ interface Props {}
 const NavBar: React.FC<Props> = () => {
   const theme = useTheme();
   const router = useRouter();
-  const { isLoggedIn, setIsLoggedIn } = useAuth();
+  const { isLoggedIn } = useAuth();
+  const { logout } = useAuth();
 
   const [navDrawerOpen, setNavDrawerOpen] = React.useState(false);
   const [profileDrawerOpen, setProfileDrawerOpen] = React.useState(false);
@@ -65,11 +66,14 @@ const NavBar: React.FC<Props> = () => {
     setAnchorEl(null);
   };
 
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    router.push('/');
+  const handleLogout = async () => {
+    try {
+      await logout();
+      router.push('/');
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
   };
-
   useEffect(() => {
     if (prevIsMobile.current !== isMobile) {
       setProfileDrawerOpen(false);

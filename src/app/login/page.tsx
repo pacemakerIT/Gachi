@@ -67,6 +67,7 @@ export default function LoginPage() {
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include',
         body: JSON.stringify({ email, password }),
       });
 
@@ -75,15 +76,12 @@ export default function LoginPage() {
         throw new Error(data.error);
       }
       const data = await response.json();
-
-      localStorage.setItem('access_token', data.access_token);
-      localStorage.setItem('refresh_token', data.refresh_token);
-
       setIsLoggedIn(true);
       router.push('/about');
 
       return data;
     } catch (error) {
+      console.error('Fetch error:', error);
       if (error instanceof Error) {
         setError(error.message);
       } else {
