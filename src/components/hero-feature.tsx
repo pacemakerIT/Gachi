@@ -16,11 +16,11 @@ interface FeatureItemProps {
 
 const iconSizeSx = {
   fontSize: {
-    xxs: '2.2rem',
-    sm: '2.3rem',
-    md: '2.5rem',
-    lg: '2.8rem',
-    xl: '3rem',
+    xxs: '1.5rem',
+    sm: '1.8rem',
+    md: '1.5rem',
+    lg: '2rem',
+    xl: '2.2rem',
   },
 };
 
@@ -40,12 +40,13 @@ const FeatureItem: React.FC<FeatureItemProps> = ({
         alignItems: 'center',
         height: { xxs: 'auto', md: '100%' },
         flexDirection: { xxs: 'column', md: 'row' },
-        gap: 2,
+        gap: 1,
+        textAlign: 'center',
       }}
     >
-      <Box display="flex" alignItems="center" justifyContent="flex-start">
+      <Box display="flex" alignItems="center" justifyContent="center">
         {icon}
-        <Box sx={{ ml: { xxs: 2 }, mb: 1 }}>
+        <Box sx={{ ml: { xxs: 1.5 }, mb: 1 }}>
           <Typography
             variant="h6"
             sx={{
@@ -96,7 +97,7 @@ export default function HeroFeature() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-width: 900px)');
+    const mediaQuery = window.matchMedia('(max-width: 1100px)');
     setIsMobile(mediaQuery.matches);
 
     const handleResize = () => setIsMobile(mediaQuery.matches);
@@ -154,13 +155,18 @@ export default function HeroFeature() {
       }}
     >
       <Container
-        sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          width: '100%',
+          px: { xxs: 2, md: 7 },
+        }}
       >
         <Grid
           container
           rowSpacing={{ xxs: 3.5, sm: 3, md: 8, lg: 12 }}
-          columnSpacing={{ xxs: 6, sm: 0.5, md: 9 }}
-          justifyContent={{ xxs: 'center', md: 'space-between' }}
+          columnSpacing={{ xxs: 4, sm: 0.5, md: 7 }}
+          justifyContent={{ xxs: 'center', md: 'center' }}
         >
           {features.map(
             (

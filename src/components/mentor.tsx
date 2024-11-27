@@ -18,23 +18,20 @@ import 'swiper/css/navigation';
 import { Navigation, Autoplay } from 'swiper/modules';
 import CarouselHeader from './carousel-header';
 
-export default function Mentor() {
+interface MentorProps {
+  mentors?: {
+    firstName: string;
+    lastName: string;
+    photoUrl: string | null;
+    industryTitle: string;
+  }[];
+}
+
+export default function Mentor({ mentors }: MentorProps) {
   const theme = useTheme();
-  const cardData = [
-    { imgUrl: '/img/mentor-img1.png', title: '크리스', description: '개발자' },
-    { imgUrl: '/img/mentor-img1.png', title: '크리스', description: '개발자' },
-    { imgUrl: '/img/mentor-img1.png', title: '크리스', description: '개발자' },
-    { imgUrl: '/img/mentor-img1.png', title: '크리스', description: '개발자' },
-    { imgUrl: '/img/mentor-img1.png', title: '크리스', description: '개발자' },
-    { imgUrl: '/img/mentor-img1.png', title: '크리스', description: '개발자' },
-    { imgUrl: '/img/mentor-img1.png', title: '크리스', description: '개발자' },
-    { imgUrl: '/img/mentor-img1.png', title: '크리스', description: '개발자' },
-    { imgUrl: '/img/mentor-img1.png', title: '크리스', description: '개발자' },
-  ];
   const swiperRef = useRef<SwiperRef>(null);
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
-
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -52,7 +49,19 @@ export default function Mentor() {
     >
       <CarouselHeader title={'Our Mentors'} swiperRef={swiperRef} />
 
-      {isLoaded ? (
+      {mentors == null ? (
+        <Typography
+          sx={{
+            width: '100%',
+            margin: '20px',
+            textAlign: 'center',
+            color: 'red',
+            fontSize: { xxs: '0.87rem', sm: '1.1rem' },
+          }}
+        >
+          Failed to fetch mentor data from the database
+        </Typography>
+      ) : mentors.length > 0 && isLoaded ? (
         <Swiper
           ref={swiperRef}
           slidesPerView={isMobile ? 2.5 : 3}
@@ -68,24 +77,30 @@ export default function Mentor() {
             marginBottom: isTablet ? '24px' : 0,
           }}
         >
-          {cardData.map((card, index) => (
+          {mentors.map((mentor, index) => (
             <SwiperSlide key={index}>
-              <Card
-                sx={{
-                  position: 'relative',
-                  width: '100%',
-                  boxShadow: 'none',
-                  aspectRatio: '1/1',
-                  borderRadius: '6px',
-                }}
-              >
-                <CardContent>
+              <Card>
+                <CardContent
+                  sx={{
+                    position: 'relative',
+                    width: 'auto',
+                    height: '100%',
+                    boxShadow: 'none',
+                    aspectRatio: '1/1',
+                    borderRadius: '6px',
+                  }}
+                >
                   <Image
-                    src={card.imgUrl}
-                    alt=""
-                    layout="fill"
-                    objectFit="cover"
+                    src={mentor.photoUrl || '/img/mentor-img1.png'}
+                    alt={`${mentor.firstName} ${mentor.lastName}`}
+                    fill
+                    sizes="33vw"
+                    priority={true}
+                    style={{
+                      objectFit: 'cover',
+                    }}
                   />
+
                   <Box
                     sx={{
                       position: 'absolute',
@@ -116,19 +131,21 @@ export default function Mentor() {
                         whiteSpace: 'nowrap',
                       }}
                     >
-                      {index + 1}-{card.title}
+                      {mentor.firstName} {mentor.lastName}
                     </Typography>
                     <Typography
                       sx={{
+                        display: { xxs: 'none', sm: 'inherit' },
                         fontSize: {
                           xxs: '0.87rem',
                           sm: '1rem',
                           md: '1.05rem',
                           lg: '1.15rem',
                         },
+                        opacity: 0.7,
                       }}
                     >
-                      {card.description}
+                      {mentor.industryTitle}
                     </Typography>
                   </Box>
                 </CardContent>

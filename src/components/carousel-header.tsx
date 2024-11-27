@@ -61,7 +61,7 @@ export default function CarouselHeader({
             '&:active, &:hover': {
               backgroundColor: theme.palette.primary.main,
               '& svg': {
-                color: `${theme.palette.background.default} !important`,
+                color: `${theme.palette.info.light} !important`,
               },
             },
           }}
@@ -79,7 +79,7 @@ export default function CarouselHeader({
             '&:active, &:hover': {
               backgroundColor: theme.palette.primary.main,
               '& svg': {
-                color: `${theme.palette.background.default} !important`,
+                color: `${theme.palette.info.light} !important`,
               },
             },
           }}
