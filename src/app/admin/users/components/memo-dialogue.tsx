@@ -51,15 +51,18 @@ const MemoDialog: React.FC<MemoDialogProps> = ({ userId, initialNote }) => {
     }
   };
 
-  // Adjust the height of the TextField based on content
   useEffect(() => {
     if (textFieldRef.current) {
       const element = textFieldRef.current;
-      element.style.height = 'auto'; // Reset height
-      const newHeight = Math.min(element.scrollHeight, 120); // Calculate height based on content, with a max
+      // Reset the height to prevent accumulated blank space
+      element.style.height = 'auto';
+      // Calculate the new height based on scrollHeight
+      const newHeight = Math.min(element.scrollHeight, 120); // Max height = 120px
       element.style.height = `${newHeight}px`;
+      // Scroll to top to ensure pasted content is visible
+      element.scrollTop = 0;
     }
-  }, [tempNote]); // Run this effect whenever tempNote changes
+  }, [tempNote]);
 
   return (
     <>
