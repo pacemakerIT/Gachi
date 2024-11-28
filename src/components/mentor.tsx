@@ -19,7 +19,7 @@ import { Navigation, Autoplay } from 'swiper/modules';
 import CarouselHeader from './carousel-header';
 
 interface MentorProps {
-  mentors: {
+  mentors?: {
     firstName: string;
     lastName: string;
     photoUrl: string | null;
@@ -49,7 +49,19 @@ export default function Mentor({ mentors }: MentorProps) {
     >
       <CarouselHeader title={'Our Mentors'} swiperRef={swiperRef} />
 
-      {mentors && mentors.length > 0 && isLoaded ? (
+      {mentors == null ? (
+        <Typography
+          sx={{
+            width: '100%',
+            margin: '20px',
+            textAlign: 'center',
+            color: 'red',
+            fontSize: { xxs: '0.87rem', sm: '1.1rem' },
+          }}
+        >
+          Failed to fetch mentor data from the database
+        </Typography>
+      ) : mentors.length > 0 && isLoaded ? (
         <Swiper
           ref={swiperRef}
           slidesPerView={isMobile ? 2.5 : 3}

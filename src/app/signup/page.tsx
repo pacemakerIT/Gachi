@@ -94,6 +94,7 @@ export default function SignUpPage() {
       });
 
       if (response.ok) {
+        alert('User created successfully! Please login again.');
         router.push('/');
       } else {
         alert('Failed to Signup');
@@ -202,16 +203,26 @@ export default function SignUpPage() {
               sx: {
                 height: '40px',
                 display: 'flex',
-                alignItems: 'center', // Align text vertically
+                alignItems: 'center',
               },
             }}
             sx={{
-              border: 'none',
+              // Original TextField styling
+              height: '40px',
               borderRadius: '10px',
-              backgroundColor: theme.palette.info.main,
-              boxShadow: theme.shadows[3],
+              boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)', // Keep the shadow
               '& .MuiOutlinedInput-notchedOutline': {
                 border: 'none',
+              },
+              '& .MuiOutlinedInput-input': {
+                padding: '10px', // Keep the original padding
+              },
+              // Autofill-specific styles to make the overlay transparent
+              '& input:-webkit-autofill': {
+                backgroundColor: 'transparent !important', // Remove autofill's blue background
+                WebkitBoxShadow: '0 0 0px 1000px transparent inset', // Transparent autofill background
+                WebkitTextFillColor: (theme) => theme.palette.text.primary, // Keep text color consistent
+                borderRadius: '10px', // Preserve the border-radius
               },
             }}
           />
@@ -243,12 +254,22 @@ export default function SignUpPage() {
               },
             }}
             sx={{
-              border: 'none',
+              // Original TextField styling
+              height: '40px',
               borderRadius: '10px',
-              backgroundColor: theme.palette.info.main,
-              boxShadow: theme.shadows[3],
+              boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)', // Keep the shadow
               '& .MuiOutlinedInput-notchedOutline': {
                 border: 'none',
+              },
+              '& .MuiOutlinedInput-input': {
+                padding: '10px', // Keep the original padding
+              },
+              // Autofill-specific styles to make the overlay transparent
+              '& input:-webkit-autofill': {
+                backgroundColor: 'transparent !important', // Remove autofill's blue background
+                WebkitBoxShadow: '0 0 0px 1000px transparent inset', // Transparent autofill background
+                WebkitTextFillColor: (theme) => theme.palette.text.primary, // Keep text color consistent
+                borderRadius: '10px', // Preserve the border-radius
               },
             }}
           />
@@ -281,12 +302,22 @@ export default function SignUpPage() {
             },
           }}
           sx={{
-            border: 'none',
+            // Original TextField styling
+            height: '40px',
             borderRadius: '10px',
-            backgroundColor: theme.palette.info.main,
-            boxShadow: theme.shadows[3],
+            boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)', // Keep the shadow
             '& .MuiOutlinedInput-notchedOutline': {
               border: 'none',
+            },
+            '& .MuiOutlinedInput-input': {
+              padding: '10px', // Keep the original padding
+            },
+            // Autofill-specific styles to make the overlay transparent
+            '& input:-webkit-autofill': {
+              backgroundColor: 'transparent !important', // Remove autofill's blue background
+              WebkitBoxShadow: '0 0 0px 1000px transparent inset', // Transparent autofill background
+              WebkitTextFillColor: (theme) => theme.palette.text.primary, // Keep text color consistent
+              borderRadius: '10px', // Preserve the border-radius
             },
           }}
         />
@@ -326,12 +357,22 @@ export default function SignUpPage() {
             ),
           }}
           sx={{
-            border: 'none',
+            // Original TextField styling
+            height: '40px',
             borderRadius: '10px',
-            backgroundColor: theme.palette.info.main,
-            boxShadow: theme.shadows[3],
+            boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)', // Keep the shadow
             '& .MuiOutlinedInput-notchedOutline': {
               border: 'none',
+            },
+            '& .MuiOutlinedInput-input': {
+              padding: '10px', // Keep the original padding
+            },
+            // Autofill-specific styles to make the overlay transparent
+            '& input:-webkit-autofill': {
+              backgroundColor: 'transparent !important', // Remove autofill's blue background
+              WebkitBoxShadow: '0 0 0px 1000px transparent inset', // Transparent autofill background
+              WebkitTextFillColor: (theme) => theme.palette.text.primary, // Keep text color consistent
+              borderRadius: '10px', // Preserve the border-radius
             },
           }}
         />

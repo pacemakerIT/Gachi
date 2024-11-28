@@ -23,7 +23,7 @@ import ProgramCardStatus from './program-card-status';
 import { ProgramType } from '@/utils/types';
 
 interface ProgramProps {
-  programs: ProgramType[];
+  programs?: ProgramType[];
 }
 
 export default function Program({ programs }: ProgramProps) {
@@ -49,7 +49,19 @@ export default function Program({ programs }: ProgramProps) {
     >
       <CarouselHeader title={'Popular Programs'} swiperRef={swiperRef} />
 
-      {programs.length > 0 && isLoaded ? (
+      {programs == null ? (
+        <Typography
+          sx={{
+            width: '100%',
+            margin: '20px',
+            textAlign: 'center',
+            color: 'red',
+            fontSize: { xxs: '0.87rem', sm: '1.1rem' },
+          }}
+        >
+          Failed to fetch program data from the database
+        </Typography>
+      ) : programs?.length > 0 && isLoaded ? (
         <Swiper
           ref={swiperRef}
           slidesPerView={isMobile ? 2.5 : isTablet ? 3.5 : 4}

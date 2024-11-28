@@ -20,7 +20,7 @@ import CarouselHeader from './carousel-header';
 import { ReviewType } from '@/utils/types';
 
 interface ReviewProps {
-  reviews: ReviewType[];
+  reviews?: ReviewType[];
 }
 
 export default function Review({ reviews }: ReviewProps) {
@@ -56,7 +56,19 @@ export default function Review({ reviews }: ReviewProps) {
         styles={{ padding: '0 20px' }}
       />
 
-      {reviews.length > 0 && isLoaded ? (
+      {reviews == null ? (
+        <Typography
+          sx={{
+            width: '100%',
+            margin: '20px',
+            textAlign: 'center',
+            color: 'red',
+            fontSize: { xxs: '0.87rem', sm: '1.1rem' },
+          }}
+        >
+          Failed to fetch review data from the database
+        </Typography>
+      ) : reviews.length > 0 && isLoaded ? (
         <Swiper
           ref={swiperRef}
           slidesPerView={isTablet ? 1.5 : 2}

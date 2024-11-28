@@ -21,10 +21,7 @@ import ProfileIcon from './profile-icon';
 import Logo from './logo';
 import { useAuth } from 'context/AuthContext';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-interface Props {}
-
-const NavBar: React.FC<Props> = () => {
+const NavBar: React.FC = () => {
   const theme = useTheme();
   const router = useRouter();
   const { isLoggedIn } = useAuth();
@@ -115,7 +112,11 @@ const NavBar: React.FC<Props> = () => {
       {/* AppBar with fixed position */}
       <AppBar
         position="fixed"
-        sx={{ top: '25px', zIndex: theme.zIndex.drawer + 1 }}
+        sx={{
+          top: '25px',
+          zIndex: theme.zIndex.drawer + 1,
+          backgroundColor: theme.palette.info.main,
+        }}
       >
         <Toolbar sx={{ justifyContent: 'space-between', maxHeight: '20px' }}>
           {isMobile ? (
@@ -182,17 +183,21 @@ const NavBar: React.FC<Props> = () => {
                       marginRight:
                         index === navLinks.length - 1 ? '50px' : '20px',
                       fontSize: theme.typography.body1.fontSize,
-                      transition: 'color 0.3s',
                       padding: '0 5px',
                     }}
-                    onMouseEnter={(e) =>
-                      (e.currentTarget.style.color = theme.palette.primary.main)
-                    }
-                    onMouseLeave={(e) =>
-                      (e.currentTarget.style.color = theme.palette.text.primary)
-                    }
                   >
-                    {link.label}
+                    <Box
+                      sx={{
+                        transition: 'color 0.3s',
+                        padding: '10px',
+                        borderRadius: '4px',
+                        '&:hover, &:active': {
+                          color: theme.palette.primary.main,
+                        },
+                      }}
+                    >
+                      {link.label}
+                    </Box>
                   </Link>
                 ))}
 
@@ -209,8 +214,11 @@ const NavBar: React.FC<Props> = () => {
                         padding: '4px',
                         marginRight: '20px',
                         boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
-                        '&:hover': {
+                        '&:hover, &:active': {
                           backgroundColor: theme.palette.action.hover,
+                          '& svg': {
+                            color: `${theme.palette.background.default} !important`,
+                          },
                         },
                       }}
                     >
@@ -269,7 +277,6 @@ const NavBar: React.FC<Props> = () => {
                           color: theme.palette.text.primary,
                           fontSize: theme.typography.body1.fontSize,
                           marginRight: '20px',
-                          transition: 'color 0.3s',
                           padding: '0 5px',
                         }}
                         onMouseEnter={(e) =>
@@ -281,7 +288,18 @@ const NavBar: React.FC<Props> = () => {
                             theme.palette.text.primary)
                         }
                       >
-                        회원가입
+                        <Box
+                          sx={{
+                            transition: 'color 0.3s',
+                            padding: '10px',
+                            borderRadius: '4px',
+                            '&:hover, &:active': {
+                              color: theme.palette.primary.main,
+                            },
+                          }}
+                        >
+                          회원가입
+                        </Box>
                       </Link>
                       <Link href="/login" passHref>
                         <Button variant="contained">로그인</Button>

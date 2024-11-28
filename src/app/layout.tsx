@@ -1,4 +1,5 @@
-// root-layout.tsx
+'use client'; // Add this line to make the component a Client Component
+
 import * as React from 'react';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { ThemeProvider } from '@mui/material/styles';
@@ -9,12 +10,18 @@ import Footer from '@/components/footer';
 import { AuthProvider } from 'context/AuthContext';
 
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import { usePathname } from 'next/navigation';
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+
+  // Check if the current path is an admin page
+  const isAdminPage = pathname.startsWith('/admin');
+
   return (
     <html lang="en">
       <body>
@@ -23,9 +30,10 @@ export default function RootLayout({
             <CssBaseline />
             <GoogleOAuthProvider clientId="439153763946-ee3hcfab8js8pt535tk93ptdqmakrm15.apps.googleusercontent.com">
               <AuthProvider>
-                <NavBar />
+                {/* Conditionally render NavBar and Footer */}
+                {!isAdminPage && <NavBar />}
                 {children}
-                <Footer />
+                {!isAdminPage && <Footer />}
               </AuthProvider>
             </GoogleOAuthProvider>
           </ThemeProvider>
