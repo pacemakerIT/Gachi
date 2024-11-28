@@ -77,7 +77,7 @@ export default function LoginPage() {
       }
       const data = await response.json();
       setIsLoggedIn(true);
-      router.push('/about');
+      router.push('/');
 
       return data;
     } catch (error) {

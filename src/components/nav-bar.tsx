@@ -74,6 +74,7 @@ const NavBar: React.FC<Props> = () => {
       console.error('Logout error:', error);
     }
   };
+
   useEffect(() => {
     if (prevIsMobile.current !== isMobile) {
       setProfileDrawerOpen(false);
@@ -147,6 +148,7 @@ const NavBar: React.FC<Props> = () => {
                 onClose={closeNavDrawer}
                 links={navLinks}
                 anchor="left"
+                isProfileDrawer={false}
               />
 
               {/* Drawer for Profile Links */}
@@ -155,6 +157,7 @@ const NavBar: React.FC<Props> = () => {
                 onClose={closeProfileDrawer}
                 links={profileLinks}
                 anchor="right"
+                isProfileDrawer={true}
               />
             </>
           ) : (
@@ -244,7 +247,7 @@ const NavBar: React.FC<Props> = () => {
                         </MenuItem>
                       ))}
                       <MenuItem key="1" onClick={handleLogout}>
-                        logout
+                        Logout
                       </MenuItem>
                     </Menu>
                   </>
