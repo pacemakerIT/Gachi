@@ -1,4 +1,4 @@
-import { FetchDataResponse } from './types';
+import { LandingPageDataResponse, DashboardDataResponse } from './types';
 
 export async function fetchData(): Promise<FetchDataResponse | null> {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
@@ -7,4 +7,5 @@ export async function fetchData(): Promise<FetchDataResponse | null> {
 
   const data = await res.json();
   return data as FetchDataResponse;
+
 }

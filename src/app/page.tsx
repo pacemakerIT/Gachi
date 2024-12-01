@@ -6,13 +6,13 @@ import Mentor from '@/components/mentor';
 import About from '@/components/about';
 import Review from '@/components/review';
 import { maxContainerWidth } from '../constants';
-import { fetchData } from '@/utils/api';
-import { FetchDataResponse } from '@/utils/types';
+import { fetchLandingPageData } from '@/utils/api';
+import { LandingPageDataResponse } from '@/utils/types';
 
 export default async function Home() {
-  let data: FetchDataResponse | null = null;
+  let data: LandingPageDataResponse | null = null;
 
-  data = await fetchData();
+  data = await fetchLandingPageData();
 
   return (
     <Container sx={{ maxWidth: maxContainerWidth }} disableGutters>
