@@ -1,6 +1,6 @@
 import { LandingPageDataResponse, DashboardDataResponse } from './types';
 
-export async function fetchData(): Promise<FetchDataResponse | null> {
+export async function fetchLandingPageData(): Promise<FetchDataResponse | null> {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
   const res = await fetch(`${baseUrl}/landing_page/supabase/`);
