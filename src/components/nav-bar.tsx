@@ -90,8 +90,8 @@ const NavBar: React.FC = () => {
 
   const profileLinks = [
     { href: '/profile', label: 'Profile' },
-    { href: '/about', label: 'My Mentors' },
-    { href: '/about', label: 'My Programs' },
+    { href: '/my-mentors', label: 'My Mentors' },
+    { href: '/my-programs', label: 'My Programs' },
   ];
 
   return (

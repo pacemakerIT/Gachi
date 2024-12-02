@@ -49,7 +49,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       });
       if (response.ok) {
         setIsLoggedIn(false);
-        router.push('/login');
       }
     } catch (error) {
       console.error('Logout failed:', error);
