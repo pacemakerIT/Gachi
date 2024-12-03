@@ -77,7 +77,10 @@ export default function LoginPage() {
       }
       const data = await response.json();
       setIsLoggedIn(true);
-      router.push('/');
+
+      if (data.user.userTypeId === '8c1355cf-b334-40fd-9076-890c52be159b')
+        router.push('/admin/dashboard');
+      else router.push('/');
 
       return data;
     } catch (error) {
