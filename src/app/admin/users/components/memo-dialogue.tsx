@@ -5,6 +5,9 @@ import {
   Box,
   Dialog,
   DialogContent,
+  DialogActions,
+  DialogTitle,
+  Button,
   IconButton,
   TextField,
   Typography,
@@ -22,6 +25,7 @@ const MemoDialog: React.FC<MemoDialogProps> = ({ userId, initialNote }) => {
   const [tempNote, setTempNote] = useState(initialNote); // Temporary state for edits
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isUnsaved, setIsUnsaved] = useState(false);
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false); // Notification dialog state
   const textFieldRef = useRef<HTMLTextAreaElement | null>(null); // Create a ref for the text field
 
   const handleDialogOpen = () => {
@@ -30,11 +34,11 @@ const MemoDialog: React.FC<MemoDialogProps> = ({ userId, initialNote }) => {
 
   const handleDialogClose = () => {
     if (isUnsaved) {
-      if (!window.confirm('You still have unsaved notes. Continue?')) return;
+      setIsNotificationOpen(true); // Open notification dialog
+      return;
     }
     setIsDialogOpen(false);
     setTempNote(note); // Reset temp note to saved state
-    setIsUnsaved(false);
   };
 
   const handleNoteSubmit = () => {
@@ -45,30 +49,46 @@ const MemoDialog: React.FC<MemoDialogProps> = ({ userId, initialNote }) => {
   };
 
   const handleNoteChange = (value: string) => {
-    if (value.length <= 400) {
-      setTempNote(value);
-      setIsUnsaved(value !== note); // Track unsaved changes
+    const formattedValue = value.replace(/\n/g, ' '); // Replace newlines with spaces
+    if (formattedValue.length <= 400) {
+      setTempNote(formattedValue);
+      setIsUnsaved(formattedValue !== note); // Track unsaved changes
     }
+  };
+
+  const handleNotificationClose = () => {
+    setIsNotificationOpen(false); // Close the notification dialog
+  };
+
+  const handleSaveAndExit = () => {
+    handleNoteSubmit(); // Save and close main dialog
+    handleNotificationClose(); // Close notification dialog
+  };
+
+  const handleExitWithoutSave = () => {
+    setTempNote(note); // Revert to the saved state
+    setIsUnsaved(false); // Reset unsaved state
+    setIsDialogOpen(false); // Close main dialog
+    handleNotificationClose(); // Close notification dialog
   };
 
   useEffect(() => {
     if (textFieldRef.current) {
       const element = textFieldRef.current;
-      // Reset the height to prevent accumulated blank space
-      element.style.height = 'auto';
-      // Calculate the new height based on scrollHeight
-      const newHeight = Math.min(element.scrollHeight, 120); // Max height = 120px
-      element.style.height = `${newHeight}px`;
-      // Scroll to top to ensure pasted content is visible
-      element.scrollTop = 0;
+      element.style.height = 'auto'; // Reset height to prevent overflow
+      const maxHeight = 120; // Maximum height for the text field
+      element.style.height = `${Math.min(element.scrollHeight, maxHeight)}px`; // Limit height
+      element.scrollTop = 0; // Reset scroll to the top
     }
-  }, [tempNote]);
+  }, [tempNote, isDialogOpen]);
 
   return (
     <>
       <IconButton onClick={handleDialogOpen}>
         <NoteAltOutlinedIcon />
       </IconButton>
+
+      {/* Main Dialog */}
       <Dialog
         open={isDialogOpen}
         onClose={handleDialogClose}
@@ -105,44 +125,41 @@ const MemoDialog: React.FC<MemoDialogProps> = ({ userId, initialNote }) => {
             backgroundColor: '#EDF2F6',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'flex-end', // Align saved note and input correctly
-            height: '400px', // Adjust dialog height to maintain balance
             gap: 2,
-            p: 2,
+            px: 3, // Reduced horizontal padding
+            py: 2,
           }}
         >
           {/* Saved Notes Section */}
           <Box
             sx={{
-              backgroundColor: '#EDF2F6', // Same background color
+              backgroundColor: '#EDF2F6',
               borderRadius: '8px',
               padding: 2,
-              flex: 1, // Allow the saved note section to grow
-              overflowY: 'hidden', // Hide scrolling for notes
-              minHeight: '100px', // Minimum height for the saved notes area
+              maxHeight: '200px', // Enforce max height
+              overflowY: 'scroll', // Enable scrolling
+              wordBreak: 'break-word',
+              '&::-webkit-scrollbar': {
+                display: 'none', // Hide scrollbar
+              },
+              scrollbarWidth: 'none', // Hide scrollbar in Firefox
             }}
           >
             <Typography
               sx={{
-                whiteSpace: 'pre-wrap', // Ensure long notes wrap to the next line
-                wordBreak: 'break-word', // Break words if they're too long
-                overflow: 'hidden',
-                display: '-webkit-box',
-                WebkitLineClamp: 6, // Limit preview to 6 lines
-                WebkitBoxOrient: 'vertical',
+                whiteSpace: 'pre-wrap', // Preserve line breaks
+                wordBreak: 'break-word',
               }}
             >
               {note || 'No note available.'}
             </Typography>
           </Box>
+
           {/* Note Input Section */}
           <TextField
-            inputRef={textFieldRef} // Attach the ref to the TextField
+            inputRef={textFieldRef}
             value={tempNote}
-            onChange={(e) => {
-              const newValue = e.target.value.replace(/\n/g, ' '); // Replace newlines with spaces
-              handleNoteChange(newValue); // Update the note with the new value
-            }}
+            onChange={(e) => handleNoteChange(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 e.preventDefault();
@@ -156,234 +173,130 @@ const MemoDialog: React.FC<MemoDialogProps> = ({ userId, initialNote }) => {
             inputProps={{
               maxLength: 400,
               style: {
-                resize: 'none', // Prevent resizing
-                overflow: 'hidden', // Hide visible scrollbar
-                padding: '8px 16px', // Padding for better appearance
+                resize: 'none',
+                overflowY: 'scroll', // Enable scrolling
+                boxSizing: 'border-box',
+                maxHeight: '200px', // Enforce max height
               },
             }}
             InputProps={{
-              disableUnderline: true, // Remove the underline
+              disableUnderline: true,
               style: {
                 backgroundColor: 'white',
-                borderRadius: '16px', // Rounded edges
-                maxHeight: '120px', // Restrict height to 3 rows
-                overflowY: 'auto', // Allow vertical scrolling
-                padding: '8px 16px', // Padding for better appearance
+                borderRadius: '16px',
+                padding: '10px 16px',
+                margin: '0 4px',
               },
             }}
             sx={{
-              '& .MuiInputBase-root': {
-                height: 'auto', // Allow the height to adjust dynamically
+              '&::-webkit-scrollbar': {
+                display: 'none', // Hide the scrollbar (Webkit browsers)
               },
-              '& .MuiInputBase-input': {
-                overflowY: 'auto', // Allow scrolling in the input
-                scrollbarWidth: 'none', // Hide scrollbar in Firefox
-                '&::-webkit-scrollbar': {
-                  display: 'none', // Hide scrollbar in WebKit browsers
-                },
-                whiteSpace: 'pre-wrap', // Preserve whitespace and allow wrapping
-                wordWrap: 'break-word', // Break long words if necessary
-                minHeight: '48px', // Ensure there's a minimum height to show content
-              },
+              scrollbarWidth: 'none', // Hide the scrollbar (Firefox)
             }}
           />
+
           {/* Character Counter */}
           <Typography
             sx={{
               textAlign: 'right',
               fontSize: '12px',
               color: '#757575',
+              pr: 1, // Adjusted right padding
             }}
           >
             {tempNote.length}/400
           </Typography>
         </DialogContent>
       </Dialog>
+
+      {/* Notification Dialog */}
+      <Dialog
+        open={isNotificationOpen}
+        onClose={handleNotificationClose}
+        PaperProps={{
+          sx: {
+            borderRadius: '16px', // Rounded edges for the dialog
+          },
+        }}
+      >
+        <DialogTitle
+          sx={{
+            textAlign: 'center',
+            fontWeight: 'bold',
+            backgroundColor: '#EDF2F6',
+            borderRadius: '16px 16px 0 0', // Match dialog's rounded top edges
+          }}
+        >
+          저장되지 않은 변경 사항이 있습니다.
+        </DialogTitle>
+        <DialogContent
+          sx={{
+            backgroundColor: '#EDF2F6',
+            textAlign: 'center',
+            py: 3, // Add padding for better spacing
+          }}
+        ></DialogContent>
+        <DialogActions
+          sx={{
+            justifyContent: 'center', // Center the buttons
+            gap: 2, // Add spacing between buttons
+            backgroundColor: '#EDF2F6',
+            borderRadius: '0 0 16px 16px', // Match dialog's rounded bottom edges
+            py: 2, // Add padding for better spacing
+          }}
+        >
+          {/* Blue Button: Save and Exit */}
+          <Button
+            onClick={handleSaveAndExit}
+            sx={{
+              backgroundColor: '#2986FE',
+              color: 'white',
+              borderRadius: '8px', // Reduced roundness
+              px: 3, // Padding for larger clickable area
+              '&:hover': {
+                backgroundColor: '#1c6dd0', // Darker shade on hover
+              },
+            }}
+          >
+            저장하고 나가기
+          </Button>
+
+          {/* Red Button: Exit Without Save */}
+          <Button
+            onClick={handleExitWithoutSave}
+            sx={{
+              backgroundColor: '#FF4D4D',
+              color: 'white',
+              borderRadius: '8px', // Reduced roundness
+              px: 3, // Padding for larger clickable area
+              '&:hover': {
+                backgroundColor: '#E63939', // Darker shade on hover
+              },
+            }}
+          >
+            저장하지 않고 나가기
+          </Button>
+
+          {/* Red Button: Cancel */}
+          <Button
+            onClick={handleNotificationClose}
+            sx={{
+              backgroundColor: '#FF4D4D',
+              color: 'white',
+              borderRadius: '8px', // Reduced roundness
+              px: 3, // Padding for larger clickable area
+              '&:hover': {
+                backgroundColor: '#E63939', // Darker shade on hover
+              },
+            }}
+          >
+            취소
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };
 
 export default MemoDialog;
-
-//code below is a potential replacement.
-
-//'use client';
-//
-//import React, { useState } from 'react';
-//import {
-//  Box,
-//  Dialog,
-//  DialogContent,
-//  IconButton,
-//  TextField,
-//  Typography,
-//  Button,
-//  Stack,
-//} from '@mui/material';
-//import NoteAltOutlinedIcon from '@mui/icons-material/NoteAltOutlined';
-//import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
-//
-//interface MemoDialogProps {
-//  userId: number;
-//  initialNote: string;
-//}
-//
-//const MemoDialog: React.FC<MemoDialogProps> = ({ userId, initialNote }) => {
-//  const [note, setNote] = useState(initialNote); // Track the note
-//  const [tempNote, setTempNote] = useState(initialNote); // Temporary state for edits
-//  const [isDialogOpen, setIsDialogOpen] = useState(false);
-//  const [isUnsaved, setIsUnsaved] = useState(false);
-//
-//  const handleDialogOpen = () => {
-//    setIsDialogOpen(true);
-//  };
-//
-//  const handleDialogClose = () => {
-//    if (isUnsaved) {
-//      // Do nothing, keep the dialog open if there are unsaved changes
-//      return;
-//    }
-//    setIsDialogOpen(false);
-//    setTempNote(note); // Reset temp note to saved state
-//    setIsUnsaved(false);
-//  };
-//
-//  const handleNoteSubmit = () => {
-//    // Simulate saving the note (you can replace this with an API call)
-//    console.log(`Note for user ${userId}:`, tempNote);
-//    setNote(tempNote);
-//    setIsUnsaved(false);
-//    setIsDialogOpen(false);
-//  };
-//
-//  const handleNoteChange = (value: string) => {
-//    setTempNote(value);
-//    setIsUnsaved(value !== note); // Track unsaved changes
-//  };
-//
-//  return (
-//    <>
-//      <IconButton onClick={handleDialogOpen}>
-//        <NoteAltOutlinedIcon />
-//      </IconButton>
-//      <Dialog
-//        open={isDialogOpen}
-//        fullWidth
-//        PaperProps={{
-//          sx: {
-//            borderRadius: '16px', // Rounded edges for the dialog
-//          },
-//        }}
-//      >
-//        {/* Dialog Header */}
-//        <Box
-//          sx={{
-//            backgroundColor: '#2986FE',
-//            display: 'flex',
-//            alignItems: 'center',
-//            justifyContent: 'space-between',
-//            px: 2,
-//            py: 1,
-//            borderTopLeftRadius: '16px',
-//            borderTopRightRadius: '16px', // Rounded corners for the top header
-//          }}
-//        >
-//          <Typography sx={{ color: 'white', fontWeight: 'bold' }}>
-//            유저노트
-//          </Typography>
-//          <IconButton onClick={handleDialogClose} sx={{ color: 'white' }}>
-//            <ClearOutlinedIcon />
-//          </IconButton>
-//        </Box>
-//        {/* Dialog Content */}
-//        <DialogContent
-//          sx={{
-//            backgroundColor: '#EDF2F6',
-//            display: 'flex',
-//            flexDirection: 'column',
-//            height: '300px', // Adjust dialog height to maintain balance
-//            gap: 2,
-//            p: 2,
-//          }}
-//        >
-//          {/* Saved Notes Section */}
-//          <Box
-//            sx={{
-//              backgroundColor: '#EDF2F6', // Same background color
-//              borderRadius: '8px',
-//              padding: 2,
-//              flex: 1, // Allow the saved note section to grow
-//              overflowY: 'auto',
-//              minHeight: '100px', // Minimum height for the saved notes area
-//            }}
-//          >
-//            <Typography>{note || 'No note available.'}</Typography>
-//          </Box>
-//
-//          {/* Note Input Section */}
-//          <TextField
-//            value={tempNote}
-//            onChange={(e) => handleNoteChange(e.target.value)}
-//            onKeyDown={(e) => {
-//              if (e.key === 'Enter') {
-//                e.preventDefault();
-//                handleNoteSubmit();
-//              }
-//            }}
-//            multiline
-//            fullWidth
-//            rows={1} // Single line
-//            variant="standard"
-//            placeholder="Write your note here..."
-//            InputProps={{
-//              disableUnderline: true, // Remove the underline
-//              style: {
-//                backgroundColor: 'white',
-//                borderRadius: '16px', // Rounded edges for left and right
-//                padding: '8px 16px',
-//              },
-//            }}
-//            sx={{
-//              border: 'none', // No border for the text field
-//              minHeight: '40px', // Minimum height to maintain balance
-//            }}
-//          />
-//
-//          {/* Inline Warning */}
-//          {isUnsaved && (
-//            <Typography
-//              sx={{
-//                color: '#FF0000',
-//                textAlign: 'center',
-//                fontSize: '14px',
-//                marginTop: '8px',
-//              }}
-//            >
-//              You have unsaved changes!
-//            </Typography>
-//          )}
-//
-//          {/* Action Buttons */}
-//          <Stack direction="row" spacing={2} justifyContent="flex-end">
-//            <Button
-//              onClick={handleDialogClose}
-//              variant="outlined"
-//              sx={{ borderRadius: '16px' }}
-//            >
-//              Cancel
-//            </Button>
-//            <Button
-//              onClick={handleNoteSubmit}
-//              variant="contained"
-//              sx={{ borderRadius: '16px' }}
-//            >
-//              Save
-//            </Button>
-//          </Stack>
-//        </DialogContent>
-//      </Dialog>
-//    </>
-//  );
-//};
-//
-//export default MemoDialog;
