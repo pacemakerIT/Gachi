@@ -33,6 +33,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
   const handleTogglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
@@ -41,7 +42,7 @@ export default function LoginPage() {
   const handleGoogleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       try {
-        await axios.post('http://127.0.0.1:8000/user/auth/google/', {
+        await axios.post(`${baseUrl}/user/auth/google/`, {
           tokenResponse,
         });
 
@@ -62,7 +63,7 @@ export default function LoginPage() {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/user/login/', {
+      const response = await fetch(`${baseUrl}/user/login/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

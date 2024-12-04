@@ -33,6 +33,7 @@ export default function SignUpPage() {
   const theme = useTheme();
   const router = useRouter();
   const { setIsLoggedIn } = useAuth();
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
   const [error, setError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
@@ -66,7 +67,7 @@ export default function SignUpPage() {
   const handleGoogleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       try {
-        await axios.post('http://127.0.0.1:8000/user/auth/google/', {
+        await axios.post(`${baseUrl}/user/auth/google/`, {
           tokenResponse,
         });
 
@@ -85,7 +86,7 @@ export default function SignUpPage() {
 
   const signUpUser = async (formData: FormData) => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/user/signup/', {
+      const response = await fetch(`${baseUrl}/user/signup/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

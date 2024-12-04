@@ -3,12 +3,13 @@ import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
   const token = request.cookies.get('access_token')?.value;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
   if (!token) {
     return NextResponse.redirect(new URL('/', request.url));
   }
 
-  return fetch('http://127.0.0.1:8000/dashboard/verify-admin/', {
+  return fetch(`${baseUrl}/dashboard/verify-admin/`, {
     method: 'GET',
     headers: {
       Cookie: `access_token=${token}`,

@@ -19,10 +19,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
   const checkAuth = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/user/verify/', {
+      const response = await fetch(`${baseUrl}/user/verify/`, {
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
@@ -40,7 +41,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const logout = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/user/logout/', {
+      const response = await fetch(`${baseUrl}/user/logout/`, {
         method: 'POST',
         credentials: 'include',
         headers: {
