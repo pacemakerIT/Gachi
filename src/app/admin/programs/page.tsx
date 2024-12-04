@@ -41,6 +41,7 @@ export default function Program() {
           throw new Error('Failed to fetch programs');
         }
         const data: { programs: ProgramType[] } = await response.json();
+        console.log('API Response:', data); // Log the response
         setPrograms(data.programs);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Unknown error occurred');
