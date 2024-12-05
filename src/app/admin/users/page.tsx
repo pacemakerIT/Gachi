@@ -12,6 +12,10 @@ import {
   IconButton,
   Button,
   Stack,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
 } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import IosShareOutlinedIcon from '@mui/icons-material/IosShareOutlined';
@@ -52,21 +56,58 @@ const initialRows: User[] = [
 ];
 
 const UsersPage: React.FC = () => {
+  const [rows, setRows] = useState<User[]>(initialRows);
   const [filter, setFilter] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [isDialogOpen, setDialogOpen] = useState(false);
+  const [newUser, setNewUser] = useState<User>({
+    id: rows.length + 1,
+    name: '',
+    email: '',
+    linkedin: '',
+    location: '',
+    program: '',
+    matchStatus: 'Unmatched',
+  });
 
   // Filtered and searched rows
-  const filteredRows = initialRows.filter((row) => {
-    // Apply filter
+  const filteredRows = rows.filter((row) => {
     const matchesFilter = filter === 'All' || row.matchStatus === filter;
-
-    // Apply search
     const matchesSearch =
       row.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       row.id.toString().includes(searchQuery);
 
     return matchesFilter && matchesSearch;
   });
+
+  const handleDialogOpen = () => {
+    setNewUser({
+      id: rows.length + 1,
+      name: '',
+      email: '',
+      linkedin: '',
+      location: '',
+      program: '',
+      matchStatus: 'Unmatched',
+    });
+    setDialogOpen(true);
+  };
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
+
+  const handleUserAdd = () => {
+    setRows((prevRows) => [...prevRows, newUser]);
+    setDialogOpen(false);
+  };
+
+  const handleInputChange = (field: keyof User, value: string) => {
+    setNewUser((prevUser) => ({
+      ...prevUser,
+      [field]: value,
+    }));
+  };
 
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 70 },
@@ -94,7 +135,21 @@ const UsersPage: React.FC = () => {
       field: 'manage',
       headerName: '관리',
       width: 100,
-      renderCell: (params) => <ManageMenu userId={params.row.id} />,
+      renderCell: (params) => (
+        <ManageMenu
+          userId={params.row.id}
+          userData={{
+            name: '',
+            email: '',
+            linkedIn: '',
+            region: '',
+            program: '',
+          }}
+          onUserUpdate={function (): void {
+            throw new Error('Function not implemented.');
+          }}
+        />
+      ),
     },
   ];
 
@@ -144,7 +199,11 @@ const UsersPage: React.FC = () => {
             </IconButton>
 
             {/* Add User Button */}
-            <Button variant="contained" color="primary">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleDialogOpen}
+            >
               <PersonAddAlt1OutlinedIcon />
             </Button>
           </Stack>
@@ -161,6 +220,40 @@ const UsersPage: React.FC = () => {
           />
         </Box>
       </CardContent>
+
+      {/* Add User Dialog */}
+      <Dialog open={isDialogOpen} onClose={handleDialogClose}>
+        <DialogTitle>New User</DialogTitle>
+        <DialogContent>
+          <TextField
+            fullWidth
+            label="Name"
+            margin="normal"
+            value={newUser.name}
+            onChange={(e) => handleInputChange('name', e.target.value)}
+          />
+          <TextField
+            fullWidth
+            label="Email"
+            margin="normal"
+            value={newUser.email}
+            onChange={(e) => handleInputChange('email', e.target.value)}
+          />
+          <TextField
+            fullWidth
+            label="LinkedIn"
+            margin="normal"
+            value={newUser.linkedin}
+            onChange={(e) => handleInputChange('linkedin', e.target.value)}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDialogClose}>Cancel</Button>
+          <Button onClick={handleUserAdd} variant="contained" color="primary">
+            Add
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Card>
   );
 };
