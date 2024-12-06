@@ -8,9 +8,10 @@ import theme from '@/theme';
 import NavBar from '@/components/nav-bar';
 import Footer from '@/components/footer';
 import { AuthProvider } from 'context/AuthContext';
-
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { usePathname } from 'next/navigation';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 export default function RootLayout({
   children,
@@ -34,6 +35,7 @@ export default function RootLayout({
                 {!isAdminPage && <NavBar />}
                 {children}
                 {!isAdminPage && <Footer />}
+                <ToastContainer />
               </AuthProvider>
             </GoogleOAuthProvider>
           </ThemeProvider>

@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useGoogleLogin } from '@react-oauth/google';
+import { toast } from 'react-toastify';
 import axios from 'axios';
 import {
   Box,
@@ -35,6 +36,7 @@ export default function SignUpPage() {
   const { setIsLoggedIn } = useAuth();
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
+  const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -43,6 +45,30 @@ export default function SignUpPage() {
     email: '',
     password: '',
   });
+
+  useEffect(() => {
+    if (message) {
+      if (message.includes('successfully')) {
+        toast.success(message, {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+      } else {
+        toast.error(message, {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+      }
+    }
+  }, [message]);
 
   const handleTogglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
@@ -75,9 +101,9 @@ export default function SignUpPage() {
         router.push('/about');
       } catch (error) {
         if (error instanceof Error) {
-          alert(error.message);
+          setMessage(error.message);
         } else {
-          alert('Failed to login with Google');
+          setMessage('Failed to login with Google');
         }
       }
     },
@@ -93,15 +119,20 @@ export default function SignUpPage() {
         },
         body: JSON.stringify(formData),
       });
+      const data = await response.json();
 
       if (response.ok) {
-        alert('User created successfully! Please login again.');
+        setMessage('User created successfully! Please login again.');
         router.push('/');
       } else {
-        alert('Failed to Signup');
+        if (data.error) {
+          setMessage(data.error);
+        } else {
+          setMessage('Failed to Signup');
+        }
       }
     } catch (error) {
-      alert('Error: ' + error);
+      setMessage('Error: ' + error);
     }
   };
 
