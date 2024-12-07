@@ -69,18 +69,24 @@ const Sidebar: React.FC = () => {
           justifyContent: 'center',
         }}
       >
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Image
-            src={Logo}
-            alt="Logo"
-            width={40}
-            height={40}
-            style={{ objectFit: 'contain' }}
-          />
-          <Typography variant="h6" sx={{ ml: 1, textAlign: 'center' }}>
-            Gachi.Live
-          </Typography>
-        </Box>
+        <Link
+          href="/"
+          passHref
+          style={{ textDecoration: 'none', color: 'black' }}
+        >
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Image
+              src={Logo}
+              alt="Logo"
+              width={40}
+              height={40}
+              style={{ objectFit: 'contain' }}
+            />
+            <Typography variant="h6" sx={{ ml: 1, textAlign: 'center' }}>
+              Gachi.Live
+            </Typography>
+          </Box>
+        </Link>
       </Box>
       <List
         sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}

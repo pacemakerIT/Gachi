@@ -7,7 +7,11 @@ import CssBaseline from '@mui/material/CssBaseline';
 import theme from '@/theme';
 import NavBar from '@/components/nav-bar';
 import Footer from '@/components/footer';
+import { AuthProvider } from 'context/AuthContext';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import { usePathname } from 'next/navigation';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 export default function RootLayout({
   children,
@@ -25,10 +29,15 @@ export default function RootLayout({
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            {/* Conditionally render NavBar and Footer */}
-            {!isAdminPage && <NavBar />}
-            {children}
-            {!isAdminPage && <Footer />}
+            <GoogleOAuthProvider clientId="439153763946-ee3hcfab8js8pt535tk93ptdqmakrm15.apps.googleusercontent.com">
+              <AuthProvider>
+                {/* Conditionally render NavBar and Footer */}
+                {!isAdminPage && <NavBar />}
+                {children}
+                {!isAdminPage && <Footer />}
+                <ToastContainer />
+              </AuthProvider>
+            </GoogleOAuthProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
