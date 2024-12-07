@@ -11,8 +11,6 @@ import {
   TextField,
   Typography,
   Link,
-  Checkbox,
-  FormControlLabel,
   useTheme,
   IconButton,
   InputAdornment,
@@ -213,16 +211,10 @@ export default function LoginPage() {
       <Box
         sx={{
           display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
+          justifyContent: 'end',
           mb: 2,
         }}
       >
-        <FormControlLabel
-          control={<Checkbox />}
-          label="자동 로그인"
-          sx={{ color: theme.palette.text.primary }}
-        />
         <Link
           href="/lost-password"
           sx={{ textDecoration: 'none', color: theme.palette.primary.main }}

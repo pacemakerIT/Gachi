@@ -1,8 +1,8 @@
 'use client';
 
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import router from 'next/router';
 import { Box, CircularProgress } from '@mui/material';
+import { toast } from 'react-toastify';
 
 interface AuthContextType {
   isLoggedIn: boolean;
@@ -19,6 +19,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [message, setMessage] = useState<string | null>(null);
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
   const checkAuth = async () => {
@@ -50,6 +51,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       });
       if (response.ok) {
         setIsLoggedIn(false);
+        setMessage('Successfully logged out');
       }
     } catch (error) {
       console.error('Logout failed:', error);
@@ -59,6 +61,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     checkAuth();
   }, []);
+
+  useEffect(() => {
+    if (message) {
+      toast.success(message, {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      setMessage(null);
+    }
+  }, [message]);
 
   if (isLoading) {
     return (
