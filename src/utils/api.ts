@@ -1,8 +1,15 @@
 import { LandingPageDataResponse, DashboardDataResponse } from './types';
 
+// baseUrl을 환경 변수에서 가져오기
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
+if (!baseUrl) {
+  console.error('BASE URL is not defined in the environment variables.');
+}
+
 export async function fetchLandingPageData(): Promise<LandingPageDataResponse | null> {
   try {
-    const res = await fetch('http://127.0.0.1:8000/landing_page/supabase/', {
+    const res = await fetch(`${baseUrl}/landing_page/supabase/`, {
       cache: 'no-store',
     });
 
@@ -19,15 +26,11 @@ export async function fetchLandingPageData(): Promise<LandingPageDataResponse | 
   }
 }
 
-// Dashboard 데이터 가져오기
 export async function fetchDashboardData(): Promise<DashboardDataResponse | null> {
   try {
-    const res = await fetch(
-      'http://127.0.0.1:8000/dashboard/dashboard_api_design/',
-      {
-        cache: 'no-store',
-      }
-    );
+    const res = await fetch(`${baseUrl}/dashboard/dashboard_api_design/`, {
+      cache: 'no-store',
+    });
 
     if (!res.ok) {
       console.error('Failed to fetch dashboard data');
