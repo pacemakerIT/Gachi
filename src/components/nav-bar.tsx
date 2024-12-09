@@ -11,6 +11,7 @@ import {
   MenuItem,
   useMediaQuery,
 } from '@mui/material';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useTheme } from '@mui/material/styles';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
@@ -18,13 +19,17 @@ import MenuIcon from '@mui/icons-material/Menu';
 import MobileDrawer from './mobile-drawer';
 import ProfileIcon from './profile-icon';
 import Logo from './logo';
+import { useAuth } from 'context/AuthContext';
 
 const NavBar: React.FC = () => {
-  const [isLoggedIn] = React.useState(false);
+  const theme = useTheme();
+  const router = useRouter();
+  const { isLoggedIn } = useAuth();
+  const { logout } = useAuth();
+
   const [navDrawerOpen, setNavDrawerOpen] = React.useState(false);
   const [profileDrawerOpen, setProfileDrawerOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const prevIsMobile = React.useRef(isMobile);
 
@@ -58,6 +63,15 @@ const NavBar: React.FC = () => {
     setAnchorEl(null);
   };
 
+  const handleLogout = async () => {
+    try {
+      await logout();
+      router.push('/');
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
+  };
+
   useEffect(() => {
     if (prevIsMobile.current !== isMobile) {
       setProfileDrawerOpen(false);
@@ -76,9 +90,8 @@ const NavBar: React.FC = () => {
 
   const profileLinks = [
     { href: '/profile', label: 'Profile' },
-    { href: '/myMentors', label: 'My Mentors' },
-    { href: '/myPrograms', label: 'My Programs' },
-    { href: '/logout', label: 'Logout' },
+    { href: '/my-mentors', label: 'My Mentors' },
+    { href: '/my-programs', label: 'My Programs' },
   ];
 
   return (
@@ -136,6 +149,7 @@ const NavBar: React.FC = () => {
                 onClose={closeNavDrawer}
                 links={navLinks}
                 anchor="left"
+                isProfileDrawer={false}
               />
 
               {/* Drawer for Profile Links */}
@@ -144,6 +158,7 @@ const NavBar: React.FC = () => {
                 onClose={closeProfileDrawer}
                 links={profileLinks}
                 anchor="right"
+                isProfileDrawer={true}
               />
             </>
           ) : (
@@ -239,6 +254,9 @@ const NavBar: React.FC = () => {
                           {link.label}
                         </MenuItem>
                       ))}
+                      <MenuItem key="1" onClick={handleLogout}>
+                        Logout
+                      </MenuItem>
                     </Menu>
                   </>
                 ) : (
