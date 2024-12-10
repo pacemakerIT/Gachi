@@ -2,8 +2,11 @@
 // import React, { useEffect, useState } from 'react';
 // import { Container, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from '@mui/material';
 // import { fetchPosts } from '../../utils/api';
+import { useAuth } from '../../../context/AuthContext';
 
 const AboutPage = () => {
+  const { isLoggedIn } = useAuth();
+
   //     const [posts, setPosts] = useState([]);
   //     const [loading, setLoading] = useState(true);
 
@@ -20,7 +23,7 @@ const AboutPage = () => {
   //     }, []);
 
   return (
-    <div>AboutPage</div>
+    <div>{isLoggedIn ? 'logged in about page' : 'logged out about page'}</div>
     //         <Container>
     //             <Typography variant="h4" component="h1" gutterBottom>
     //                 Test

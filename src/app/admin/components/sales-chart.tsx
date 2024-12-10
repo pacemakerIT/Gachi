@@ -14,23 +14,13 @@ import {
 } from 'recharts';
 
 import { useTheme } from '@mui/material/styles';
+import { MonthlySalesData } from '@/utils/types';
 
-const salesData = [
-  { month: 'Jan', 매출: 300, 경비: 200, 순이익: 100, 무료: 50 },
-  { month: 'Feb', 매출: 400, 경비: 250, 순이익: 150, 무료: 60 },
-  { month: 'Mar', 매출: 350, 경비: 230, 순이익: 120, 무료: 70 },
-  { month: 'Apr', 매출: 320, 경비: 210, 순이익: 110, 무료: 55 },
-  { month: 'May', 매출: 390, 경비: 260, 순이익: 130, 무료: 65 },
-  { month: 'Jun', 매출: 340, 경비: 230, 순이익: 115, 무료: 60 },
-  { month: 'Jul', 매출: 370, 경비: 240, 순이익: 125, 무료: 50 },
-  { month: 'Aug', 매출: 360, 경비: 240, 순이익: 120, 무료: 55 },
-  { month: 'Sep', 매출: 380, 경비: 250, 순이익: 130, 무료: 60 },
-  { month: 'Oct', 매출: 400, 경비: 270, 순이익: 140, 무료: 65 },
-  { month: 'Nov', 매출: 390, 경비: 260, 순이익: 130, 무료: 60 },
-  { month: 'Dec', 매출: 350, 경비: 240, 순이익: 120, 무료: 55 },
-];
+interface SalesChartProps {
+  monthlySalesData?: MonthlySalesData[];
+}
 
-const SalesChart: React.FC = () => {
+const SalesChart: React.FC<SalesChartProps> = ({ monthlySalesData = [] }) => {
   const theme = useTheme();
   const colors = [
     theme.palette.graph.color1,
@@ -39,6 +29,16 @@ const SalesChart: React.FC = () => {
     theme.palette.graph.color4,
     theme.palette.graph.color5,
   ];
+
+  // 리차트에서 사용할 데이터 구조 변환 (예: 그래프에서 사용하는 키 이름 매핑)
+  // Use default data if `stats` is not provided
+  const chartData = monthlySalesData.map((item) => ({
+    month: item.month,
+    매출: item.totalSales,
+    순이익: item.companyProfit,
+    무료: item.freeParticipationCount,
+  }));
+
   return (
     <Card
       sx={{
@@ -53,22 +53,16 @@ const SalesChart: React.FC = () => {
       <CardContent>
         <Typography variant="h6">매출 현황</Typography>
         <ResponsiveContainer width="100%" height={200}>
-          <LineChart data={salesData}>
+          <LineChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="month" />
-            <YAxis domain={[0, 400]} ticks={[0, 100, 200, 300, 400]} />
+            <YAxis />
             <Tooltip />
             <Legend />
             <Line
               type="monotone"
               dataKey="매출"
               stroke={colors[4]}
-              strokeWidth={2}
-            />
-            <Line
-              type="monotone"
-              dataKey="경비"
-              stroke={colors[1]}
               strokeWidth={2}
             />
             <Line

@@ -10,29 +10,15 @@ import {
   TableCell,
   TableBody,
   Typography,
+  Tooltip,
 } from '@mui/material';
+import { PopularProgram } from '@/utils/types';
 
-const programData = [
-  {
-    rank: 1,
-    program: 'Web Development',
-    mentor: 'John Doe',
-    price: '$200',
-    sales: 150,
-    totalSales: '$30,000',
-  },
-  {
-    rank: 2,
-    program: 'Graphic Design',
-    mentor: 'Jane Smith',
-    price: '$150',
-    sales: 120,
-    totalSales: '$18,000',
-  },
-  // Add more data
-];
+interface ProgramTableProps {
+  programData: PopularProgram[];
+}
 
-const ProgramTable: React.FC = () => {
+const ProgramTable: React.FC<ProgramTableProps> = ({ programData }) => {
   return (
     <Card
       sx={{
@@ -51,6 +37,7 @@ const ProgramTable: React.FC = () => {
             <TableRow>
               <TableCell>#</TableCell>
               <TableCell>프로그램</TableCell>
+              <TableCell>분야</TableCell>
               <TableCell>멘토</TableCell>
               <TableCell>가격</TableCell>
               <TableCell>누적 판매수</TableCell>
@@ -58,14 +45,19 @@ const ProgramTable: React.FC = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {programData.map((program) => (
-              <TableRow key={program.rank}>
-                <TableCell>{program.rank}</TableCell>
-                <TableCell>{program.program}</TableCell>
+            {programData.map((program, index) => (
+              <TableRow key={program.programid}>
+                <TableCell>{index + 1}</TableCell>
+                <TableCell>
+                  <Tooltip title={program.program_title} arrow>
+                    <Typography noWrap>{program.program_title}</Typography>
+                  </Tooltip>
+                </TableCell>
+                <TableCell>{program.topic}</TableCell>
                 <TableCell>{program.mentor}</TableCell>
-                <TableCell>{program.price}</TableCell>
-                <TableCell>{program.sales}</TableCell>
-                <TableCell>{program.totalSales}</TableCell>
+                <TableCell>{program.cost}</TableCell>
+                <TableCell>{program.accumulated_sales_count}</TableCell>
+                <TableCell>{program.accumulated_sales_amount}</TableCell>
               </TableRow>
             ))}
           </TableBody>
