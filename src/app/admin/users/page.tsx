@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Card,
   CardContent,
@@ -23,6 +23,7 @@ import PersonAddAlt1OutlinedIcon from '@mui/icons-material/PersonAddAlt1Outlined
 import MemoDialog from './components/memo-dialogue';
 import ManageMenu from './components/manage-menu';
 import MentorMenteeButton from './components/mentor-mentee-button';
+import { UserType } from '@/utils/types';
 
 interface User {
   id: number;
@@ -56,12 +57,14 @@ const initialRows: User[] = [
 ];
 
 const UsersPage: React.FC = () => {
-  const [rows, setRows] = useState<User[]>(initialRows);
+  const [mockrows, setmockRows] = useState<User[]>(initialRows);
+  const [data, setData] = useState([]); // 빈 배열로 초기화
+  // const [data, setData] = useState<UserType[]>([]); // 빈 배열로 초기화
   const [filter, setFilter] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [newUser, setNewUser] = useState<User>({
-    id: rows.length + 1,
+    id: mockrows.length + 1,
     name: '',
     email: '',
     linkedin: '',
@@ -69,16 +72,68 @@ const UsersPage: React.FC = () => {
     program: '',
     matchStatus: 'Unmatched',
   });
+  const [error, setError] = useState<string | null>(null);
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${baseUrl}dashboard/admin_user_api/`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+        });
+
+        console.log('resposne:', response);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const result = await response.json();
+
+        // console.log('resulst: ', result.data);
+        // console.log('rows', rows);
+
+        setData(result.data);
+      } catch (error) {
+        if (error instanceof Error) {
+          setError(error.message);
+        } else {
+          setError('An unknown error occurred.');
+        }
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const rows = data.map((item, index) => ({
+    id: index + 1, // 고유한 ID를 index로 설정
+    ...item, // 기존 데이터 포함
+  }));
+
+  // function getRowId(row) {
+  //   return row.internalId;
+  // }
 
   // Filtered and searched rows
-  const filteredRows = rows.filter((row) => {
-    const matchesFilter = filter === 'All' || row.matchStatus === filter;
-    const matchesSearch =
-      row.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      row.id.toString().includes(searchQuery);
+  // const filteredData = data?.filter((user: UserType) => {
+  //   const matchesFilter = filter === 'All';
+  //   const matchesSearch =
+  //     user.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+  //     user.userId.toString().includes(searchQuery);
 
-    return matchesFilter && matchesSearch;
-  });
+  //   return matchesFilter && matchesSearch;
+  // });
+  // const filteredRows = rows.filter((row) => {
+  //   const matchesFilter = filter === 'All' || row.matchStatus === filter;
+  //   const matchesSearch =
+  //     row.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+  //     row.id.toString().includes(searchQuery);
+
+  //   return matchesFilter && matchesSearch;
+  // });
 
   const handleDialogOpen = () => {
     setNewUser({
@@ -98,7 +153,7 @@ const UsersPage: React.FC = () => {
   };
 
   const handleUserAdd = () => {
-    setRows((prevRows) => [...prevRows, newUser]);
+    setmockRows((prevRows) => [...prevRows, newUser]);
     setDialogOpen(false);
   };
 
@@ -121,7 +176,7 @@ const UsersPage: React.FC = () => {
     { field: 'email', headerName: '이메일', width: 200 },
     { field: 'linkedin', headerName: '링크드인', width: 200 },
     { field: 'location', headerName: '지역', width: 120 },
-    { field: 'program', headerName: '프로그램', width: 150 },
+    { field: 'industryTitle', headerName: '프로그램', width: 150 },
     { field: 'matchStatus', headerName: '매칭현황', width: 120 },
     {
       field: 'memo',
@@ -212,7 +267,9 @@ const UsersPage: React.FC = () => {
         {/* Data Grid */}
         <Box sx={{ height: 400, width: '100%' }}>
           <DataGrid
-            rows={filteredRows}
+            // getRowId={(row) => row.id}
+            // rows={data}
+            rows={rows}
             columns={columns}
             pageSizeOptions={[5]}
             disableRowSelectionOnClick

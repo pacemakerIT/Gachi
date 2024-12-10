@@ -11,7 +11,7 @@ if (!baseUrl) {
 export async function fetchLandingPageData(): Promise<LandingPageDataResponse | null> {
   try {
     const res = await fetch(`${baseUrl}/landing_page/supabase/`, {
-      cache: 'no-store',
+      // cache: 'no-store',
     });
 
     if (!res.ok) {
@@ -31,7 +31,7 @@ export async function fetchLandingPageData(): Promise<LandingPageDataResponse | 
 export async function fetchDashboardData(): Promise<DashboardDataResponse | null> {
   try {
     const res = await fetch(`${baseUrl}/dashboard/dashboard_api_design/`, {
-      cache: 'no-store',
+      // cache: 'no-store',
     });
 
     if (!res.ok) {
