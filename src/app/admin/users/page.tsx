@@ -194,7 +194,42 @@ const UsersPage: React.FC = () => {
             </Select>
 
             {/* Share Icon */}
-            <IconButton>
+            <IconButton
+              onClick={() => {
+                const csvContent =
+                  'data:text/csv;charset=utf-8,' +
+                  [
+                    [
+                      'ID',
+                      'Name',
+                      'Email',
+                      'LinkedIn',
+                      'Location',
+                      'Program',
+                      'Match Status',
+                    ],
+                    ...rows.map((row) => [
+                      row.id,
+                      row.name,
+                      row.email,
+                      row.linkedin,
+                      row.location,
+                      row.program,
+                      row.matchStatus,
+                    ]),
+                  ]
+                    .map((e) => e.join(','))
+                    .join('\n');
+
+                const encodedUri = encodeURI(csvContent);
+                const link = document.createElement('a');
+                link.setAttribute('href', encodedUri);
+                link.setAttribute('download', 'users.csv');
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+              }}
+            >
               <IosShareOutlinedIcon />
             </IconButton>
 
