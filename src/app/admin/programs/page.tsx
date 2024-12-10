@@ -20,36 +20,47 @@ import { FiShoppingCart } from 'react-icons/fi';
 import { AiOutlineHeart } from 'react-icons/ai';
 import CarouselHeader from '../../../components/carousel-header';
 import ProgramCardStatus from '../../../components/program-card-status';
-import { ProgramType } from '@/utils/types';
 
 export default function Program() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
 
-  const [programs, setPrograms] = useState<ProgramType[] | null>(null);
+  const [programs, setPrograms] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const swiperRef = useRef<SwiperRef>(null);
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
   useEffect(() => {
-    const fetchPrograms = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch('/api/programs'); // Replace with your API endpoint
+        const response = await fetch(`${baseUrl}dashboard/admin_program_api/`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+        });
+
         if (!response.ok) {
           throw new Error('Failed to fetch programs');
         }
-        const data: { programs: ProgramType[] } = await response.json();
-        setPrograms(data.programs);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Unknown error occurred');
+        const result = await response.json();
+        setPrograms(result.data);
+      } catch (error) {
+        if (error instanceof Error) {
+          setError(error.message);
+        } else {
+          setError('An unknown error occurred.');
+        }
       } finally {
         setLoading(false);
       }
     };
 
-    fetchPrograms();
+    fetchData();
   }, []);
 
   if (loading) {
