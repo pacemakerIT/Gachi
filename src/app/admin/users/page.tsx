@@ -12,10 +12,6 @@ import {
   IconButton,
   Button,
   Stack,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
 } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import IosShareOutlinedIcon from '@mui/icons-material/IosShareOutlined';
@@ -23,10 +19,12 @@ import PersonAddAlt1OutlinedIcon from '@mui/icons-material/PersonAddAlt1Outlined
 import MemoDialog from './components/memo-dialogue';
 import ManageMenu from './components/manage-menu';
 import MentorMenteeButton from './components/mentor-mentee-button';
+import AddUserDialog from './components/users-dialogue';
 
 interface User {
   id: number;
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   linkedin: string;
   location: string;
@@ -37,7 +35,8 @@ interface User {
 const initialRows: User[] = [
   {
     id: 1,
-    name: 'John Doe',
+    firstName: 'John',
+    lastName: 'Doe',
     email: 'john@example.com',
     linkedin: 'linkedin.com/johndoe',
     location: 'Seoul',
@@ -46,7 +45,8 @@ const initialRows: User[] = [
   },
   {
     id: 2,
-    name: 'Jane Smith',
+    firstName: 'Jane',
+    lastName: 'Smith',
     email: 'jane@example.com',
     linkedin: 'linkedin.com/janesmith',
     location: 'Busan',
@@ -60,36 +60,11 @@ const UsersPage: React.FC = () => {
   const [filter, setFilter] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isDialogOpen, setDialogOpen] = useState(false);
-  const [newUser, setNewUser] = useState<User>({
-    id: rows.length + 1,
-    name: '',
-    email: '',
-    linkedin: '',
-    location: '',
-    program: '',
-    matchStatus: 'Unmatched',
-  });
 
-  // Filtered and searched rows
-  const filteredRows = rows.filter((row) => {
-    const matchesFilter = filter === 'All' || row.matchStatus === filter;
-    const matchesSearch =
-      row.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      row.id.toString().includes(searchQuery);
-
-    return matchesFilter && matchesSearch;
-  });
+  // Calculate the next user ID
+  const nextUserId = rows.length > 0 ? rows[rows.length - 1].id + 1 : 1;
 
   const handleDialogOpen = () => {
-    setNewUser({
-      id: rows.length + 1,
-      name: '',
-      email: '',
-      linkedin: '',
-      location: '',
-      program: '',
-      matchStatus: 'Unmatched',
-    });
     setDialogOpen(true);
   };
 
@@ -97,17 +72,21 @@ const UsersPage: React.FC = () => {
     setDialogOpen(false);
   };
 
-  const handleUserAdd = () => {
+  const handleUserAdd = (newUser: User) => {
     setRows((prevRows) => [...prevRows, newUser]);
     setDialogOpen(false);
   };
 
-  const handleInputChange = (field: keyof User, value: string) => {
-    setNewUser((prevUser) => ({
-      ...prevUser,
-      [field]: value,
-    }));
-  };
+  const filteredRows = rows.filter((row) => {
+    const matchesFilter = filter === 'All' || row.matchStatus === filter;
+    const matchesSearch =
+      `${row.firstName} ${row.lastName}`
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase()) ||
+      row.id.toString().includes(searchQuery);
+
+    return matchesFilter && matchesSearch;
+  });
 
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 70 },
@@ -117,7 +96,12 @@ const UsersPage: React.FC = () => {
       width: 120,
       renderCell: () => <MentorMenteeButton />,
     },
-    { field: 'name', headerName: '이름', width: 150 },
+    {
+      field: 'name',
+      headerName: '이름',
+      width: 150,
+      renderCell: (params) => `${params.row.firstName} ${params.row.lastName}`,
+    },
     { field: 'email', headerName: '이메일', width: 200 },
     { field: 'linkedin', headerName: '링크드인', width: 200 },
     { field: 'location', headerName: '지역', width: 120 },
@@ -145,9 +129,7 @@ const UsersPage: React.FC = () => {
             region: '',
             program: '',
           }}
-          onUserUpdate={function (): void {
-            throw new Error('Function not implemented.');
-          }}
+          onUserUpdate={() => {}}
         />
       ),
     },
@@ -167,7 +149,6 @@ const UsersPage: React.FC = () => {
 
           {/* Right-Side Controls */}
           <Stack direction="row" spacing={2} alignItems="center">
-            {/* Search Bar */}
             <TextField
               size="small"
               placeholder="Search by Name or ID"
@@ -177,7 +158,6 @@ const UsersPage: React.FC = () => {
               sx={{ backgroundColor: 'white', borderRadius: '4px', width: 200 }}
             />
 
-            {/* Filter Dropdown */}
             <Select
               size="small"
               value={filter}
@@ -193,24 +173,25 @@ const UsersPage: React.FC = () => {
               <MenuItem value="All">All</MenuItem>
             </Select>
 
-            {/* Share Icon */}
             <IconButton
               onClick={() => {
+                // Create CSV content
+                const headers = [
+                  'ID',
+                  'Name',
+                  'Email',
+                  'LinkedIn',
+                  'Location',
+                  'Program',
+                  'Match Status',
+                ];
                 const csvContent =
                   'data:text/csv;charset=utf-8,' +
                   [
-                    [
-                      'ID',
-                      'Name',
-                      'Email',
-                      'LinkedIn',
-                      'Location',
-                      'Program',
-                      'Match Status',
-                    ],
+                    headers,
                     ...rows.map((row) => [
                       row.id,
-                      row.name,
+                      `${row.firstName} ${row.lastName}`, // Assuming firstName and lastName
                       row.email,
                       row.linkedin,
                       row.location,
@@ -218,14 +199,25 @@ const UsersPage: React.FC = () => {
                       row.matchStatus,
                     ]),
                   ]
-                    .map((e) => e.join(','))
+                    .map((e) =>
+                      e
+                        .map(
+                          (field) => `"${String(field).replace(/"/g, '""')}"` // Escape double quotes
+                        )
+                        .join(',')
+                    )
                     .join('\n');
 
+                // Encode URI
                 const encodedUri = encodeURI(csvContent);
+
+                // Create a temporary link element
                 const link = document.createElement('a');
                 link.setAttribute('href', encodedUri);
-                link.setAttribute('download', 'users.csv');
-                document.body.appendChild(link);
+                link.setAttribute('download', 'users_data.csv');
+
+                // Simulate a click to download the file
+                document.body.appendChild(link); // Required for Firefox
                 link.click();
                 document.body.removeChild(link);
               }}
@@ -233,7 +225,6 @@ const UsersPage: React.FC = () => {
               <IosShareOutlinedIcon />
             </IconButton>
 
-            {/* Add User Button */}
             <Button
               variant="contained"
               color="primary"
@@ -257,38 +248,12 @@ const UsersPage: React.FC = () => {
       </CardContent>
 
       {/* Add User Dialog */}
-      <Dialog open={isDialogOpen} onClose={handleDialogClose}>
-        <DialogTitle>New User</DialogTitle>
-        <DialogContent>
-          <TextField
-            fullWidth
-            label="Name"
-            margin="normal"
-            value={newUser.name}
-            onChange={(e) => handleInputChange('name', e.target.value)}
-          />
-          <TextField
-            fullWidth
-            label="Email"
-            margin="normal"
-            value={newUser.email}
-            onChange={(e) => handleInputChange('email', e.target.value)}
-          />
-          <TextField
-            fullWidth
-            label="LinkedIn"
-            margin="normal"
-            value={newUser.linkedin}
-            onChange={(e) => handleInputChange('linkedin', e.target.value)}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleDialogClose}>Cancel</Button>
-          <Button onClick={handleUserAdd} variant="contained" color="primary">
-            Add
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <AddUserDialog
+        open={isDialogOpen}
+        onClose={handleDialogClose}
+        onAddUser={handleUserAdd}
+        nextUserId={nextUserId} // Pass nextUserId here
+      />
     </Card>
   );
 };
