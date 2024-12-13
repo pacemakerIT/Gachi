@@ -27,6 +27,7 @@ const MemoDialog: React.FC<MemoDialogProps> = ({ userId, initialNote }) => {
   const [isUnsaved, setIsUnsaved] = useState(false);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false); // Notification dialog state
   const textFieldRef = useRef<HTMLTextAreaElement | null>(null); // Create a ref for the text field
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
   const handleDialogOpen = () => {
     setIsDialogOpen(true);
@@ -41,11 +42,32 @@ const MemoDialog: React.FC<MemoDialogProps> = ({ userId, initialNote }) => {
     setTempNote(note); // Reset temp note to saved state
   };
 
-  const handleNoteSubmit = () => {
-    console.log(`Note for user ${userId}:`, tempNote);
-    setNote(tempNote);
-    setIsUnsaved(false);
-    setIsDialogOpen(false);
+  const handleNoteSubmit = async () => {
+    try {
+      const response = await fetch(
+        `${baseUrl}/dashboard/edit_memo/?user_id=${userId}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(tempNote),
+        }
+      );
+
+      if (response.ok) {
+        alert('Memo updated successfully.');
+        // onUserUpdate(); // Refresh parent data
+        setNote(tempNote);
+        setIsUnsaved(false);
+        setIsDialogOpen(false);
+      } else {
+        alert('Failed to update the memo. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred. Please try again later.');
+    }
   };
 
   const handleNoteChange = (value: string) => {
@@ -81,6 +103,10 @@ const MemoDialog: React.FC<MemoDialogProps> = ({ userId, initialNote }) => {
       element.scrollTop = 0; // Reset scroll to the top
     }
   }, [tempNote, isDialogOpen]);
+
+  useEffect(() => {
+    setNote(initialNote);
+  }, []);
 
   return (
     <>

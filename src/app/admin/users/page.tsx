@@ -23,7 +23,6 @@ import PersonAddAlt1OutlinedIcon from '@mui/icons-material/PersonAddAlt1Outlined
 import MemoDialog from './components/memo-dialogue';
 import ManageMenu from './components/manage-menu';
 import MentorMenteeButton from './components/mentor-mentee-button';
-import { UserType } from '@/utils/types';
 
 interface User {
   id: number;
@@ -58,8 +57,7 @@ const initialRows: User[] = [
 
 const UsersPage: React.FC = () => {
   const [mockrows, setmockRows] = useState<User[]>(initialRows);
-  const [data, setData] = useState([]); // 빈 배열로 초기화
-  // const [data, setData] = useState<UserType[]>([]); // 빈 배열로 초기화
+  const [data, setData] = useState([]);
   const [filter, setFilter] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isDialogOpen, setDialogOpen] = useState(false);
@@ -78,23 +76,17 @@ const UsersPage: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${baseUrl}dashboard/admin_user_api/`, {
+        const response = await fetch(`${baseUrl}/dashboard/admin_user_api/`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
           },
           credentials: 'include',
         });
-
-        console.log('resposne:', response);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const result = await response.json();
-
-        // console.log('resulst: ', result.data);
-        // console.log('rows', rows);
-
         setData(result.data);
       } catch (error) {
         if (error instanceof Error) {
@@ -110,12 +102,9 @@ const UsersPage: React.FC = () => {
 
   const rows = data.map((item, index) => ({
     id: index + 1, // 고유한 ID를 index로 설정
+    name: item.firstName + ' ' + item.lastName,
     ...item, // 기존 데이터 포함
   }));
-
-  // function getRowId(row) {
-  //   return row.internalId;
-  // }
 
   // Filtered and searched rows
   // const filteredData = data?.filter((user: UserType) => {
@@ -170,11 +159,16 @@ const UsersPage: React.FC = () => {
       field: 'mentorMentee',
       headerName: '멘토/멘티',
       width: 120,
-      renderCell: () => <MentorMenteeButton />,
+      renderCell: (params) => (
+        <MentorMenteeButton
+          userId={params.row.userId}
+          userTypeId={params.row.userTypeId}
+        />
+      ),
     },
     { field: 'name', headerName: '이름', width: 150 },
     { field: 'email', headerName: '이메일', width: 200 },
-    { field: 'linkedin', headerName: '링크드인', width: 200 },
+    { field: 'linkedInUrl', headerName: '링크드인', width: 200 },
     { field: 'location', headerName: '지역', width: 120 },
     { field: 'industryTitle', headerName: '프로그램', width: 150 },
     { field: 'matchStatus', headerName: '매칭현황', width: 120 },
@@ -183,7 +177,10 @@ const UsersPage: React.FC = () => {
       headerName: '메모',
       width: 100,
       renderCell: (params) => (
-        <MemoDialog userId={params.row.id} initialNote="" />
+        <MemoDialog
+          userId={params.row.userId}
+          initialNote={params.row.memo || ''}
+        />
       ),
     },
     {
@@ -192,17 +189,19 @@ const UsersPage: React.FC = () => {
       width: 100,
       renderCell: (params) => (
         <ManageMenu
-          userId={params.row.id}
+          userId={params.row.userId}
           userData={{
-            name: '',
-            email: '',
-            linkedIn: '',
-            region: '',
-            program: '',
+            firstName: params.row.firstName,
+            lastName: params.row.lastName,
+            email: params.row.email,
+            linkedInUrl: params.row.linkedInUrl,
+            region: params.row.region,
+            industryTitle: params.row.industryTitle,
           }}
-          onUserUpdate={function (): void {
-            throw new Error('Function not implemented.');
-          }}
+          // setData={setData}
+          // onUserUpdate={function (): void {
+          //   throw new Error('Function not implemented.');
+          // }}
         />
       ),
     },
@@ -267,8 +266,6 @@ const UsersPage: React.FC = () => {
         {/* Data Grid */}
         <Box sx={{ height: 400, width: '100%' }}>
           <DataGrid
-            // getRowId={(row) => row.id}
-            // rows={data}
             rows={rows}
             columns={columns}
             pageSizeOptions={[5]}

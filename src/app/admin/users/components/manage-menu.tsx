@@ -19,40 +19,47 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 interface ManageMenuProps {
   userId: number;
   userData: {
-    name: string;
+    firstName: string;
+    lastName: string;
     email: string;
-    linkedIn: string;
+    linkedInUrl: string;
     region: string;
-    program: string;
+    industryTitle: string;
   };
-  onUserUpdate: () => void; // Callback to refresh data after updating
+  // setData: React.Dispatch<React.SetStateAction<[]>>;
+
+  // onUserUpdate: () => void; // Callback to refresh data after updating
 }
 
 const ManageMenu: React.FC<ManageMenuProps> = ({
   userId,
   userData,
-  onUserUpdate,
+  // setData,
+  // onUserUpdate,
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [formData, setFormData] = useState({
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
-    linkedIn: '',
+    linkedInUrl: '',
     region: '',
-    program: '',
+    industryTitle: '',
   });
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
   // Initialize formData when userData changes
   useEffect(() => {
     if (userData) {
       setFormData({
-        name: userData.name || '',
+        firstName: userData.firstName || '',
+        lastName: userData.lastName || '',
         email: userData.email || '',
-        linkedIn: userData.linkedIn || '',
+        linkedInUrl: userData.linkedInUrl || '',
         region: userData.region || '',
-        program: userData.program || '',
+        industryTitle: userData.industryTitle || '',
       });
     }
   }, [userData]);
@@ -67,13 +74,22 @@ const ManageMenu: React.FC<ManageMenuProps> = ({
 
   const handleDeleteUser = async () => {
     try {
-      const response = await fetch(`/api/users/${userId}`, {
-        method: 'DELETE',
-      });
+      const response = await fetch(
+        `${baseUrl}/dashboard/delete_user/?user_id=${userId}`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
 
       if (response.ok) {
         alert('User successfully deleted.');
-        onUserUpdate(); // Refresh parent data
+        // setData((prevData) =>
+        //   prevData.filter((item) => item.userId !== userId)
+        // );
+        // onUserUpdate(); // Refresh parent data
       } else {
         alert('Failed to delete the user. Please try again.');
       }
@@ -87,17 +103,20 @@ const ManageMenu: React.FC<ManageMenuProps> = ({
 
   const handleEditUser = async () => {
     try {
-      const response = await fetch(`/api/users/${userId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        `${baseUrl}/dashboard/edit_user/?user_id=${userId}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (response.ok) {
         alert('User information updated successfully.');
-        onUserUpdate(); // Refresh parent data
+        // onUserUpdate(); // Refresh parent data
         setEditDialogOpen(false);
       } else {
         alert('Failed to update the user. Please try again.');
@@ -223,10 +242,17 @@ const ManageMenu: React.FC<ManageMenuProps> = ({
           <form>
             <TextField
               label="이름"
-              value={formData.name}
+              value={formData.firstName}
               fullWidth
               margin="normal"
-              onChange={(e) => handleInputChange('name', e.target.value)}
+              onChange={(e) => handleInputChange('firstName', e.target.value)}
+            />
+            <TextField
+              label="성"
+              value={formData.lastName}
+              fullWidth
+              margin="normal"
+              onChange={(e) => handleInputChange('lastName', e.target.value)}
             />
             <TextField
               label="이메일"
@@ -237,10 +263,10 @@ const ManageMenu: React.FC<ManageMenuProps> = ({
             />
             <TextField
               label="링크드인"
-              value={formData.linkedIn}
+              value={formData.linkedInUrl}
               fullWidth
               margin="normal"
-              onChange={(e) => handleInputChange('linkedIn', e.target.value)}
+              onChange={(e) => handleInputChange('linkedInUrl', e.target.value)}
             />
             <TextField
               label="지역"
@@ -251,10 +277,12 @@ const ManageMenu: React.FC<ManageMenuProps> = ({
             />
             <TextField
               label="프로그램"
-              value={formData.program}
+              value={formData.industryTitle}
               fullWidth
               margin="normal"
-              onChange={(e) => handleInputChange('program', e.target.value)}
+              onChange={(e) =>
+                handleInputChange('industryTitle', e.target.value)
+              }
             />
           </form>
           <DialogActions

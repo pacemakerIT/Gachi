@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Button,
   Popover,
@@ -11,9 +11,17 @@ import {
 } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 
-const MentorMenteeButton: React.FC = () => {
+interface MentorMenteeButtonProps {
+  userId: number;
+  userTypeId: string;
+}
+const MentorMenteeButton: React.FC<MentorMenteeButtonProps> = ({
+  userId,
+  userTypeId,
+}) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [selectedRole, setSelectedRole] = useState<string>('멘토');
+  const [selectedRole, setSelectedRole] = useState<string>('');
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -23,11 +31,39 @@ const MentorMenteeButton: React.FC = () => {
     setAnchorEl(null);
   };
 
-  const handleSelectRole = (role: string) => {
-    setSelectedRole(role);
+  const handleSelectRole = async (role: string) => {
+    try {
+      const response = await fetch(
+        `${baseUrl}/dashboard/edit_user_type/?user_id=${userId}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(role),
+        }
+      );
+
+      if (response.ok) {
+        alert('User type updated successfully.');
+        // onUserUpdate(); // Refresh parent data
+        setSelectedRole(role);
+      } else {
+        alert('Failed to update the user. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred. Please try again later.');
+    }
   };
 
   const open = Boolean(anchorEl);
+
+  useEffect(() => {
+    if (userTypeId === '292d2be9-5ce5-4a7b-b5e2-cd412bed268b')
+      setSelectedRole('멘티');
+    else setSelectedRole('멘토');
+  }, []);
 
   return (
     <>
