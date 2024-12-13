@@ -99,6 +99,32 @@ const UsersPage: React.FC = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {}, [data]);
+
+  const handleUserUpdate = (
+    userId: number,
+    userData: {
+      firstName: string;
+      lastName: string;
+      email: string;
+      linkedInUrl: string;
+      region: string;
+      industryTitle: string;
+    }
+  ) => {
+    // Update the user in local state
+    setData((prevData) =>
+      prevData.map((user) =>
+        user.userId === userId ? { ...user, ...userData } : user
+      )
+    );
+  };
+
+  const handleUserDelete = (userId: number) => {
+    // Delete the user in local state
+    setData((prevData) => prevData.filter((user) => user.userId !== userId));
+  };
+
   const rows = data.map((item, index) => ({
     id: index + 1, // 고유한 ID를 index로 설정
     name: item.firstName + ' ' + item.lastName,
@@ -197,10 +223,8 @@ const UsersPage: React.FC = () => {
             region: params.row.region,
             industryTitle: params.row.industryTitle,
           }}
-          // setData={setData}
-          // onUserUpdate={function (): void {
-          //   throw new Error('Function not implemented.');
-          // }}
+          onUserUpdate={handleUserUpdate}
+          onUserDelete={handleUserDelete}
         />
       ),
     },

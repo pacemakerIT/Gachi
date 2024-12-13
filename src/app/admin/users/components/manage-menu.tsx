@@ -26,16 +26,25 @@ interface ManageMenuProps {
     region: string;
     industryTitle: string;
   };
-  // setData: React.Dispatch<React.SetStateAction<[]>>;
-
-  // onUserUpdate: () => void; // Callback to refresh data after updating
+  onUserUpdate: (
+    userId: number,
+    userData: {
+      firstName: string;
+      lastName: string;
+      email: string;
+      linkedInUrl: string;
+      region: string;
+      industryTitle: string;
+    }
+  ) => void;
+  onUserDelete: (userId: number) => void;
 }
 
 const ManageMenu: React.FC<ManageMenuProps> = ({
   userId,
   userData,
-  // setData,
-  // onUserUpdate,
+  onUserUpdate,
+  onUserDelete,
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
@@ -86,10 +95,7 @@ const ManageMenu: React.FC<ManageMenuProps> = ({
 
       if (response.ok) {
         alert('User successfully deleted.');
-        // setData((prevData) =>
-        //   prevData.filter((item) => item.userId !== userId)
-        // );
-        // onUserUpdate(); // Refresh parent data
+        onUserDelete(userId);
       } else {
         alert('Failed to delete the user. Please try again.');
       }
@@ -116,7 +122,7 @@ const ManageMenu: React.FC<ManageMenuProps> = ({
 
       if (response.ok) {
         alert('User information updated successfully.');
-        // onUserUpdate(); // Refresh parent data
+        onUserUpdate(userId, formData);
         setEditDialogOpen(false);
       } else {
         alert('Failed to update the user. Please try again.');
