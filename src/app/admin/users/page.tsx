@@ -70,7 +70,6 @@ const UsersPage: React.FC = () => {
     program: '',
     matchStatus: 'Unmatched',
   });
-  const [error, setError] = useState<string | null>(null);
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
   useEffect(() => {
@@ -90,9 +89,9 @@ const UsersPage: React.FC = () => {
         setData(result.data);
       } catch (error) {
         if (error instanceof Error) {
-          setError(error.message);
+          alert(error.message);
         } else {
-          setError('An unknown error occurred.');
+          alert('An unknown error occurred.');
         }
       }
     };
