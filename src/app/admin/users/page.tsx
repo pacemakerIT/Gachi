@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import {
   Card,
   CardContent,
@@ -23,6 +24,7 @@ import PersonAddAlt1OutlinedIcon from '@mui/icons-material/PersonAddAlt1Outlined
 import MemoDialog from './components/memo-dialogue';
 import ManageMenu from './components/manage-menu';
 import MentorMenteeButton from './components/mentor-mentee-button';
+import { UserType } from '@/utils/types';
 
 interface User {
   id: number;
@@ -57,7 +59,8 @@ const initialRows: User[] = [
 
 const UsersPage: React.FC = () => {
   const [mockrows, setmockRows] = useState<User[]>(initialRows);
-  const [data, setData] = useState([]);
+  const [message, setMessage] = useState<string | null>(null);
+  const [data, setData] = useState<UserType[]>();
   const [filter, setFilter] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isDialogOpen, setDialogOpen] = useState(false);
@@ -89,9 +92,9 @@ const UsersPage: React.FC = () => {
         setData(result.data);
       } catch (error) {
         if (error instanceof Error) {
-          alert(error.message);
+          setMessage(error.message);
         } else {
-          alert('An unknown error occurred.');
+          setMessage('An unknown error occurred.');
         }
       }
     };
@@ -101,8 +104,32 @@ const UsersPage: React.FC = () => {
 
   useEffect(() => {}, [data]);
 
+  useEffect(() => {
+    if (message) {
+      if (message.includes('successfully')) {
+        toast.success(message, {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+      } else {
+        toast.error(message, {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+      }
+    }
+  }, [message]);
+
   const handleUserUpdate = (
-    userId: number,
+    userId: string,
     userData: {
       firstName: string;
       lastName: string;
@@ -114,18 +141,18 @@ const UsersPage: React.FC = () => {
   ) => {
     // Update the user in local state
     setData((prevData) =>
-      prevData.map((user) =>
+      prevData?.map((user) =>
         user.userId === userId ? { ...user, ...userData } : user
       )
     );
   };
 
-  const handleUserDelete = (userId: number) => {
+  const handleUserDelete = (userId: string) => {
     // Delete the user in local state
-    setData((prevData) => prevData.filter((user) => user.userId !== userId));
+    setData((prevData) => prevData?.filter((user) => user.userId !== userId));
   };
 
-  const rows = data.map((item, index) => ({
+  const rows = data?.map((item, index) => ({
     id: index + 1, // 고유한 ID를 index로 설정
     name: item.firstName + ' ' + item.lastName,
     ...item, // 기존 데이터 포함
@@ -151,7 +178,7 @@ const UsersPage: React.FC = () => {
 
   const handleDialogOpen = () => {
     setNewUser({
-      id: rows.length + 1,
+      id: rows?.length ? rows.length + 1 : 1,
       name: '',
       email: '',
       linkedin: '',

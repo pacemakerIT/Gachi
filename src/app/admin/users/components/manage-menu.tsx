@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 import {
   Dialog,
   DialogActions,
@@ -17,7 +18,7 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
 interface ManageMenuProps {
-  userId: number;
+  userId: string;
   userData: {
     firstName: string;
     lastName: string;
@@ -27,7 +28,7 @@ interface ManageMenuProps {
     industryTitle: string;
   };
   onUserUpdate: (
-    userId: number,
+    userId: string,
     userData: {
       firstName: string;
       lastName: string;
@@ -37,7 +38,7 @@ interface ManageMenuProps {
       industryTitle: string;
     }
   ) => void;
-  onUserDelete: (userId: number) => void;
+  onUserDelete: (userId: string) => void;
 }
 
 const ManageMenu: React.FC<ManageMenuProps> = ({
@@ -47,6 +48,7 @@ const ManageMenu: React.FC<ManageMenuProps> = ({
   onUserDelete,
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [message, setMessage] = useState<string | null>(null);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -73,6 +75,31 @@ const ManageMenu: React.FC<ManageMenuProps> = ({
     }
   }, [userData]);
 
+  useEffect(() => {
+    if (message) {
+      if (message.includes('successfully')) {
+        toast.success(message, {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+      } else {
+        toast.error(message, {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+      }
+      setMessage('');
+    }
+  }, [message]);
+
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -94,14 +121,14 @@ const ManageMenu: React.FC<ManageMenuProps> = ({
       );
 
       if (response.ok) {
-        alert('User successfully deleted.');
+        setMessage('User successfully deleted.');
         onUserDelete(userId);
       } else {
-        alert('Failed to delete the user. Please try again.');
+        setMessage('Failed to delete the user. Please try again.');
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('An error occurred. Please try again later.');
+      setMessage('An error occurred. Please try again later.');
     } finally {
       setDeleteDialogOpen(false);
     }
@@ -121,15 +148,15 @@ const ManageMenu: React.FC<ManageMenuProps> = ({
       );
 
       if (response.ok) {
-        alert('User information updated successfully.');
+        setMessage('User information updated successfully.');
         onUserUpdate(userId, formData);
         setEditDialogOpen(false);
       } else {
-        alert('Failed to update the user. Please try again.');
+        setMessage('Failed to update the user. Please try again.');
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('An error occurred. Please try again later.');
+      setMessage('An error occurred. Please try again later.');
     }
   };
 
