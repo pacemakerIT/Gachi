@@ -31,7 +31,7 @@ interface User {
   name: string;
   email: string;
   linkedin: string;
-  location: string;
+  region: string;
   program: string;
   matchStatus: 'Matched' | 'Unmatched';
 }
@@ -42,7 +42,7 @@ const initialRows: User[] = [
     name: 'John Doe',
     email: 'john@example.com',
     linkedin: 'linkedin.com/johndoe',
-    location: 'Seoul',
+    region: 'Seoul',
     program: 'IT Program',
     matchStatus: 'Matched',
   },
@@ -51,7 +51,7 @@ const initialRows: User[] = [
     name: 'Jane Smith',
     email: 'jane@example.com',
     linkedin: 'linkedin.com/janesmith',
-    location: 'Busan',
+    region: 'Busan',
     program: 'Design Program',
     matchStatus: 'Unmatched',
   },
@@ -69,7 +69,7 @@ const UsersPage: React.FC = () => {
     name: '',
     email: '',
     linkedin: '',
-    location: '',
+    region: '',
     program: '',
     matchStatus: 'Unmatched',
   });
@@ -182,7 +182,7 @@ const UsersPage: React.FC = () => {
       name: '',
       email: '',
       linkedin: '',
-      location: '',
+      region: '',
       program: '',
       matchStatus: 'Unmatched',
     });
@@ -221,7 +221,7 @@ const UsersPage: React.FC = () => {
     { field: 'name', headerName: '이름', width: 150 },
     { field: 'email', headerName: '이메일', width: 200 },
     { field: 'linkedInUrl', headerName: '링크드인', width: 200 },
-    { field: 'location', headerName: '지역', width: 120 },
+    { field: 'region', headerName: '지역', width: 120 },
     { field: 'industryTitle', headerName: '프로그램', width: 150 },
     { field: 'matchStatus', headerName: '매칭현황', width: 120 },
     {
