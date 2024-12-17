@@ -10,21 +10,26 @@ import {
   FormControlLabel,
 } from '@mui/material';
 
-interface NewUser {
+// Shared User and NewUser Types
+export interface NewUser {
   id: number;
-  name: string;
+  firstName: string;
+  lastName: string;
   isMentor: boolean;
   email: string;
-  phone: string;
   program: string;
   linkedin: string;
   location: string;
 }
 
+export interface User extends NewUser {
+  matchStatus: 'Unmatched' | 'Matched'; // Correct union type
+}
+
 interface NewUserDialogProps {
   open: boolean;
   onClose: () => void;
-  onAddUser: (user: NewUser) => void;
+  onAddUser: (user: User) => void;
   nextUserId: number;
 }
 
@@ -36,10 +41,10 @@ const NewUserDialog: React.FC<NewUserDialogProps> = ({
 }) => {
   const [newUser, setNewUser] = useState<NewUser>({
     id: nextUserId,
-    name: '',
+    firstName: '',
+    lastName: '',
     isMentor: false,
     email: '',
-    phone: '',
     program: '',
     linkedin: '',
     location: '',
@@ -53,13 +58,17 @@ const NewUserDialog: React.FC<NewUserDialogProps> = ({
   };
 
   const handleAdd = () => {
-    onAddUser(newUser);
+    const user: User = {
+      ...newUser,
+      matchStatus: 'Unmatched', // Assign default value
+    };
+    onAddUser(user);
     setNewUser({
       id: nextUserId + 1,
-      name: '',
+      firstName: '',
+      lastName: '',
       isMentor: false,
       email: '',
-      phone: '',
       program: '',
       linkedin: '',
       location: '',
@@ -73,10 +82,17 @@ const NewUserDialog: React.FC<NewUserDialogProps> = ({
       <DialogContent>
         <TextField
           fullWidth
-          label="Name"
+          label="First Name"
           margin="normal"
-          value={newUser.name}
-          onChange={(e) => handleInputChange('name', e.target.value)}
+          value={newUser.firstName}
+          onChange={(e) => handleInputChange('firstName', e.target.value)}
+        />
+        <TextField
+          fullWidth
+          label="Last Name"
+          margin="normal"
+          value={newUser.lastName}
+          onChange={(e) => handleInputChange('lastName', e.target.value)}
         />
         <FormControlLabel
           control={
@@ -87,28 +103,12 @@ const NewUserDialog: React.FC<NewUserDialogProps> = ({
           }
           label="Mentor"
         />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={!newUser.isMentor}
-              onChange={(e) => handleInputChange('isMentor', !e.target.checked)}
-            />
-          }
-          label="Mentee"
-        />
         <TextField
           fullWidth
           label="Email"
           margin="normal"
           value={newUser.email}
           onChange={(e) => handleInputChange('email', e.target.value)}
-        />
-        <TextField
-          fullWidth
-          label="Phone Number"
-          margin="normal"
-          value={newUser.phone}
-          onChange={(e) => handleInputChange('phone', e.target.value)}
         />
         <TextField
           fullWidth

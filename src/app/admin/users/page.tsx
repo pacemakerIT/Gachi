@@ -19,17 +19,18 @@ import PersonAddAlt1OutlinedIcon from '@mui/icons-material/PersonAddAlt1Outlined
 import MemoDialog from './components/memo-dialogue';
 import ManageMenu from './components/manage-menu';
 import MentorMenteeButton from './components/mentor-mentee-button';
-import AddUserDialog from './components/users-dialogue';
+import NewUserDialog from './components/users-dialogue';
 
 interface User {
   id: number;
   firstName: string;
   lastName: string;
+  isMentor: boolean;
   email: string;
+  program: string;
   linkedin: string;
   location: string;
-  program: string;
-  matchStatus: 'Matched' | 'Unmatched';
+  matchStatus: 'Unmatched' | 'Matched';
 }
 
 const initialRows: User[] = [
@@ -37,6 +38,7 @@ const initialRows: User[] = [
     id: 1,
     firstName: 'John',
     lastName: 'Doe',
+    isMentor: true,
     email: 'john@example.com',
     linkedin: 'linkedin.com/johndoe',
     location: 'Seoul',
@@ -47,6 +49,7 @@ const initialRows: User[] = [
     id: 2,
     firstName: 'Jane',
     lastName: 'Smith',
+    isMentor: false,
     email: 'jane@example.com',
     linkedin: 'linkedin.com/janesmith',
     location: 'Busan',
@@ -248,7 +251,7 @@ const UsersPage: React.FC = () => {
       </CardContent>
 
       {/* Add User Dialog */}
-      <AddUserDialog
+      <NewUserDialog
         open={isDialogOpen}
         onClose={handleDialogClose}
         onAddUser={handleUserAdd}
