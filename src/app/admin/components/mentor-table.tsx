@@ -11,26 +11,13 @@ import {
   TableBody,
   Typography,
 } from '@mui/material';
+import { PopularMentors } from '@/utils/types';
 
-const mentorData = [
-  {
-    rank: 1,
-    mentor: 'John Doe',
-    program: 'IT Mentoring',
-    match: '5/5',
-    reviews: '4.8',
-  },
-  {
-    rank: 2,
-    mentor: 'Jane Smith',
-    program: 'Design Mentoring',
-    match: '4/5',
-    reviews: '4.6',
-  },
-  // Add more data
-];
+interface MentorTableProps {
+  mentorData: PopularMentors[];
+}
 
-const MentorTable: React.FC = () => {
+const MentorTable: React.FC<MentorTableProps> = ({ mentorData }) => {
   return (
     <Card
       sx={{
@@ -55,13 +42,13 @@ const MentorTable: React.FC = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {mentorData.map((mentor) => (
-              <TableRow key={mentor.rank}>
-                <TableCell>{mentor.rank}</TableCell>
-                <TableCell>{mentor.mentor}</TableCell>
-                <TableCell>{mentor.program}</TableCell>
-                <TableCell>{mentor.match}</TableCell>
-                <TableCell>{mentor.reviews}</TableCell>
+            {mentorData.map((mentor, index) => (
+              <TableRow key={mentor.userid}>
+                <TableCell>{index + 1}</TableCell>
+                <TableCell>{mentor.fullname}</TableCell>
+                <TableCell>{mentor.industry}</TableCell>
+                <TableCell>{mentor.matching_count}</TableCell>
+                <TableCell>{mentor.feedback_count}</TableCell>
               </TableRow>
             ))}
           </TableBody>

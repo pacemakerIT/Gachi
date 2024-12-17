@@ -9,16 +9,22 @@ import {
   EqualizerOutlined,
 } from '@mui/icons-material';
 import { useTheme } from '@mui/material/styles';
+import { Stats } from '@/utils/types';
 
-const userStatsData = {
-  weeklyNewMembers: 50,
-  monthlyNewMembers: 200,
-  memberGrowthRate: '25%',
-  totalMembers: 1200,
-};
+interface UserStatsCardProps {
+  stats?: Stats; // Optional stats prop for API data
+}
 
-const UserStatsCard: React.FC = () => {
+const UserStatsCard: React.FC<UserStatsCardProps> = ({ stats }) => {
   const theme = useTheme();
+
+  // Use default data if `stats` is not provided
+  const userStatsData = stats || {
+    weeklyNewUsers: 0,
+    currentMonthlyNewUsers: 0,
+    totalUsers: '0%',
+    growthRate: 0,
+  };
 
   return (
     <Card
@@ -41,7 +47,7 @@ const UserStatsCard: React.FC = () => {
               icon: (
                 <PersonAddAltOutlined sx={{ color: 'white', fontSize: 20 }} />
               ),
-              value: userStatsData.weeklyNewMembers,
+              value: userStatsData.weeklyNewUsers ?? 'N/A',
               label: '주간 신규 회원 수',
               gradient: theme.palette.graph.gradient1,
               opacity: 1, // Fully opaque background
@@ -52,7 +58,7 @@ const UserStatsCard: React.FC = () => {
                   sx={{ color: 'white', fontSize: 20 }}
                 />
               ),
-              value: userStatsData.monthlyNewMembers,
+              value: userStatsData.currentMonthlyNewUsers,
               label: '월간 신규 회원 수',
               gradient: theme.palette.graph.gradient2,
               opacity: 0.3,
@@ -61,14 +67,14 @@ const UserStatsCard: React.FC = () => {
               icon: (
                 <LegendToggleOutlined sx={{ color: 'white', fontSize: 20 }} />
               ),
-              value: userStatsData.memberGrowthRate,
+              value: userStatsData.growthRate,
               label: '회원 수 증감율',
               gradient: theme.palette.graph.gradient5,
               opacity: 0.3,
             },
             {
               icon: <EqualizerOutlined sx={{ color: 'white', fontSize: 20 }} />,
-              value: userStatsData.totalMembers,
+              value: userStatsData.totalUsers,
               label: '총 회원 수',
               gradient: theme.palette.graph.gradient1,
               opacity: 1,
