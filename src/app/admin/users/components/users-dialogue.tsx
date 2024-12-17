@@ -6,44 +6,46 @@ import {
   DialogActions,
   TextField,
   Button,
+  Checkbox,
+  FormControlLabel,
 } from '@mui/material';
 
 interface NewUser {
   id: number;
-  firstName: string;
-  lastName: string;
+  name: string;
+  isMentor: boolean;
   email: string;
+  phone: string;
+  program: string;
   linkedin: string;
   location: string;
-  program: string;
-  matchStatus: 'Matched' | 'Unmatched';
 }
 
 interface NewUserDialogProps {
-  open: boolean; // Changed from isOpen to open
+  open: boolean;
   onClose: () => void;
   onAddUser: (user: NewUser) => void;
   nextUserId: number;
 }
 
 const NewUserDialog: React.FC<NewUserDialogProps> = ({
-  open, // Changed from isOpen to open
+  open,
   onClose,
   onAddUser,
   nextUserId,
 }) => {
   const [newUser, setNewUser] = useState<NewUser>({
     id: nextUserId,
-    firstName: '',
-    lastName: '',
+    name: '',
+    isMentor: false,
     email: '',
+    phone: '',
+    program: '',
     linkedin: '',
     location: '',
-    program: '',
-    matchStatus: 'Unmatched',
   });
 
-  const handleInputChange = (field: keyof NewUser, value: string) => {
+  const handleInputChange = (field: keyof NewUser, value: string | boolean) => {
     setNewUser((prevUser) => ({
       ...prevUser,
       [field]: value,
@@ -54,35 +56,45 @@ const NewUserDialog: React.FC<NewUserDialogProps> = ({
     onAddUser(newUser);
     setNewUser({
       id: nextUserId + 1,
-      firstName: '',
-      lastName: '',
+      name: '',
+      isMentor: false,
       email: '',
+      phone: '',
+      program: '',
       linkedin: '',
       location: '',
-      program: '',
-      matchStatus: 'Unmatched',
     });
     onClose();
   };
 
   return (
     <Dialog open={open} onClose={onClose}>
-      {/* Updated prop */}
-      <DialogTitle>New User</DialogTitle>
+      <DialogTitle>Add New User</DialogTitle>
       <DialogContent>
         <TextField
           fullWidth
-          label="First Name"
+          label="Name"
           margin="normal"
-          value={newUser.firstName}
-          onChange={(e) => handleInputChange('firstName', e.target.value)}
+          value={newUser.name}
+          onChange={(e) => handleInputChange('name', e.target.value)}
         />
-        <TextField
-          fullWidth
-          label="Last Name"
-          margin="normal"
-          value={newUser.lastName}
-          onChange={(e) => handleInputChange('lastName', e.target.value)}
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={newUser.isMentor}
+              onChange={(e) => handleInputChange('isMentor', e.target.checked)}
+            />
+          }
+          label="Mentor"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={!newUser.isMentor}
+              onChange={(e) => handleInputChange('isMentor', !e.target.checked)}
+            />
+          }
+          label="Mentee"
         />
         <TextField
           fullWidth
@@ -93,13 +105,33 @@ const NewUserDialog: React.FC<NewUserDialogProps> = ({
         />
         <TextField
           fullWidth
+          label="Phone Number"
+          margin="normal"
+          value={newUser.phone}
+          onChange={(e) => handleInputChange('phone', e.target.value)}
+        />
+        <TextField
+          fullWidth
+          label="Program"
+          margin="normal"
+          value={newUser.program}
+          onChange={(e) => handleInputChange('program', e.target.value)}
+        />
+        <TextField
+          fullWidth
           label="LinkedIn"
           margin="normal"
           value={newUser.linkedin}
           onChange={(e) => handleInputChange('linkedin', e.target.value)}
         />
+        <TextField
+          fullWidth
+          label="Location"
+          margin="normal"
+          value={newUser.location}
+          onChange={(e) => handleInputChange('location', e.target.value)}
+        />
       </DialogContent>
-
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>
         <Button onClick={handleAdd} variant="contained" color="primary">
