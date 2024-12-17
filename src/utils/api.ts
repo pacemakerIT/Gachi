@@ -10,7 +10,9 @@ if (!baseUrl) {
 // Landing Page 데이터 가져오기
 export async function fetchLandingPageData(): Promise<LandingPageDataResponse | null> {
   try {
-    const res = await fetch(`${baseUrl}/landing_page/supabase/`);
+    const res = await fetch(`${baseUrl}/landing_page/supabase/`, {
+      // cache: 'no-store',
+    });
 
     if (!res.ok) {
       console.error('Failed to fetch landing page data');
@@ -28,7 +30,9 @@ export async function fetchLandingPageData(): Promise<LandingPageDataResponse | 
 // Dashboard 데이터 가져오기
 export async function fetchDashboardData(): Promise<DashboardDataResponse | null> {
   try {
-    const res = await fetch(`${baseUrl}/dashboard/dashboard_api_design/`);
+    const res = await fetch(`${baseUrl}/dashboard/dashboard_api_design/`, {
+      // cache: 'no-store',
+    });
 
     if (!res.ok) {
       console.error('Failed to fetch dashboard data');
